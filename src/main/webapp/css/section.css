@@ -1,0 +1,133 @@
+/**
+ * Copyright 2012-2013 Trento RISE
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ * 
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+/* MODULES */
+.section {
+	clear: both;
+	margin-bottom: 36px;
+	font-size: smaller;
+}
+
+.section .section_header {
+	height: 16px;
+	border-bottom: 2px solid #666666;
+	margin-bottom: 18px;
+	background-image: url('../img/repeat/repeat_section.png');
+	background-repeat: repeat-x;
+}
+
+.section .section_header span {
+	margin-left: 18px;
+	padding: 0 5px;
+	background-color: #ffffff;
+	font-weight: bold;
+}
+
+.section .section_footer {
+	margin-top: 10px;
+}
+
+.section .section_footer a {
+	float: right;
+	color: #ffffff;
+	background-color: #666666;
+	padding: 2px 10px;
+}
+
+.section.highlighted .section_header {
+	border-bottom: 2px solid #c0262c;
+	background-image: url('../img/repeat/repeat_section_r.png');
+}
+
+.section.highlighted .section_header span {
+	color: #c0262c;
+}
+
+.section_form textarea {
+	width: 100%;
+	height: 100px;
+	display: block;
+}
+
+.section_form input[type="text"] {
+	width: 100%;
+	display: block;
+}
+
+.section .form.choose {
+	border: 1px solid #666666;
+	padding: 3px;
+}
+
+/* Entries */
+.entry {
+	margin-bottom: 18px;
+}
+
+.entry:last-child {
+	margin-bottom: 0;
+}
+
+.entry .title {
+	font-size: larger;
+	font-weight: bold;
+}
+
+.entry .subtitle {
+	font-size: smaller;
+	font-style: italic;
+}
+
+.entry .desc {
+	
+}
+
+.entry_tools {
+	visibility: hidden;
+	float: right;
+	width: 20px;
+}
+
+.entry_body {
+	width: 390px;
+}
+
+.entry.raw {
+	
+}
+
+.entry.simple {
+	
+}
+
+.entry.simple_desc {
+	
+}
+
+.entry.simple_pic {
+	
+}
+
+.entry.simple_pic .entry_body img {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	margin-right: 18px;
+}
+
+.entry.simple_pic .entry_body div.text {
+	display: inline-block;
+	vertical-align: top;
+}

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank A4" pageWidth="595" pageHeight="1010" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="55928dd0-f0f0-446b-9412-1ba9c7298b53">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<subDataset name="Dataset1" uuid="f148956f-c68c-4ea0-9057-86c1b0ed3fff">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="listeningLevel" class="java.lang.String">
+			<fieldDescription><![CDATA[listeningLevel]]></fieldDescription>
+		</field>
+		<field name="name" class="java.lang.String">
+			<fieldDescription><![CDATA[name]]></fieldDescription>
+		</field>
+		<field name="readingLevel" class="java.lang.String">
+			<fieldDescription><![CDATA[readingLevel]]></fieldDescription>
+		</field>
+		<field name="spokenInteractionLevel" class="java.lang.String">
+			<fieldDescription><![CDATA[spokenInteractionLevel]]></fieldDescription>
+		</field>
+		<field name="spokenProductionLevel" class="java.lang.String">
+			<fieldDescription><![CDATA[spokenProductionLevel]]></fieldDescription>
+		</field>
+		<field name="writingLevel" class="java.lang.String">
+			<fieldDescription><![CDATA[writingLevel]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="Empty Dataset1" uuid="0b24e1dd-f786-47a3-a103-0b44022107cf"/>
+	<parameter name="portfolio" class="eu.trentorise.smartcampus.portfolio.data.cv.Europass" isForPrompting="false"/>
+	<parameter name="imagesDir" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="listeningLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[listeningLevel]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="readingLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[readingLevel]]></fieldDescription>
+	</field>
+	<field name="spokenInteractionLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[spokenInteractionLevel]]></fieldDescription>
+	</field>
+	<field name="spokenProductionLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[spokenProductionLevel]]></fieldDescription>
+	</field>
+	<field name="writingLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[writingLevel]]></fieldDescription>
+	</field>
+	<background>
+		<band height="906" splitType="Stretch">
+			<line>
+				<reportElement uuid="2340ce3c-f508-4fe5-82f4-875356b59c50" mode="Opaque" x="180" y="0" width="1" height="906"/>
+				<graphicElement>
+					<pen lineStyle="Solid" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+		</band>
+	</background>
+	<detail>
+		<band height="970">
+			<subreport>
+				<reportElement uuid="a94d4f5b-9e19-415d-b116-45391904dbf0" isPrintRepeatedValues="false" x="-25" y="385" width="553" height="43"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{portfolio}.getWorkExperience())]]></dataSourceExpression>
+				<subreportExpression><![CDATA["work_experience.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="eb46938f-6d82-4955-9f77-6198b370a355" positionType="Float" x="190" y="803" width="358" height="30"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getArtisticSkills()]]></textFieldExpression>
+			</textField>
+			<image hAlign="Right">
+				<reportElement uuid="9a765467-8b54-4097-be96-8fb6b48ba7de" stretchType="RelativeToTallestObject" x="5" y="2" width="115" height="44"/>
+				<box>
+					<bottomPen lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA[$P{imagesDir}+"europasslogo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="861b81f9-f999-476b-a80e-4e05d98fc4a3" x="5" y="54" width="175" height="46"/>
+				<box padding="4" topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Europass
+Curriculum Vitae]]></text>
+			</staticText>
+			<image isLazy="true" onErrorType="Blank">
+				<reportElement uuid="04bd265b-ab29-4bb9-8e8a-a289dd93edad" x="190" y="46" width="50" height="50"/>
+				<imageExpression><![CDATA[$P{portfolio}.getPicture()]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="4df230ed-9304-4064-938a-b1efb3b28ae5" x="5" y="110" width="175" height="20"/>
+				<box padding="0" topPadding="0" bottomPadding="0" rightPadding="4">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Personal Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0176935f-2221-43d3-866c-fe4358346f3e" x="6" y="135" width="175" height="20"/>
+				<box padding="4" topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[First name/Surname]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5d71ef14-6867-4217-b921-cbe7643da59c" x="6" y="157" width="175" height="20"/>
+				<box padding="4" topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="965c8df6-95a8-4806-9e63-4859e356fbe9" x="6" y="179" width="175" height="20"/>
+				<box padding="4" topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Telephone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="604c9ad5-f334-4d59-acbb-27cfb486e188" x="357" y="177" width="70" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Mobile:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="520a8545-4cf0-4776-bbda-335743f5c43e" x="6" y="201" width="175" height="20"/>
+				<box padding="4" topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="152a9150-075c-4ef5-a221-4e80e3f56ff3" x="6" y="245" width="175" height="20"/>
+				<box padding="4" topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Nationality]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cc9f5291-e7f8-4612-aad9-0da306370b8a" x="6" y="267" width="175" height="20"/>
+				<box padding="4" topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Date of birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c4578770-0078-4ef0-b636-b96eabdd45e5" x="6" y="289" width="175" height="20"/>
+				<box padding="4" topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Gender]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6fc94003-1fac-473b-8d36-6edf12c43f7e" x="6" y="223" width="175" height="20"/>
+				<box padding="4" topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Fax]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="872a1c20-a5fc-4f13-8999-342e39870c6d" isPrintRepeatedValues="false" x="190" y="133" width="360" height="20" isRemoveLineWhenBlank="true"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getFullname()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="835a0754-e84b-4ff3-9a24-7e72774f9e8e" x="190" y="155" width="360" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getAddress()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="80410a82-98c7-4d6f-a81a-a35ecd908c75" x="190" y="177" width="117" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getTelephone()]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="93b523e3-2464-4a4d-a3af-7bc55caf6e0b" x="403" y="179" width="146" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getMobile()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ad5f8daf-9030-4079-804a-50403fbe9b77" x="190" y="199" width="358" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getEmail()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ca6aabe6-ec1a-4c81-bf8f-c26f92a83cb5" x="190" y="221" width="358" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getFax()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="834f67a9-f618-409f-9e35-ce451de76c18" x="190" y="243" width="360" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getNationality()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="cfd14043-61d9-4dc0-b63f-cd713296f55f" x="190" y="265" width="359" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getBirthDate()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="62a604df-1710-44d7-9f6d-38cd45ceab4b" x="190" y="287" width="360" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getGender()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="174dc776-7d1a-46ba-b8ee-257fd8960594" x="5" y="313" width="175" height="30"/>
+				<box padding="0" rightPadding="4">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desired employment/ Occupational field]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b517a32e-0631-4a74-8a65-969c1e46cb80" x="5" y="355" width="175" height="20"/>
+				<box rightPadding="4">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Work experience]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf4a7f66-971a-41c5-bbdc-72568e1d1dd1" x="5" y="468" width="175" height="20"/>
+				<box padding="3" rightPadding="4">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Education and training]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1bce7616-b064-4010-bbbc-3ba9f07b032b" positionType="Float" x="5" y="585" width="175" height="33"/>
+				<box padding="2" rightPadding="4">
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Personal skills and competences]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="35a75acf-5e62-42a6-9d66-c54b3048db93" x="186" y="313" width="359" height="30"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getDesiredEmployment()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ef30ccd0-35af-4242-be64-9faa8c04675b" positionType="Float" x="5" y="632" width="175" height="20"/>
+				<box padding="4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Mother tongue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0fd02481-3ad4-4a9c-855f-77d7706dcc21" positionType="Float" x="5" y="656" width="175" height="20"/>
+				<box padding="4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Other languages]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d2275faa-4cfb-4108-aa8b-a94bac53da61" positionType="Float" x="3" y="737" width="175" height="30"/>
+				<box padding="4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Social skills and competences]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ab3ffc83-27f8-4b71-ad8b-3dff7f4b836f" positionType="Float" x="3" y="775" width="175" height="33"/>
+				<box padding="4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Organizational skills and competences]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0eacca7-ff80-43a2-a2d7-22ccbcf69717" positionType="Float" x="3" y="807" width="175" height="30"/>
+				<box padding="4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Artistic skill and competences]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5ce8167c-a7e6-406c-88c9-fd8b251c7d40" positionType="Float" x="3" y="846" width="175" height="38"/>
+				<box padding="4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Other skills and competences]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="be0b6832-2c2c-4e2a-9a5f-471c3d4de4f1" positionType="Float" x="3" y="890" width="175" height="30"/>
+				<box padding="4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Driving licence]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="8120ebe6-e7cb-49a3-9ed1-3b1eb1acf98c" positionType="Float" x="188" y="632" width="358" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getMotherTongue()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="c6f5c86b-2bc7-471d-8784-6e12a31a7949" positionType="Float" x="188" y="740" width="358" height="26"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getSocialSkills()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="017dc1c9-7490-4cfc-b3d3-56627b6eed57" positionType="Float" x="188" y="773" width="358" height="30"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getOrganizationalSkills()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="0425bbd4-02fd-4052-b55e-e089a22f3c09" positionType="Float" x="188" y="850" width="358" height="30"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getOtherSkills()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement uuid="e52b7e01-d5c5-4f93-a50d-3e52de1665e2" positionType="Float" x="188" y="893" width="358" height="30"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{portfolio}.getDrivingLicence()]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement uuid="26b8701d-234c-4ad6-8364-e5033fa6ad15" isPrintRepeatedValues="false" x="-47" y="500" width="599" height="70"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{portfolio}.getTraining())]]></dataSourceExpression>
+				<subreportExpression><![CDATA["training.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="d1daf057-36f8-4d14-a207-d289319335a2" positionType="Float" x="85" y="680" width="464" height="45"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{portfolio}.getLanguages())]]></dataSourceExpression>
+				<subreportExpression><![CDATA["languages.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement uuid="1b3b60e1-dcd5-48b5-ac79-e0172851a9ce" positionType="Float" x="0" y="440" width="545" height="1"/>
+			</break>
+		</band>
+	</detail>
+</jasperReport>

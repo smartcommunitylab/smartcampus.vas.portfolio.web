@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank A4" pageWidth="595" pageHeight="300" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ae596028-96d6-4288-8c85-9244fbf22b38">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="activities" class="java.lang.String">
+		<fieldDescription><![CDATA[activities]]></fieldDescription>
+	</field>
+	<field name="businessType" class="java.lang.String">
+		<fieldDescription><![CDATA[businessType]]></fieldDescription>
+	</field>
+	<field name="date" class="java.lang.String">
+		<fieldDescription><![CDATA[date]]></fieldDescription>
+	</field>
+	<field name="employerInfo" class="java.lang.String">
+		<fieldDescription><![CDATA[employerInfo]]></fieldDescription>
+	</field>
+	<field name="occupation" class="java.lang.String">
+		<fieldDescription><![CDATA[occupation]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="135">
+			<frame>
+				<reportElement uuid="2a9e6192-9d73-413d-99ff-dcfbb4cda4ed" positionType="Float" x="0" y="25" width="550" height="22"/>
+				<staticText>
+					<reportElement uuid="19ac4080-9b0a-4993-b236-150d767cce46" x="0" y="0" width="180" height="20"/>
+					<box padding="4"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Sans" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Occupation or position held]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="bac9068d-a111-4cf4-8c34-1c31bb919c78" x="190" y="0" width="360" height="20"/>
+					<box padding="4"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{occupation}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement uuid="35e1b175-0739-447d-97e8-50f3c594c7a7" x="0" y="0" width="180" height="20"/>
+				<box padding="4"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Dates]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="972800a0-9904-4b48-b2b6-a06fcd5ae96f" x="190" y="0" width="360" height="20"/>
+				<box padding="4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement uuid="2a9e6192-9d73-413d-99ff-dcfbb4cda4ed" positionType="Float" x="0" y="25" width="550" height="22"/>
+				<staticText>
+					<reportElement uuid="19ac4080-9b0a-4993-b236-150d767cce46" x="0" y="0" width="180" height="20"/>
+					<box padding="4"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Sans" size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Occupation or position held]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="bac9068d-a111-4cf4-8c34-1c31bb919c78" x="190" y="0" width="360" height="20"/>
+					<box padding="4"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{occupation}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement uuid="8c47c9c2-d467-4f30-bf2e-cb747f523e58" positionType="Float" x="0" y="50" width="550" height="22"/>
+				<staticText>
+					<reportElement uuid="04dd2d90-a4b3-4a91-ab60-71837793fd8e" x="-11" y="0" width="190" height="20"/>
+					<box padding="4"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[Main activities and responsabilities]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="cb9f0ec1-037b-4c3a-8d14-e6c9bf3574a2" x="190" y="0" width="360" height="20"/>
+					<box padding="4"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{activities}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement uuid="aec8b6ab-a658-4085-8ec2-cfc76576e7ba" positionType="Float" x="0" y="77" width="550" height="22"/>
+				<staticText>
+					<reportElement uuid="4ea0a619-fbe4-41f6-a6ea-895c536c8cc4" x="0" y="0" width="180" height="20"/>
+					<box padding="4"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[Name and address of employer]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement uuid="c26d6bd0-c1a2-4bb7-941e-5b3559f71a2a" x="190" y="0" width="360" height="20"/>
+					<box padding="4"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{employerInfo}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement uuid="3101bcb3-39c5-4cab-b599-f457bf8de346" positionType="Float" x="0" y="101" width="550" height="22"/>
+				<staticText>
+					<reportElement uuid="d721d937-f51e-4b50-aaff-22030a1d52ef" x="0" y="0" width="180" height="20"/>
+					<box padding="4"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[Type of business or sector]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement uuid="88df3075-47eb-4751-98dd-64915aa92a21" x="190" y="0" width="360" height="20"/>
+					<box padding="4"/>
+					<textElement>
+						<font fontName="DejaVu Sans" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{businessType}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

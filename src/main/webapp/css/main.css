@@ -1,0 +1,120 @@
+/**
+ * Copyright 2012-2013 Trento RISE
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ * 
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+@charset "UTF-8";
+
+@import url('top_menu.css');
+
+@import url('tab_menu.css');
+
+@import url('toolbar.css');
+
+@import url('overview.css');
+
+@import url('section.css');
+
+@import url('images.css');
+
+@import url('inputs.css');
+
+@import url('profile.css');
+
+@import url('exams.css');
+
+@import url('notes.css');
+
+html {
+	/*overflow: -moz-scrollbars-vertical;
+	overflow-x: scroll; */
+	overflow-y: scroll;
+}
+
+body {
+	font-family: "lucida grande", tahoma, arial, sans-serif;
+	/* verdana */
+	color: #666666;
+	background-color: #ffffff;
+	margin: 0 auto;
+}
+
+ul {
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+	color: #6699cc;
+	cursor: pointer;
+}
+
+.clear {
+	clear: both;
+}
+
+/* Main */
+#main {
+	clear: both;
+	width: 860px;
+	margin: 0 auto;
+	padding-right: 50px;
+	padding-left: 50px;
+}
+
+#main_left {
+	float: left;
+	width: 420px;
+	padding-right: 10px;
+}
+
+#main_right {
+	float: right;
+	width: 420px;
+	padding-left: 10px;
+}
+
+/* Footer */
+#footer {
+	clear: both;
+	width: 100%;
+	height: 250px;
+	background-color: #d9532f;
+	margin-top: 150px;
+}
+
+#footer .footerbg {
+	width: 860px;
+	height: 100%;
+	margin: 0 auto;
+	background-image: url('../img/assets/footer_portfolio.png');
+	background-position: right;
+	background-repeat: no-repeat;
+}
+
+/* Effects */
+.show {
+	visibility: visible;
+	/*opacity: 0;*/
+}
+
+/* UI custom */
+.dialog {
+	font-size: smaller;
+}
+
+.dialog.notitle-dialog .ui-dialog-titlebar {
+	display: none
+}

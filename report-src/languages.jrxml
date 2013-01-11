@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank A4" pageWidth="595" pageHeight="842" columnWidth="300" leftMargin="20" rightMargin="50" topMargin="20" bottomMargin="20" uuid="310e32ae-3006-4a75-8796-1ad156501a1f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="listeningDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[listeningDescription]]></fieldDescription>
+	</field>
+	<field name="listeningLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[listeningLevel]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="readingDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[readingDescription]]></fieldDescription>
+	</field>
+	<field name="readingLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[readingLevel]]></fieldDescription>
+	</field>
+	<field name="spokenInteractionDescr" class="java.lang.String">
+		<fieldDescription><![CDATA[spokenInteractionDescr]]></fieldDescription>
+	</field>
+	<field name="spokenInteractionLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[spokenInteractionLevel]]></fieldDescription>
+	</field>
+	<field name="spokenProductionDescr" class="java.lang.String">
+		<fieldDescription><![CDATA[spokenProductionDescr]]></fieldDescription>
+	</field>
+	<field name="spokenProductionLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[spokenProductionLevel]]></fieldDescription>
+	</field>
+	<field name="writingDescription" class="java.lang.String">
+		<fieldDescription><![CDATA[writingDescription]]></fieldDescription>
+	</field>
+	<field name="writingLevel" class="java.lang.String">
+		<fieldDescription><![CDATA[writingLevel]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="44f359d6-31e8-4d30-9965-683af1323a5b" positionType="Float" x="215" y="0" width="140" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Speaking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0d9a7881-1eee-4abe-a6d7-ce7bece8266a" positionType="Float" x="355" y="0" width="105" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Writing]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="053a292d-a4e5-43c1-8915-5c3295243a84" positionType="Float" x="80" y="0" width="135" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Understanding]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="44f359d6-31e8-4d30-9965-683af1323a5b" positionType="Float" x="215" y="0" width="140" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Speaking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0d9a7881-1eee-4abe-a6d7-ce7bece8266a" positionType="Float" x="355" y="0" width="105" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Writing]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="473e0969-5e43-41e0-b6f6-d432ab31cdb0" positionType="Float" x="285" y="20" width="70" height="28"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Spoken production]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="248a89cf-6a89-43e2-a7a0-754a994e9cf4" positionType="Float" x="215" y="20" width="70" height="28"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Spoken
+ interaction]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="028924b4-2cb4-4da0-ac7c-ebae875876b5" positionType="Float" x="145" y="20" width="70" height="28"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Reading]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b31d5643-7888-4fd5-bb4a-e113aa57a1e8" positionType="Float" x="80" y="20" width="65" height="28"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Listening]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="053a292d-a4e5-43c1-8915-5c3295243a84" positionType="Float" x="80" y="0" width="135" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Understanding]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="44f359d6-31e8-4d30-9965-683af1323a5b" positionType="Float" x="215" y="0" width="140" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Speaking]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0d9a7881-1eee-4abe-a6d7-ce7bece8266a" positionType="Float" x="355" y="0" width="105" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Writing]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b31d5643-7888-4fd5-bb4a-e113aa57a1e8" positionType="Float" x="80" y="20" width="65" height="28"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Listening]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="028924b4-2cb4-4da0-ac7c-ebae875876b5" positionType="Float" x="145" y="20" width="70" height="28"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Reading]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="248a89cf-6a89-43e2-a7a0-754a994e9cf4" positionType="Float" x="215" y="20" width="70" height="28"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Spoken
+ interaction]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="473e0969-5e43-41e0-b6f6-d432ab31cdb0" positionType="Float" x="285" y="20" width="70" height="28"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<text><![CDATA[Spoken production]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b5e5da01-3e1a-499a-bc96-e15cceb762e4" positionType="Float" x="-20" y="0" width="90" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Self-assessment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf05b849-bcd1-4ce5-b980-2d3420297d12" positionType="Float" x="-21" y="19" width="91" height="28"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[European level (*)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ca3c5f88-12f3-4201-9421-bf9028951675" x="355" y="20" width="105" height="28"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="6f3e865c-b4f2-48a1-93af-653bee7f0209" positionType="Float" x="80" y="0" width="15" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{listeningLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="74ef6739-da52-4df5-bee6-e9b7d5b06c36" positionType="Float" x="145" y="0" width="20" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{readingLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="2b0b455c-41f0-4ae6-a327-44890d69c89a" positionType="Float" x="215" y="0" width="20" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{spokenInteractionLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="a514629d-bb6c-4e8c-b8a6-e42a5122c942" positionType="Float" x="285" y="0" width="20" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{spokenProductionLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c619c58b-5571-4298-a383-da7beb32a2d5" positionType="Float" x="355" y="0" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{writingLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="6f3e865c-b4f2-48a1-93af-653bee7f0209" positionType="Float" x="80" y="0" width="15" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{listeningLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="189ece1a-394c-4e41-9969-a6bc19148c47" positionType="Float" x="95" y="0" width="50" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{listeningDescription}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="74ef6739-da52-4df5-bee6-e9b7d5b06c36" positionType="Float" x="145" y="0" width="20" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{readingLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="44f28418-310f-4a33-b108-d03d604d4249" positionType="Float" x="165" y="0" width="50" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{readingDescription}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="2b0b455c-41f0-4ae6-a327-44890d69c89a" positionType="Float" x="215" y="0" width="20" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{spokenInteractionLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="3d7d41f5-d011-4b87-be3b-64abada06f25" positionType="Float" x="235" y="0" width="50" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{spokenInteractionDescr}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="a514629d-bb6c-4e8c-b8a6-e42a5122c942" positionType="Float" x="285" y="0" width="20" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{spokenProductionLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="7d5fe0f4-d886-4f40-b09d-8dc884eb3ab2" positionType="Float" x="305" y="0" width="50" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{spokenProductionDescr}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c619c58b-5571-4298-a383-da7beb32a2d5" positionType="Float" x="355" y="0" width="40" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{writingLevel}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="ae169d4d-d664-4c33-be43-cd6e5923a789" positionType="Float" x="395" y="0" width="65" height="20"/>
+				<box>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{writingDescription}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="dfcaec72-b933-49a3-9b40-9ef384d02747" positionType="Float" x="5" y="0" width="65" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

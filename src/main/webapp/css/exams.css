@@ -1,0 +1,65 @@
+/**
+ * Copyright 2012-2013 Trento RISE
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ * 
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+/* Exams */
+#exams table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#exams table th,td {
+	padding: 3px;
+	text-align: center;
+}
+
+#exams table thead tr {
+	background-color: #E1E1E1;
+	font-size: smaller;
+	margin-bottom: 3px;
+}
+
+#exams table thead tr th:first-child {
+	-webkit-border-top-left-radius: 9px;
+	-moz-border-top-left-radius: 9px;
+	border-top-left-radius: 9px;
+	-webkit-border-bottom-left-radius: 9px;
+	-moz-border-bottom-left-radius: 9px;
+	border-bottom-left-radius: 9px;
+}
+
+#exams table thead tr th:last-child {
+	-webkit-border-top-right-radius: 9px;
+	-moz-border-top-right-radius: 9px;
+	border-top-right-radius: 9px;
+	-webkit-border-bottom-right-radius: 9px;
+	-moz-border-bottom-right-radius: 9px;
+	border-bottom-right-radius: 9px;
+}
+
+#exams table thead th {
+	padding: 6px;
+}
+
+#exams table tbody {
+	background-color: #F7F7F7;
+}
+
+#exams table tbody tr:hover {
+	background-color: white;
+}
+
+#exams table .exam_name {
+	text-align: left;
+}
