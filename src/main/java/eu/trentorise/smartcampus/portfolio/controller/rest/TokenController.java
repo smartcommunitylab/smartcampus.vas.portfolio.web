@@ -17,8 +17,6 @@ package eu.trentorise.smartcampus.portfolio.controller.rest;
 
 import javax.servlet.http.HttpServletResponse;
 
-import it.unitn.disi.sweb.frameworks.p2p.common.Utils;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
