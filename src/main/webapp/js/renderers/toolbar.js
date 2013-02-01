@@ -119,7 +119,8 @@ Renderer_Toolbar.prototype.render = function() {
 		var aBtn = $('<a></a>').addClass('btn');
 		aBtn.text('Save');
 		aBtn.click(function() {
-			var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+			//var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+			var myPortfoliosCurrentContent = __MyPortfoliosCurrent.content;
 			myPortfoliosCurrentContent.showStudentInfo = [];
 			myPortfoliosCurrentContent.showUserGeneratedData = [];
 			myPortfoliosCurrentContent.highlightUserGeneratedData = [];
@@ -144,7 +145,8 @@ Renderer_Toolbar.prototype.render = function() {
 				myPortfoliosCurrentContent.highlightUserGeneratedData.push(cherry.id);
 			}
 
-			__MyPortfoliosCurrent.content = JSON.stringify(myPortfoliosCurrentContent);
+			//__MyPortfoliosCurrent.content = JSON.stringify(myPortfoliosCurrentContent);
+			__MyPortfoliosCurrent.content = myPortfoliosCurrentContent;
 			__Caller.updatePortfolio(__MyPortfoliosCurrent);
 			__EditMode_change = false;
 			__Renderer_Toolbar.closeSaveBtn();
@@ -154,7 +156,8 @@ Renderer_Toolbar.prototype.render = function() {
 		// tags
 		// { "id" : null , "name" : "university" , "description" : null ,
 		// "summary" : null }
-		var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+		//var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+		var myPortfoliosCurrentContent = __MyPortfoliosCurrent.content;
 		var tags = myPortfoliosCurrentContent.tags;
 		if (__Utils.valid(tags) && tags.length > 0) {
 			// TODO create tags views

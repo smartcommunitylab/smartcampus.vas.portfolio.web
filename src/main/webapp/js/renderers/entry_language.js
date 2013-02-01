@@ -17,7 +17,8 @@ function Renderer_Entry_language() {
 };
 
 Renderer_Entry_language.prototype.render = function(entry) {
-	var content = JSON.parse(entry.content);
+	//var content = JSON.parse(entry.content);
+	var content = entry.content;
 
 	var li = $('<li></li>').addClass('overview_userdata').text(content.title + ' (' + content.subtitle + ')');
 	var tools = __Renderer_Tools.render(entry);

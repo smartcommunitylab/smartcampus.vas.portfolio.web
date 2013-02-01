@@ -24,7 +24,8 @@ Renderer_StudentExams.prototype.render = function(containerSelector, data) {
 		container.empty();
 
 		var json = JSON.parse(data);
-		var content = JSON.parse(json.content);
+		//var content = JSON.parse(json.content);
+		var content = json.content;
 		var examdata = content.examData;
 
 		// Exam, Weight, Date, Result

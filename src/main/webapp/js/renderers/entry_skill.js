@@ -17,7 +17,8 @@ function Renderer_Entry_skill() {
 };
 
 Renderer_Entry_skill.prototype.render = function(entry) {
-	var content = JSON.parse(entry.content);
+	//var content = JSON.parse(entry.content);
+	var content = entry.content;
 
 	var li = $('<li></li>').addClass('overview_userdata').text(content.title);
 

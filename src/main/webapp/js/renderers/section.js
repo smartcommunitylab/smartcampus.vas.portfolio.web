@@ -31,7 +31,8 @@ Renderer_Section.prototype.render = function(category, data) {
 	}
 
 	if (category != 'cherryotc' && __Current == 'myportfolios' && __EditMode == false) {
-		var mpc = JSON.parse(__MyPortfoliosCurrent.content);
+		//var mpc = JSON.parse(__MyPortfoliosCurrent.content);
+		var mpc = __MyPortfoliosCurrent.content;
 		entriesArray = __Utils.filterEntries(entriesArray, mpc['showUserGeneratedData'], 'id');
 
 		if (entriesArray.length == 0) {
@@ -61,7 +62,8 @@ Renderer_Section.prototype.render = function(category, data) {
 	var sectionOUC = $('<ul></ul>');
 	for ( var i = 0; i < entriesArray.length; i++) {
 		var entry = entriesArray[i];
-		var content = JSON.parse(entry.content);
+		//var content = JSON.parse(entry.content);
+		var content = entry.content;
 		var renderer = null;
 		if (content.type == 'language') {
 			renderer = new Renderer_Entry_language();

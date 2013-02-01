@@ -127,7 +127,8 @@ Forms.prototype.formRaw = function(category, container, editEntry) {
 
 	// edit
 	if (editEntry != undefined && editEntry != null) {
-		var content = JSON.parse(editEntry.content);
+		//var content = JSON.parse(editEntry.content);
+		var content = editEntry.content;
 		input_content.val(content.content);
 	}
 
@@ -181,7 +182,8 @@ Forms.prototype.formSimple = function(category, container, editEntry) {
 
 	// edit
 	if (editEntry != undefined && editEntry != null) {
-		var content = JSON.parse(editEntry.content);
+		//var content = JSON.parse(editEntry.content);
+		var content = editEntry.content;
 		input_title.val(content.title);
 		input_subtitle.val(content.subtitle);
 	}
@@ -241,7 +243,8 @@ Forms.prototype.formSimpleDesc = function(category, container, editEntry) {
 
 	// edit
 	if (editEntry != undefined && editEntry != null) {
-		var content = JSON.parse(editEntry.content);
+		//var content = JSON.parse(editEntry.content);
+		var content = editEntry.content;
 		input_title.val(content.title);
 		input_subtitle.val(content.subtitle);
 		input_content.val(content.content);
@@ -302,7 +305,8 @@ Forms.prototype.formSimplePic = function(category, container, editEntry) {
 
 	// edit
 	if (editEntry != undefined && editEntry != null) {
-		var content = JSON.parse(editEntry.content);
+		//var content = JSON.parse(editEntry.content);
+		var content = editEntry.content;
 		input_title.val(content.title);
 		input_subtitle.val(content.subtitle);
 		input_content.val(content.content);
@@ -355,7 +359,8 @@ Forms.prototype.formVideo = function(category, container, editEntry) {
 
 	// edit
 	if (editEntry != undefined && editEntry != null) {
-		var content = JSON.parse(editEntry.content);
+		//var content = JSON.parse(editEntry.content);
+		var content = editEntry.content;
 		input_content.val(content.content);
 	}
 
@@ -393,7 +398,7 @@ Forms.prototype.formVideo = function(category, container, editEntry) {
 Forms.prototype.formNewPortfolio = function(containerSelector) {
 	var form = $('<form></form>').addClass('form');
 	var input1 = $('<input/>').addClass('input_newportfolioname').attr('type', 'text').attr('name', 'newportfolioname')
-	.attr('placeholder', 'New portfolio name'); 
+	.attr('placeholder', 'New CV name'); 
 	form.append(input1);
 
 	var buttonOK = $('<input/>').attr('type', 'submit').val('OK');
