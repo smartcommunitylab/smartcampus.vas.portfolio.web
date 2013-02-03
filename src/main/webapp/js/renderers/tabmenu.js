@@ -37,7 +37,8 @@ Renderer_TabMenu.prototype.render = function(tabMenuSelector) {
 		}
 
 		var id = __MyPortfolios[i]['id'];
-		var content = JSON.parse(__MyPortfolios[i].content);
+		//var content = JSON.parse(__MyPortfolios[i].content);
+		var content = __MyPortfolios[i].content;
 
 		li = $('<li></li>');
 		a = $('<a></a>').attr('id', 'tab_p_' + i).text(content['name']);

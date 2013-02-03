@@ -12,8 +12,7 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */
-function Renderer_StudentInfo() {
+ */function Renderer_StudentInfo() {
 };
 
 Renderer_StudentInfo.prototype.render = function(key, labelstring, spanstring) {
@@ -28,10 +27,10 @@ Renderer_StudentInfo.prototype.render = function(key, labelstring, spanstring) {
 	
 	if (key != undefined && key != null) {
 		var entry = {
-			content : JSON.stringify({
-				category : 'studentinfo',
-				type : key
-			})
+			content : {
+					category : 'studentinfo',
+					type : key
+				}
 		};
 		var tools = __Renderer_Tools.render(entry);
 		text.append(tools);

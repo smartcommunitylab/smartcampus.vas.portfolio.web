@@ -78,7 +78,8 @@ Utils.prototype.checkSysEntry = function(data) {
 	var entriesArray = JSON.parse(data);
 	for ( var i = 0; i < entriesArray.length; i++) {
 		var entry = entriesArray[i];
-		var content = JSON.parse(entry.content);
+		//var content = JSON.parse(entry.content);
+		var content = entry.content;
 		if (content['type'].indexOf('sys_') != -1) {
 			return true;
 		}

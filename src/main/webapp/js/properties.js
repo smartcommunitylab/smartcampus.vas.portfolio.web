@@ -14,7 +14,8 @@
  *    limitations under the License.
  */
 function Properties() {
-	this.staticUrl = '/portfolio/';
+	//this.staticUrl = '/portfolio/';
+	this.staticUrl = '/mycvs/';
 	this.baseUrl = 'https://' + window.document.location.hostname + ':' + window.document.location.port + this.staticUrl;
 	this.authUrl = 'https://ac.smartcampuslab.it/ac-service-provider-web-dev/ac/getToken?code=&redirect=';
 	this.validationUrl = this.baseUrl + 'rest/validatetoken/';
@@ -83,5 +84,5 @@ function Properties() {
 		}
 	};
 
-	this.SYS_entry_dialog = 'Having enabled this entry, if you share this portfolio, your university marks will be visible to other users.';
+	this.SYS_entry_dialog = 'Having enabled this entry, if you share this CV, your University marks will be visible to other users.';
 };

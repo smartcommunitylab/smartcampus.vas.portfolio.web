@@ -17,7 +17,8 @@ function Renderer_Entry_contact() {
 };
 
 Renderer_Entry_contact.prototype.render = function(entry) {
-	var content = JSON.parse(entry.content);
+	//var content = JSON.parse(entry.content);
+	var content = entry.content;
 
 	var li = $('<li></li>').addClass('overview_userdata');
 	li.append($('<label></label>').text(content.title + ':'));

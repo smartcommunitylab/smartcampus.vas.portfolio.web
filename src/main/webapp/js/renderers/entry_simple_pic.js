@@ -17,7 +17,8 @@ function Renderer_Entry_simple_pic() {
 };
 
 Renderer_Entry_simple_pic.prototype.render = function(entry) {
-	var content = JSON.parse(entry.content);
+	//var content = JSON.parse(entry.content);
+	var content = entry.content;
 
 	var div = $('<div></div>').addClass('entry');
 	div.addClass('simple_pic');

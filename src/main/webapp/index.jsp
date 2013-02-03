@@ -12,8 +12,7 @@ Copyright 2012-2013 Trento RISE
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+--%><%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -52,15 +51,14 @@ Copyright 2012-2013 Trento RISE
 <script type="text/javascript" src="js/caller.js"></script>
 <script type="text/javascript" src="js/test.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
-<title>Portfolio Manager</title>
+<title>MyCVs</title>
 </head>
 <body>
 	<div id="top_menu">
 		<ul>
-			<li id="m_manager" onclick="__Main.go('manager');">PORTFOLIO
-				MANAGER</li>
+			<li id="m_manager" onclick="__Main.go('manager');">MY DATA</li>
 			<li id="m_myportfolios" onclick="__Main.go('myportfolios');">MY
-				PORTFOLIOS</li>
+				CVs</li>
 			<li id="m_noticebard" onclick="__Main.go('noticeboard');">NOTICEBOARD</li>
 			<li id="m_notes" onclick="__Main.go('notes');">NOTES</li>
 			<li><a class="icon guide"></a> <a class="icon close"

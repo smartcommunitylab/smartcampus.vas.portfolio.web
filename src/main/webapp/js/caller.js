@@ -12,8 +12,7 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */
-function Caller() {
+ */function Caller() {
 };
 
 Caller.prototype.load = function(snippet, containerSelector, callback) {
@@ -75,7 +74,8 @@ Caller.prototype.getOverviewUserContent = function(category, containerSelector) 
 			// cherries
 			if (__Current == 'myportfolios' && __EditMode == false) {
 				var parsedData = JSON.parse(data);
-				var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+				//var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+				var myPortfoliosCurrentContent = __MyPortfoliosCurrent.content;
 				var hugd = myPortfoliosCurrentContent['highlightUserGeneratedData'];
 				var cherries = __Utils.getEntriesByIds(parsedData, hugd);
 				for ( var p = 0; p < cherries.length; p++) {
@@ -116,7 +116,8 @@ Caller.prototype.getUserContent = function(category) {
 			// cherries
 			if (__Current == 'myportfolios' && __EditMode == false) {
 				var parsedData = JSON.parse(data);
-				var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+				//var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+				var myPortfoliosCurrentContent = __MyPortfoliosCurrent.content;
 				var hugd = myPortfoliosCurrentContent['highlightUserGeneratedData'];
 				var cherries = __Utils.getEntriesByIds(parsedData, hugd);
 				for ( var p = 0; p < cherries.length; p++) {
@@ -254,7 +255,8 @@ Caller.prototype.createPortfolio = function(data) {
 };
 
 Caller.prototype.updatePortfolio = function(portfolio) {
-	// portfolio.content is already json string
+	// portfolio.content is NOT json string
+	var json = JSON.stringify(portfolio.content);
 
 	$.ajax({
 		async : false,
@@ -263,7 +265,7 @@ Caller.prototype.updatePortfolio = function(portfolio) {
 			'AUTH_TOKEN' : __Sec.getToken()
 		},
 		contentType : 'application/json',
-		data : portfolio.content,
+		data : json,
 		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.Portfolio/' + portfolio.id,
 		beforeSend : function() {
 			// $('#overview').append($('<div></div>').addClass('icon loader'));

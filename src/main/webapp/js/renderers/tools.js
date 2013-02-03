@@ -30,7 +30,8 @@ Renderer_tools.prototype.render = function(entry) {
 
 	if (entry != undefined && entry != null && entry.content != undefined && entry.content != null) {
 		id = entry.id;
-		content = JSON.parse(entry.content);
+		//content = JSON.parse(entry.content);
+		content = entry.content;
 		category = content.category;
 		type = content.type;
 	}
@@ -75,7 +76,8 @@ Renderer_tools.prototype.render = function(entry) {
 				a.attr('id', type);
 			}
 
-			var myPortfolioCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+			//var myPortfolioCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+			var myPortfolioCurrentContent = __MyPortfoliosCurrent.content;
 			if (id != null && id != undefined && $.inArray(id, myPortfolioCurrentContent['showUserGeneratedData']) > -1) {
 				a.addClass('eye');
 			} else if ($.inArray(type, myPortfolioCurrentContent['showStudentInfo']) > -1) {
@@ -129,7 +131,8 @@ Renderer_tools.prototype.render = function(entry) {
 		} else if (tool == 'cherry' && __Utils.valid(id)) {
 			a.attr('id', id);
 
-			var myPortfolioCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+			//var myPortfolioCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
+			var myPortfolioCurrentContent = __MyPortfoliosCurrent.content;
 			if ($.inArray(id, myPortfolioCurrentContent['highlightUserGeneratedData']) > -1) {
 				a.addClass('cherry');
 			} else {

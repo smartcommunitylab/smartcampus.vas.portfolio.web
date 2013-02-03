@@ -32,7 +32,8 @@ Renderer_Overview.prototype.render = function(data) {
 	}
 
 	json = JSON.parse(data);
-	content = JSON.parse(json['content']);
+	//content = JSON.parse(json['content']);
+	content = json['content'];
 	var studentData = null;
 	if (__IsStudent) {
 		studentData = content['studentData'];
@@ -41,7 +42,8 @@ Renderer_Overview.prototype.render = function(data) {
 
 	if (__Current == 'myportfolios' && __EditMode == false && __IsStudent == true && __Utils.valid(studentData)) {
 		var studentDataFields = __Properties.studentInfos; // TEST
-		var mpc = JSON.parse(__MyPortfoliosCurrent.content);
+		//var mpc = JSON.parse(__MyPortfoliosCurrent.content);
+		var mpc = __MyPortfoliosCurrent.content;
 
 		for ( var s = 0; s < studentDataFields.length; s++) {
 			var sdf = studentDataFields[s];
