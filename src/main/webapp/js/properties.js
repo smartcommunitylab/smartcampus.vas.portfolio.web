@@ -17,7 +17,7 @@ function Properties() {
 	//this.staticUrl = '/portfolio/';
 	this.staticUrl = '/mycvs/';
 	this.baseUrl = 'https://' + window.document.location.hostname + ':' + window.document.location.port + this.staticUrl;
-	this.authUrl = 'https://ac.smartcampuslab.it/ac-service-provider-web-dev/ac/getToken?code=&redirect=';
+	this.authUrl = 'https://ac.smartcampuslab.it/ac-service-provider-web/ac/getToken?code=&redirect=';
 	this.validationUrl = this.baseUrl + 'rest/validatetoken/';
 
 	this.showmsec = 0;
