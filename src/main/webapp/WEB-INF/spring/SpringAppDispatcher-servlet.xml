@@ -68,22 +68,6 @@
 		<constructor-arg ref="mongoTemplate" />
 	</bean>
 
-	<bean id="semanticClientConfiguration"
-		class="eu.trentorise.smartcampus.semantic.client.ClientConfiguration">
-		<constructor-arg>
-			<map>
-				<!-- <entry key="SERVICE_ENDPOINT" value="${smartcampus.vas.web.semanticclient.URL}" 
-					/> -->
-				<entry key="SERVICE_ENDPOINT" value="smartcampus.vas.web.semanticclient.URL" />
-			</map>
-		</constructor-arg>
-	</bean>
-
-	<bean id="semanticClient"
-		class="eu.trentorise.smartcampus.semantic.client.SemanticClient">
-		<constructor-arg ref="semanticClientConfiguration" />
-	</bean>
-
 	<!-- JMS Configuration -->
 	<!-- <bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate"> 
 		<property name="environment"> <props> <prop key="java.naming.factory.initial">org.jboss.as.naming.InitialContextFactory</prop> 
@@ -104,7 +88,6 @@
 	<bean id="eventProcessor"
 		class="eu.trentorise.smartcampus.portfolio.processor.EventProcessorImpl">
 		<property name="storage" ref="syncObjectStorage" />
-		<property name="semanticClient" ref="semanticClient" />
 	</bean>
 
 	<bean id="domainEngineClient" class="it.sayservice.platform.client.jms.JMSDomainEngineClient" scope="singleton" destroy-method="destroy">
