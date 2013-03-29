@@ -27,9 +27,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import eu.trentorise.smartcampus.portfolio.models.Concept;
 import eu.trentorise.smartcampus.portfolio.models.Portfolio;
 import eu.trentorise.smartcampus.portfolio.models.UserProducedData;
 
@@ -44,6 +46,8 @@ public class PortfolioManager {
 
 	@Autowired
 	private DomainEngineClient domainClient;
+	
+	private static ObjectMapper mapper = new ObjectMapper();
 
 	public boolean createStudent(String userId, String unitnId) throws InvocationException, IOException,
 			ClassNotFoundException {
@@ -224,6 +228,7 @@ public class PortfolioManager {
 	// }
 	// }
 
+	@SuppressWarnings("unchecked")
 	public void updatePortfolio(Portfolio portfolio, String portfolioId, String userId) throws Exception {
 		if (portfolio != null) {
 			String s = domainClient.searchDomainObject("smartcampus.services.esse3.Portfolio", portfolioId,
@@ -253,7 +258,11 @@ public class PortfolioManager {
 			pars.put("newShowStudentInfo", showPartArray);
 
 			if (portfolio.getTags() != null) {
-				pars.put("newTags", portfolio.getTags());
+				List<Map<String,Object>> tagMapList = new ArrayList<Map<String,Object>>();
+				for (Concept c : portfolio.getTags()) {
+					tagMapList.add(mapper.convertValue(c, Map.class));
+				}
+				pars.put("newTags", tagMapList);
 			}
 
 			if (!pars.containsValue(null)) {
