@@ -21,73 +21,109 @@ import it.unitn.disi.sweb.webapi.model.smartcampus.ac.Operation;
 
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
-import eu.trentorise.smartcampus.ac.provider.AcService;
-import eu.trentorise.smartcampus.ac.provider.AcServiceException;
-import eu.trentorise.smartcampus.ac.provider.filters.AcProviderFilter;
-import eu.trentorise.smartcampus.ac.provider.model.Attribute;
-import eu.trentorise.smartcampus.ac.provider.model.User;
+import eu.trentorise.smartcampus.aac.AACService;
+import eu.trentorise.smartcampus.profileservice.BasicProfileService;
+import eu.trentorise.smartcampus.profileservice.model.AccountProfile;
+import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
 
 @Controller
 public class SCController {
 
 	@Autowired
-	private AcService acService;
-
-	@Autowired
 	@Value("${smartcampus.vas.web.socialengine.host}")
-	private String socialEngineHost;	
+	private String socialEngineHost;
+	
 	@Autowired
 	@Value("${smartcampus.vas.web.socialengine.port}")
-	private int socialEnginePort;	
+	private int socialEnginePort;
 
-	private static final String ID_ADA = "idada";
+	@Autowired
+	@Value("${aacURL}")
+	private String aacURL;
+	
+	@Autowired
+	@Value("${smartcampus.client.id}")
+	private String client_id;
+	
+	@Autowired
+	@Value("${smartcampus.client.secret}")
+	private String client_secret;
 
 	private SCWebApiClient client = null;
+
+//	protected String userToken = "";
+	protected AACService aacService;
+	protected BasicProfileService profileService;
+
+	private BasicProfile basicProfile;
+	private AccountProfile accountProfile;
+
+	@PostConstruct
+	public void init() {
+		aacService = new AACService(aacURL, client_id, client_secret);
+		profileService = new BasicProfileService(aacURL);
+	}
 	
+	/**
+	 * Here we assume that the access token is placed in the current security
+	 * context by the PRE_AUTH_FILTER
+	 * 
+	 * @return
+	 */
+	protected String getToken(HttpServletRequest request) {
+		return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	}
+
 	protected SCWebApiClient getSCClient() {
 		if (client == null) {
 			client = SCWebApiClient.getInstance(Locale.ENGLISH, socialEngineHost, socialEnginePort);
 		}
 		return client;
 	}
-	
-	protected String getUserToken(HttpServletRequest request) {
-		return request.getHeader(AcProviderFilter.TOKEN_HEADER);
-	}
 
-	protected User getUser(HttpServletRequest request)
-			throws AcServiceException {
-		String token = getUserToken(request);
-		User user = acService.getUserByToken(token);
-		return user;
-	}
-
-	protected User getUser(String token) throws AcServiceException {
-		User user = acService.getUserByToken(token);
-		return user;
-	}
-
-	protected String getUserId(User user) {
-		return (user != null) ? user.getId().toString() : null;
-	}
-
-	protected String getIdAda(User user) {
-		String idAda = null;
-		for (Attribute attr : user.getAttributes()) {
-			if (attr.getKey().equals(ID_ADA)) {
-				idAda = attr.getValue();
-			}
-		}
-		return idAda;
-	}
-	
 	protected boolean canRead(Long socialActorId, Long entityId) throws WebApiException {
 		return getSCClient().readPermission(socialActorId, entityId, Operation.READ);
 	}
+
+	/*
+	 * Getters and Setters
+	 */
+	protected BasicProfile getBasicProfile(HttpServletRequest request) {
+		if (basicProfile == null) {
+			try {
+				setBasicProfile(profileService.getBasicProfile(getToken(request)));
+			} catch (Exception e) {
+				return new BasicProfile();
+			}
+		}
+		return basicProfile;
+	}
+
+	private void setBasicProfile(BasicProfile basicProfile) {
+		this.basicProfile = basicProfile;
+	}
+
+	protected AccountProfile getAccountProfile(HttpServletRequest request) {
+		if (accountProfile == null) {
+			try {
+				setAccountProfile(profileService.getAccountProfile(getToken(request)));
+			} catch (Exception e) {
+				return new AccountProfile();
+			}
+		}
+		return accountProfile;
+	}
+
+	private void setAccountProfile(AccountProfile accountProfile) {
+		this.accountProfile = accountProfile;
+	}
+
 }

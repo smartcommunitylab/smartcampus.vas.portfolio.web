@@ -1,18 +1,19 @@
 /**
  * Copyright 2012-2013 Trento RISE
  * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  * 
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */function Caller() {
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+function Caller() {
 };
 
 Caller.prototype.load = function(snippet, containerSelector, callback) {
@@ -30,7 +31,7 @@ Caller.prototype.createStudent = function() {
 		async : false,
 		type : 'POST',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
 		url : __Properties.baseUrl + 'rest/createstudent',
 		success : function(data, textStatus, jqXHR) {
@@ -46,9 +47,10 @@ Caller.prototype.getOverview = function() {
 	$.ajax({
 		type : 'GET',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.StudentInfo',
+		url : __Properties.baseUrl
+				+ 'rest/smartcampus.services.esse3.StudentInfo',
 		beforeSend : function() {
 			$('#overview').append($('<div></div>').addClass('icon loader'));
 		},
@@ -64,82 +66,95 @@ Caller.prototype.getOverview = function() {
 };
 
 Caller.prototype.getOverviewUserContent = function(category, containerSelector) {
-	$.ajax({
-		type : 'GET',
-		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
-		},
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.UserProducedData/' + category,
-		success : function(data, textStatus, jqXHR) {
-			// cherries
-			if (__Current == 'myportfolios' && __EditMode == false) {
-				var parsedData = JSON.parse(data);
-				//var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
-				var myPortfoliosCurrentContent = __MyPortfoliosCurrent.content;
-				var hugd = myPortfoliosCurrentContent['highlightUserGeneratedData'];
-				var cherries = __Utils.getEntriesByIds(parsedData, hugd);
-				for ( var p = 0; p < cherries.length; p++) {
-					__MyPortfoliosCurrentCherries.push(cherries[p]);
-				}
+	$
+			.ajax({
+				type : 'GET',
+				headers : {
+					'Authorization' : __Sec.getToken()
+				},
+				url : __Properties.baseUrl
+						+ 'rest/smartcampus.services.esse3.UserProducedData/'
+						+ category,
+				success : function(data, textStatus, jqXHR) {
+					// cherries
+					if (__Current == 'myportfolios' && __EditMode == false) {
+						var parsedData = JSON.parse(data);
+						// var myPortfoliosCurrentContent =
+						// JSON.parse(__MyPortfoliosCurrent.content);
+						var myPortfoliosCurrentContent = __MyPortfoliosCurrent.content;
+						var hugd = myPortfoliosCurrentContent['highlightUserGeneratedData'];
+						var cherries = __Utils
+								.getEntriesByIds(parsedData, hugd);
+						for ( var p = 0; p < cherries.length; p++) {
+							__MyPortfoliosCurrentCherries.push(cherries[p]);
+						}
 
-				if (__MyPortfoliosCurrentCherries.length > 0 && __MyPortfoliosCurrentCherriesDone == false) {
-					// == hugd.length
-					// __MyPortfoliosCurrentCherriesDone = true;
-					var rendererSection = new Renderer_Section();
-					rendererSection.render('cherryotc', null);
-				}
-			}
+						if (__MyPortfoliosCurrentCherries.length > 0
+								&& __MyPortfoliosCurrentCherriesDone == false) {
+							// == hugd.length
+							// __MyPortfoliosCurrentCherriesDone = true;
+							var rendererSection = new Renderer_Section();
+							rendererSection.render('cherryotc', null);
+						}
+					}
 
-			var renderer = new Renderer_OverviewSection();
-			renderer.render(category, containerSelector, data);
-			__Utils.refreshUI();
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			// alert(textStatus + ' ' + errorThrown);
-		}
-	});
+					var renderer = new Renderer_OverviewSection();
+					renderer.render(category, containerSelector, data);
+					__Utils.refreshUI();
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					// alert(textStatus + ' ' + errorThrown);
+				}
+			});
 };
 
 Caller.prototype.getUserContent = function(category) {
 	var container = $(__Properties.categories[category].containerSelector);
 
-	$.ajax({
-		type : 'GET',
-		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
-		},
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.UserProducedData/' + category,
-		beforeSend : function() {
-			$(container).append($('<div></div>').addClass('icon loader'));
-		},
-		success : function(data, textStatus, jqXHR) {
-			// cherries
-			if (__Current == 'myportfolios' && __EditMode == false) {
-				var parsedData = JSON.parse(data);
-				//var myPortfoliosCurrentContent = JSON.parse(__MyPortfoliosCurrent.content);
-				var myPortfoliosCurrentContent = __MyPortfoliosCurrent.content;
-				var hugd = myPortfoliosCurrentContent['highlightUserGeneratedData'];
-				var cherries = __Utils.getEntriesByIds(parsedData, hugd);
-				for ( var p = 0; p < cherries.length; p++) {
-					__MyPortfoliosCurrentCherries.push(cherries[p]);
-				}
+	$
+			.ajax({
+				type : 'GET',
+				headers : {
+					'Authorization' : __Sec.getToken()
+				},
+				url : __Properties.baseUrl
+						+ 'rest/smartcampus.services.esse3.UserProducedData/'
+						+ category,
+				beforeSend : function() {
+					$(container).append(
+							$('<div></div>').addClass('icon loader'));
+				},
+				success : function(data, textStatus, jqXHR) {
+					// cherries
+					if (__Current == 'myportfolios' && __EditMode == false) {
+						var parsedData = JSON.parse(data);
+						// var myPortfoliosCurrentContent =
+						// JSON.parse(__MyPortfoliosCurrent.content);
+						var myPortfoliosCurrentContent = __MyPortfoliosCurrent.content;
+						var hugd = myPortfoliosCurrentContent['highlightUserGeneratedData'];
+						var cherries = __Utils
+								.getEntriesByIds(parsedData, hugd);
+						for ( var p = 0; p < cherries.length; p++) {
+							__MyPortfoliosCurrentCherries.push(cherries[p]);
+						}
 
-				if (__MyPortfoliosCurrentCherries.length > 0 && __MyPortfoliosCurrentCherriesDone == false) {
-					// == hugd.length
-					// __MyPortfoliosCurrentCherriesDone = true;
-					var rendererSection = new Renderer_Section();
-					rendererSection.render('cherryotc', null);
-				}
-			}
+						if (__MyPortfoliosCurrentCherries.length > 0
+								&& __MyPortfoliosCurrentCherriesDone == false) {
+							// == hugd.length
+							// __MyPortfoliosCurrentCherriesDone = true;
+							var rendererSection = new Renderer_Section();
+							rendererSection.render('cherryotc', null);
+						}
+					}
 
-			var renderer = new Renderer_Section();
-			renderer.render(category, data);
-			__Utils.refreshUI();
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			// alert(textStatus + ' ' + errorThrown);
-		}
-	});
+					var renderer = new Renderer_Section();
+					renderer.render(category, data);
+					__Utils.refreshUI();
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					// alert(textStatus + ' ' + errorThrown);
+				}
+			});
 };
 
 /* EDIT */
@@ -153,11 +168,12 @@ Caller.prototype.createUserContent = function(category, data) {
 		async : false,
 		type : 'POST',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
 		contentType : 'application/json',
 		data : json,
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.UserProducedData',
+		url : __Properties.baseUrl
+				+ 'rest/smartcampus.services.esse3.UserProducedData',
 		success : function(data, textStatus, jqXHR) {
 			__Caller.refresh([ category ]);
 		},
@@ -171,9 +187,10 @@ Caller.prototype.deleteUserContent = function(category, id) {
 		async : false,
 		type : 'DELETE',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.UserProducedData/' + id,
+		url : __Properties.baseUrl
+				+ 'rest/smartcampus.services.esse3.UserProducedData/' + id,
 		success : function(data, textStatus, jqXHR) {
 			__Caller.refresh([ category ]);
 		},
@@ -192,11 +209,12 @@ Caller.prototype.updateUserContent = function(category, id, data) {
 		async : false,
 		type : 'PUT',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
 		contentType : 'application/json',
 		data : json,
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.UserProducedData/' + id,
+		url : __Properties.baseUrl
+				+ 'rest/smartcampus.services.esse3.UserProducedData/' + id,
 		success : function(data, textStatus, jqXHR) {
 			__Caller.refresh([ category ]);
 		},
@@ -213,9 +231,10 @@ Caller.prototype.getPortfolios = function(tabMenuSelector) {
 		async : false,
 		type : 'GET',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.Portfolio',
+		url : __Properties.baseUrl
+				+ 'rest/smartcampus.services.esse3.Portfolio',
 		beforeSend : function() {
 			// $('#overview').append($('<div></div>').addClass('icon loader'));
 		},
@@ -237,11 +256,12 @@ Caller.prototype.createPortfolio = function(data) {
 		async : false,
 		type : 'POST',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
 		contentType : 'application/json',
 		data : json,
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.Portfolio',
+		url : __Properties.baseUrl
+				+ 'rest/smartcampus.services.esse3.Portfolio',
 		beforeSend : function() {
 			// $('#overview').append($('<div></div>').addClass('icon loader'));
 		},
@@ -262,11 +282,12 @@ Caller.prototype.updatePortfolio = function(portfolio) {
 		async : false,
 		type : 'PUT',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
 		contentType : 'application/json',
 		data : json,
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.Portfolio/' + portfolio.id,
+		url : __Properties.baseUrl
+				+ 'rest/smartcampus.services.esse3.Portfolio/' + portfolio.id,
 		beforeSend : function() {
 			// $('#overview').append($('<div></div>').addClass('icon loader'));
 		},
@@ -286,9 +307,10 @@ Caller.prototype.deletePortfolio = function(id) {
 		async : false,
 		type : 'DELETE',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.Portfolio/' + id,
+		url : __Properties.baseUrl
+				+ 'rest/smartcampus.services.esse3.Portfolio/' + id,
 		success : function(data, textStatus, jqXHR) {
 			__MyPortfoliosCurrent == null;
 			__Main.go('myportfolios');
@@ -305,9 +327,10 @@ Caller.prototype.getUserData = function(containerSelector) {
 	$.ajax({
 		type : 'GET',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
-		url : __Properties.baseUrl + 'rest/eu.trentorise.smartcampus.portfolio.models.UserData',
+		url : __Properties.baseUrl
+				+ 'rest/eu.trentorise.smartcampus.portfolio.models.UserData',
 		success : function(data, textStatus, jqXHR) {
 			var renderer = new Renderer_Notes();
 			renderer.render(containerSelector, data);
@@ -328,11 +351,13 @@ Caller.prototype.updateUserData = function(id, data) {
 		async : false,
 		type : 'PUT',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
 		contentType : 'application/json',
 		data : json,
-		url : __Properties.baseUrl + 'rest/eu.trentorise.smartcampus.portfolio.models.UserData/' + id,
+		url : __Properties.baseUrl
+				+ 'rest/eu.trentorise.smartcampus.portfolio.models.UserData/'
+				+ id,
 		success : function(data, textStatus, jqXHR) {
 			__EditMode = false;
 			__EditMode_change = false;
@@ -351,9 +376,10 @@ Caller.prototype.getStudentExams = function(containerSelector) {
 	$.ajax({
 		type : 'GET',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
-		url : __Properties.baseUrl + 'rest/smartcampus.services.esse3.StudentExams',
+		url : __Properties.baseUrl
+				+ 'rest/smartcampus.services.esse3.StudentExams',
 		success : function(data, textStatus, jqXHR) {
 			var renderer = new Renderer_StudentExams();
 			renderer.render(containerSelector, data);
@@ -372,57 +398,18 @@ Caller.prototype.getProfile = function() {
 		async : false,
 		type : 'GET',
 		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
+			'Authorization' : __Sec.getToken()
 		},
 		url : __Properties.baseUrl + 'rest/getprofile',
 		success : function(data, textStatus, jqXHR) {
-			if (data == '') {
-				__Main.go('profilenew');
-			} else {
-				__Profile = JSON.parse(data);
-				__Caller.createStudent();
-			}
+			__Profile = data;
+			__IsStudent = data.student;
+			__Main.go('manager');
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
+			alert(textStatus + ' ' + errorThrown);
 		}
 	});
-};
-
-Caller.prototype.createProfile = function(data) {
-	var json = JSON.stringify(data);
-
-	$.ajax({
-		async : false,
-		type : 'POST',
-		headers : {
-			'AUTH_TOKEN' : __Sec.getToken()
-		},
-		contentType : 'application/json',
-		data : json,
-		url : __Properties.baseUrl + 'rest/createprofile',
-		success : function(data, textStatus, jqXHR) {
-			__Caller.getProfile();
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-		}
-	});
-};
-
-Caller.prototype.execNewProfile = function() {
-	var name = $('#profilenew form #name').val();
-	var surname = $('#profilenew form #surname').val();
-
-	if (name.length == 0 || surname.length == 0) {
-		alert('Name and surname cannot be empty');
-		return;
-	}
-
-	var data = {
-		'name' : name,
-		'surname' : surname
-	};
-
-	this.createProfile(data);
 };
 
 /*
@@ -433,7 +420,8 @@ Caller.prototype.refresh = function(categories) {
 	__MyPortfoliosCurrentCherriesDone = false;
 
 	if (categories == undefined || categories == null || categories.length == 0) {
-		categories = [ 'overview', 'language', 'skill', 'contact', 'education', 'presentation', 'professional', 'about' ];
+		categories = [ 'overview', 'language', 'skill', 'contact', 'education',
+				'presentation', 'professional', 'about' ];
 	}
 
 	for ( var i = 0; i < categories.length; i++) {
@@ -449,8 +437,8 @@ Caller.prototype.refresh = function(categories) {
 			this.getOverviewUserContent('skill', '#overview_skills');
 		} else if (category == 'contact') {
 			this.getOverviewUserContent('contact', '#overview_contacts');
-		} else if (category == 'education' || category == 'presentation' || category == 'professional'
-				|| category == 'about') {
+		} else if (category == 'education' || category == 'presentation'
+				|| category == 'professional' || category == 'about') {
 			this.getUserContent(category);
 		}
 	}
@@ -459,8 +447,9 @@ Caller.prototype.refresh = function(categories) {
 Caller.prototype.download_pdf = function() {
 	// fetches BINARY FILES synchronously using XMLHttpRequest
 	var req = new XMLHttpRequest();
-	req.open('GET', __Properties.baseUrl + 'rest/generatecv/' + __MyPortfoliosCurrent.id + '/pdf/true', false);
-	req.setRequestHeader("AUTH_TOKEN", __Sec.getToken());
+	req.open('GET', __Properties.baseUrl + 'rest/generatecv/'
+			+ __MyPortfoliosCurrent.id + '/pdf/true', false);
+	req.setRequestHeader("Authorization", __Sec.getToken());
 	// XHR binary charset opt by Marcus Granado 2006 [http://mgran.blogspot.com]
 	req.overrideMimeType('text/plain; charset=x-user-defined');
 	req.send(null);

@@ -1,17 +1,17 @@
 /**
  * Copyright 2012-2013 Trento RISE
  * 
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  * 
- *        http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 var __TEST;
 var __Properties;
@@ -52,10 +52,10 @@ $(document).ready(function() {
 	__Main = new Main();
 
 	__Sec = new Security();
-	var ok = __Sec.checkLogin();
-	if (ok) {
-		__Main.init();
-	}
+	// var ok = __Sec.checkLogin();
+	// if (ok) {
+	__Main.init();
+	// }
 
 	__TEST = new Test();
 });
@@ -70,6 +70,7 @@ function Main() {
 		__Utils.refreshUI();
 
 		__Caller.getProfile();
+		__Utils.refreshUI();
 		// __Main.go('profilenew');
 	};
 
@@ -87,9 +88,7 @@ function Main() {
 		}
 
 		var callback = function() {
-			if (__Current == 'profilenew') {
-				__Renderer_Toolbar.render();
-			} else if (__Current == 'manager') {
+			if (__Current == 'manager') {
 				__Renderer_Toolbar.render();
 				__Caller.refresh();
 				__Utils.refreshUI();

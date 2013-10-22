@@ -12,19 +12,26 @@ Copyright 2012-2013 Trento RISE
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
---%><%@ page language="java" contentType="text/html; charset=UTF-8"
+--%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="lib/jquery/ui/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css">
+<link href="lib/jquery/ui/jquery-ui-1.9.2.custom.min.css"
+	rel="stylesheet" type="text/css">
 <link href="css/main.css" rel="stylesheet" type="text/css">
+<script>
+	auth_token = '<%=request.getAttribute("token")%>';
+</script>
 <script type="text/javascript" src="lib/json2.js"></script>
 <script type="text/javascript" src="lib/jquery/jquery-1.8.3.min.js"></script>
 <script type="text/javascript"
 	src="lib/jquery/plugins/jquery.oembed.min.js"></script>
-<script type="text/javascript" src="lib/jquery/ui/jquery-ui-1.9.2.custom.min.js"></script>
+<script type="text/javascript"
+	src="lib/jquery/ui/jquery-ui-1.9.2.custom.min.js"></script>
 <!-- CUSTOM -->
 <script type="text/javascript" src="js/renderers/entry_raw.js"></script>
 <script type="text/javascript" src="js/renderers/entry_simple.js"></script>

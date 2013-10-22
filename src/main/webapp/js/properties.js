@@ -1,15 +1,23 @@
 function Properties() {
-	//this.staticUrl = '/portfolio/';
+//	this.staticUrl = '/portfolio/';
 	this.staticUrl = '/mycvs/';
-	this.baseUrl = 'https://' + window.document.location.hostname + (window.document.location.port==''?'':(':'+window.document.location.port)) + this.staticUrl;
-	this.authUrl = 'https://ac.smartcampuslab.it/accesstoken-provider/ac/getToken?code=&redirect=';
-	this.validationUrl = this.baseUrl + 'rest/validatetoken/';
+	this.baseUrl = 'https://'
+			+ window.document.location.hostname
+			+ (window.document.location.port == '' ? ''
+					: (':' + window.document.location.port)) + this.staticUrl;
+	this.logoutUrl = 'https://'
+			+ window.document.location.hostname
+			+ (window.document.location.port == '' ? ''
+					: (':' + window.document.location.port)) + this.staticUrl
+			+ 'logout';
 
 	this.showmsec = 0;
 	this.hidemsec = 0;
 
-	this.studentInfos = [ 'cds', 'enrollmentYear', 'academicYear', 'supplementaryYears', 'cfu_cfuTotal', 'marksNumber',
-			'marksAverage', 'gender', 'dateOfBirth', 'nation', 'address', 'email', 'phone', 'mobile' ];
+	this.studentInfos = [ 'cds', 'enrollmentYear', 'academicYear',
+			'supplementaryYears', 'cfu_cfuTotal', 'marksNumber',
+			'marksAverage', 'gender', 'dateOfBirth', 'nation', 'address',
+			'email', 'phone', 'mobile' ];
 
 	this.categories = {
 		'education' : {

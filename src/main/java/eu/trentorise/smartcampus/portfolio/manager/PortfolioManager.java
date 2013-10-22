@@ -38,7 +38,7 @@ import eu.trentorise.smartcampus.portfolio.models.UserProducedData;
 @Component
 public class PortfolioManager {
 
-	public static String STUDENT_EDU_TITLE = "University�of Trento";
+	public static String STUDENT_EDU_TITLE = "University of Trento";
 	public static String STUDENT_EDU_TYPE = "sys_simple";
 	public static String STUDENT_EDU_CATEGORY = "education";
 
@@ -46,11 +46,10 @@ public class PortfolioManager {
 
 	@Autowired
 	private DomainEngineClient domainClient;
-	
+
 	private static ObjectMapper mapper = new ObjectMapper();
 
-	public boolean createStudent(String userId, String unitnId) throws InvocationException, IOException,
-			ClassNotFoundException {
+	public boolean createStudent(String userId, String unitnId) throws InvocationException, IOException, ClassNotFoundException {
 		Map<String, Object> pars = new TreeMap<String, Object>();
 		pars.put("newUserId", userId);
 		pars.put("newIdAda", unitnId);
@@ -66,8 +65,7 @@ public class PortfolioManager {
 			pars.put("newTitle", STUDENT_EDU_TITLE);
 			pars.put("newSubtitle", "");
 			pars.put("newContent", "");
-			domainClient.invokeDomainOperation("createUserProducedData",
-					"smartcampus.services.esse3.UserProducedDataFactory",
+			domainClient.invokeDomainOperation("createUserProducedData", "smartcampus.services.esse3.UserProducedDataFactory",
 					"smartcampus.services.esse3.UserProducedDataFactory.0", pars, userId, "vas_portfolio_subscriber");
 			return true;
 		}
@@ -119,8 +117,7 @@ public class PortfolioManager {
 	}
 
 	public String getStudentPortfolio(String portfolioId) throws InvocationException {
-		return domainClient.searchDomainObject("smartcampus.services.esse3.Portfolio", portfolioId,
-				"vas_portfolio_subscriber");
+		return domainClient.searchDomainObject("smartcampus.services.esse3.Portfolio", portfolioId, "vas_portfolio_subscriber");
 	}
 
 	public String getPortfolioByEntityId(Long id) throws InvocationException {
@@ -258,7 +255,7 @@ public class PortfolioManager {
 			pars.put("newShowStudentInfo", showPartArray);
 
 			if (portfolio.getTags() != null) {
-				List<Map<String,Object>> tagMapList = new ArrayList<Map<String,Object>>();
+				List<Map<String, Object>> tagMapList = new ArrayList<Map<String, Object>>();
 				for (Concept c : portfolio.getTags()) {
 					tagMapList.add(mapper.convertValue(c, Map.class));
 				}
@@ -266,8 +263,8 @@ public class PortfolioManager {
 			}
 
 			if (!pars.containsValue(null)) {
-				domainClient.invokeDomainOperation("updatePortfolio", "smartcampus.services.esse3.Portfolio",
-						portfolioId, pars, portfolioId, "vas_portfolio_subscriber");
+				domainClient.invokeDomainOperation("updatePortfolio", "smartcampus.services.esse3.Portfolio", portfolioId,
+						pars, portfolioId, "vas_portfolio_subscriber");
 			}
 		}
 	}
@@ -285,8 +282,8 @@ public class PortfolioManager {
 			if (!userId.equals(o.getContent().get("userId"))) {
 				throw new SecurityException("Incorrect user");
 			}
-			domainClient.invokeDomainOperation("deletePortfolio", "smartcampus.services.esse3.Portfolio", portfolioId,
-					pars, portfolioId, "vas_portfolio_subscriber");
+			domainClient.invokeDomainOperation("deletePortfolio", "smartcampus.services.esse3.Portfolio", portfolioId, pars,
+					portfolioId, "vas_portfolio_subscriber");
 		}
 
 	}
@@ -294,12 +291,14 @@ public class PortfolioManager {
 	public List<String> getUserProducedData(String userId, String category) throws InvocationException {
 		Map<String, Object> pars = new TreeMap<String, Object>();
 		pars.put("userId", userId);
+		System.out.println("UserProducedData userId: " + userId);
 		if (category != null) {
 			pars.put("category", category);
+			System.out.println("UserProducedData category: " + category);
 		}
 		List<String> res = domainClient.searchDomainObjects("smartcampus.services.esse3.UserProducedData", pars,
 				"vas_portfolio_subscriber");
-
+		System.out.println("UserProducedData first: " + res.get(0));
 		return res;
 	}
 
@@ -348,8 +347,7 @@ public class PortfolioManager {
 					&& (!upd.getTitle().isEmpty() || !upd.getSubtitle().isEmpty() || !upd.getContent().isEmpty())) {
 				domainClient.invokeDomainOperation("createUserProducedData",
 						"smartcampus.services.esse3.UserProducedDataFactory",
-						"smartcampus.services.esse3.UserProducedDataFactory.0", pars, userId,
-						"vas_portfolio_subscriber");
+						"smartcampus.services.esse3.UserProducedDataFactory.0", pars, userId, "vas_portfolio_subscriber");
 			}
 		}
 	}
@@ -372,9 +370,8 @@ public class PortfolioManager {
 			pars.put("newContent", upd.getContent());
 			if (!pars.containsValue(null)
 					&& (!upd.getTitle().isEmpty() || !upd.getSubtitle().isEmpty() || !upd.getContent().isEmpty())) {
-				domainClient.invokeDomainOperation("updateUserProducedData",
-						"smartcampus.services.esse3.UserProducedData", userDataId, pars, userDataId,
-						"vas_portfolio_subscriber");
+				domainClient.invokeDomainOperation("updateUserProducedData", "smartcampus.services.esse3.UserProducedData",
+						userDataId, pars, userDataId, "vas_portfolio_subscriber");
 			}
 		}
 	}
@@ -390,8 +387,8 @@ public class PortfolioManager {
 		}
 
 		Map<String, Object> pars = new TreeMap<String, Object>();
-		domainClient.invokeDomainOperation("deleteUserProducedData", "smartcampus.services.esse3.UserProducedData",
-				userDataId, pars, userDataId, "vas_portfolio_subscriber");
+		domainClient.invokeDomainOperation("deleteUserProducedData", "smartcampus.services.esse3.UserProducedData", userDataId,
+				pars, userDataId, "vas_portfolio_subscriber");
 	}
 
 	public String getDomainObject(String type, String id) throws InvocationException {
@@ -399,14 +396,13 @@ public class PortfolioManager {
 	}
 
 	public String getUserProducedData(String id) throws InvocationException {
-		return domainClient.searchDomainObject("smartcampus.services.esse3.UserProducedData", id,
-				"vas_portfolio_subscriber");
+		return domainClient.searchDomainObject("smartcampus.services.esse3.UserProducedData", id, "vas_portfolio_subscriber");
 	}
 
 	public List<String> getAllUserProducedData(String userId) throws InvocationException {
 		Map<String, Object> pars = new TreeMap<String, Object>();
 		pars.put("userId", userId);
-		return domainClient.searchDomainObjects("smartcampus.services.esse3.UserProducedData", pars,
-				"vas_portfolio_subscriber");
+		return domainClient
+				.searchDomainObjects("smartcampus.services.esse3.UserProducedData", pars, "vas_portfolio_subscriber");
 	}
 }

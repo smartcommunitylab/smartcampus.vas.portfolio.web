@@ -34,8 +34,7 @@ public class AggregatorTest {
 
 	@BeforeClass
 	public static void setup() {
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
-				"spring/applicationContext.xml");
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
 		aggregator = ctx.getBean(Aggregator.class);
 	}
 
@@ -46,7 +45,8 @@ public class AggregatorTest {
 
 	// @Test
 	public void getEuropass() throws Exception {
-		Europass europass = aggregator.getEuropass(userId, portfolioId, token,
-				serviceUri);
+		// Europass europass = aggregator.getEuropass(userId, portfolioId,
+		// token,
+		// serviceUri);
 	}
 }

@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import eu.trentorise.smartcampus.ac.provider.model.User;
 import eu.trentorise.smartcampus.portfolio.manager.Aggregator;
 import eu.trentorise.smartcampus.portfolio.manager.ReportManager;
 import eu.trentorise.smartcampus.portfolio.manager.ReportManager.REPORT_OUTPUT;
@@ -43,29 +42,19 @@ public class ReportController extends SCController {
 	private Aggregator aggregatorData;
 
 	@Autowired
-	//http://vas.sc.trentorise.eu/smartcampus.vas.community-manager.web
+	// http://vas.sc.trentorise.eu/smartcampus.vas.community-manager.web
 	@Value("${smartcampus.vas.communitymanager.uri}")
 	private String profileServiceUri;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/generatecv/{portfolioId}/{outputFormat}/{base64}")
 	public @ResponseBody
-	byte[] generateReport(HttpServletRequest request,
-			HttpServletResponse response, HttpSession session,
-			@PathVariable("portfolioId") String portfolioId,
-			@PathVariable("outputFormat") String outputFormat,
+	byte[] generateReport(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			@PathVariable("portfolioId") String portfolioId, @PathVariable("outputFormat") String outputFormat,
 			@PathVariable("base64") boolean base64) throws Exception {
 
-		User user = getUser(request);
-		String userId = getUserId(user);
-		if (userId == null) {
-			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			return null;
-		}
-
-		byte[] reportContent = reportManager.produceReportCv("europass.jasper",
-				REPORT_OUTPUT.PDF, aggregatorData.getEuropass(userId,
-						portfolioId, getUserToken(request), profileServiceUri), request
-						.getSession().getServletContext().getRealPath("/")
+		byte[] reportContent = reportManager.produceReportCv("europass.jasper", REPORT_OUTPUT.PDF,
+				aggregatorData.getEuropass(getBasicProfile(request), portfolioId), request.getSession().getServletContext()
+						.getRealPath("/")
 						+ "img/report");
 
 		return (base64) ? Base64.encodeBase64(reportContent) : reportContent;
