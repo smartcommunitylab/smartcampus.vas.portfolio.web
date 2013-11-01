@@ -71,6 +71,7 @@ import eu.trentorise.smartcampus.presentation.common.exception.DataException;
 import eu.trentorise.smartcampus.presentation.common.exception.NotFoundException;
 import eu.trentorise.smartcampus.presentation.common.util.Util;
 import eu.trentorise.smartcampus.presentation.storage.BasicObjectStorage;
+import eu.trentorise.smartcampus.profileservice.ProfileServiceException;
 import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
 
 @Controller
@@ -131,7 +132,7 @@ public class PortfolioController extends SCController {
 		return new ModelAndView(
 				"redirect:"
 						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
-								"smartcampus.profile.basicprofile.me", null));
+								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
 	}
 
 	/*
@@ -157,6 +158,7 @@ public class PortfolioController extends SCController {
 			portfolioManager.createStudent(userId, unitnId);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		return null;
@@ -192,6 +194,7 @@ public class PortfolioController extends SCController {
 
 			return portfolioManager.getStudentExams(userId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		return "";
@@ -236,6 +239,7 @@ public class PortfolioController extends SCController {
 			portfolio = sanitize(portfolio);
 			return portfolioManager.createPortfolio(portfolio, userId, Long.valueOf(getBasicProfile(request).getSocialId()));
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		return "";
@@ -273,6 +277,7 @@ public class PortfolioController extends SCController {
 			}
 			portfolioManager.deletePortfolio(id, userId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		return "";
@@ -324,6 +329,7 @@ public class PortfolioController extends SCController {
 			upd = sanitize(upd);
 			portfolioManager.createUserProducedData(upd, userId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		return "";
@@ -361,6 +367,7 @@ public class PortfolioController extends SCController {
 			}
 			portfolioManager.deleteUserProducedData(id, userId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		return "";
@@ -389,6 +396,7 @@ public class PortfolioController extends SCController {
 			}
 			return result;
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		return "";
@@ -398,8 +406,14 @@ public class PortfolioController extends SCController {
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/getprofile")
 	public @ResponseBody
 	PmBasicProfile getProfile(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
-		PmBasicProfile basicProfile = getProfileData(request, response);
-		return basicProfile;
+		try {
+			PmBasicProfile basicProfile = getProfileData(request, response);
+			return basicProfile;
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		return null;
 	}
 
 	private PmBasicProfile getProfileData(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -672,7 +686,7 @@ public class PortfolioController extends SCController {
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.UserData")
 	public @ResponseBody
 	List<UserData> getUserData(HttpServletRequest request, HttpServletResponse response) throws DataException,
-			NotFoundException {
+			NotFoundException, SecurityException, ProfileServiceException {
 		String userId = getBasicProfile(request).getUserId();
 		if (userId == null) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);

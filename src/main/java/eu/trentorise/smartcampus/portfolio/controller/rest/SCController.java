@@ -31,6 +31,7 @@ import org.springframework.stereotype.Controller;
 
 import eu.trentorise.smartcampus.aac.AACService;
 import eu.trentorise.smartcampus.profileservice.BasicProfileService;
+import eu.trentorise.smartcampus.profileservice.ProfileServiceException;
 import eu.trentorise.smartcampus.profileservice.model.AccountProfile;
 import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
 
@@ -63,9 +64,6 @@ public class SCController {
 	protected AACService aacService;
 	protected BasicProfileService profileService;
 
-	private BasicProfile basicProfile;
-	private AccountProfile accountProfile;
-
 	@PostConstruct
 	public void init() {
 		aacService = new AACService(aacURL, client_id, client_secret);
@@ -79,7 +77,8 @@ public class SCController {
 	 * @return
 	 */
 	protected String getToken(HttpServletRequest request) {
-		return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String fromCtx = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return fromCtx;
 	}
 
 	protected SCWebApiClient getSCClient() {
@@ -96,34 +95,12 @@ public class SCController {
 	/*
 	 * Getters and Setters
 	 */
-	protected BasicProfile getBasicProfile(HttpServletRequest request) {
-		if (basicProfile == null) {
-			try {
-				setBasicProfile(profileService.getBasicProfile(getToken(request)));
-			} catch (Exception e) {
-				return new BasicProfile();
-			}
-		}
-		return basicProfile;
+	protected BasicProfile getBasicProfile(HttpServletRequest request) throws SecurityException, ProfileServiceException {
+		return profileService.getBasicProfile(getToken(request));
 	}
 
-	private void setBasicProfile(BasicProfile basicProfile) {
-		this.basicProfile = basicProfile;
-	}
-
-	protected AccountProfile getAccountProfile(HttpServletRequest request) {
-		if (accountProfile == null) {
-			try {
-				setAccountProfile(profileService.getAccountProfile(getToken(request)));
-			} catch (Exception e) {
-				return new AccountProfile();
-			}
-		}
-		return accountProfile;
-	}
-
-	private void setAccountProfile(AccountProfile accountProfile) {
-		this.accountProfile = accountProfile;
+	protected AccountProfile getAccountProfile(HttpServletRequest request) throws SecurityException, ProfileServiceException {
+		return profileService.getAccountProfile(getToken(request));
 	}
 
 }
