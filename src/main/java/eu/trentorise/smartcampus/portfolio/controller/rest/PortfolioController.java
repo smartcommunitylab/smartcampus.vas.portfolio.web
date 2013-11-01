@@ -309,6 +309,7 @@ public class PortfolioController extends SCController {
 			}
 			return portfolioManager.getUserProducedData(userId, category);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return null;
 		}

@@ -78,6 +78,7 @@ public class SCController {
 	 */
 	protected String getToken(HttpServletRequest request) {
 		String fromCtx = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.err.println("TOKEN: "+fromCtx);
 		return fromCtx;
 	}
 
@@ -96,7 +97,9 @@ public class SCController {
 	 * Getters and Setters
 	 */
 	protected BasicProfile getBasicProfile(HttpServletRequest request) throws SecurityException, ProfileServiceException {
-		return profileService.getBasicProfile(getToken(request));
+		BasicProfile bp = profileService.getBasicProfile(getToken(request));
+		System.err.println("BP USER ID: "+bp.getUserId());
+		return bp;
 	}
 
 	protected AccountProfile getAccountProfile(HttpServletRequest request) throws SecurityException, ProfileServiceException {

@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,8 +40,6 @@ public class PortfolioManager {
 	public static String STUDENT_EDU_TITLE = "University of Trento";
 	public static String STUDENT_EDU_TYPE = "sys_simple";
 	public static String STUDENT_EDU_CATEGORY = "education";
-
-	private static final Logger log = Logger.getLogger(PortfolioManager.class);
 
 	@Autowired
 	private DomainEngineClient domainClient;
@@ -291,14 +288,11 @@ public class PortfolioManager {
 	public List<String> getUserProducedData(String userId, String category) throws InvocationException {
 		Map<String, Object> pars = new TreeMap<String, Object>();
 		pars.put("userId", userId);
-		System.out.println("UserProducedData userId: " + userId);
 		if (category != null) {
 			pars.put("category", category);
-			System.out.println("UserProducedData category: " + category);
 		}
 		List<String> res = domainClient.searchDomainObjects("smartcampus.services.esse3.UserProducedData", pars,
 				"vas_portfolio_subscriber");
-		System.out.println("UserProducedData first: " + res.get(0));
 		return res;
 	}
 
