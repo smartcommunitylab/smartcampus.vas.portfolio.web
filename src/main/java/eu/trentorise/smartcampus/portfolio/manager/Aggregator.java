@@ -94,7 +94,9 @@ public class Aggregator {
 		List<ContactData> contacts = JsonConverter.toClassList(json, ContactData.class);
 		for (ContactData temp : contacts) {
 			if (visibleItems.contains(temp.getId())) {
-				if (temp.getName().equalsIgnoreCase("email")) {
+				if (temp.getName().equalsIgnoreCase("address")) {
+					europass.setAddress(temp.getValue());
+				} else if (temp.getName().equalsIgnoreCase("email")) {
 					europass.setEmail(temp.getValue());
 				} else if (temp.getName().equalsIgnoreCase("fax")) {
 					europass.setFax(temp.getValue());

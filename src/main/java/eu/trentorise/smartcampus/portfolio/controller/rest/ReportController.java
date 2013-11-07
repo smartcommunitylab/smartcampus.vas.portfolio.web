@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -46,16 +47,30 @@ public class ReportController extends SCController {
 	@Value("${smartcampus.vas.communitymanager.uri}")
 	private String profileServiceUri;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/generatecv/{portfolioId}/{outputFormat}/{base64}")
+	private Logger log = Logger.getLogger(this.getClass());
+
+	@RequestMapping(method = RequestMethod.GET, value = "/rest/generatecv/{portfolioId}/{outputFormat}/{base64}")
 	public @ResponseBody
 	byte[] generateReport(HttpServletRequest request, HttpServletResponse response, HttpSession session,
 			@PathVariable("portfolioId") String portfolioId, @PathVariable("outputFormat") String outputFormat,
 			@PathVariable("base64") boolean base64) throws Exception {
 
-		byte[] reportContent = reportManager.produceReportCv("europass.jasper", REPORT_OUTPUT.PDF,
-				aggregatorData.getEuropass(getBasicProfile(request), portfolioId), request.getSession().getServletContext()
-						.getRealPath("/")
-						+ "img/report");
+		log.error("portfolioId: " + portfolioId);
+		log.error("outputFormat: " + outputFormat);
+
+		byte[] reportContent;
+		try {
+			log.error(request.getSession());
+			log.error(request.getSession().getServletContext());
+			log.error(request.getSession().getServletContext().getRealPath("/"));
+			reportContent = reportManager.produceReportCv("europass.jasper", REPORT_OUTPUT.PDF,
+					aggregatorData.getEuropass(getBasicProfile(request), portfolioId), request.getSession().getServletContext()
+							.getRealPath("/")
+							+ "img/report");
+		} catch (Exception e) {
+			log.error(e.getClass() + " >>> " + e.getMessage());
+			throw e;
+		}
 
 		return (base64) ? Base64.encodeBase64(reportContent) : reportContent;
 	}

@@ -37,26 +37,25 @@ public class ReportManager {
 		PDF
 	}
 
-	public byte[] produceReportCv(String templateName, REPORT_OUTPUT output,
-			Europass data, String imageBaseDirectory) throws ReportException {
+	public byte[] produceReportCv(String templateName, REPORT_OUTPUT output, Europass data, String imageBaseDirectory)
+			throws ReportException {
 
 		if (imageBaseDirectory != null) {
-			if (!imageBaseDirectory.endsWith("/")
-					&& !imageBaseDirectory.endsWith("\\")) {
+			if (!imageBaseDirectory.endsWith("/") && !imageBaseDirectory.endsWith("\\")) {
 				imageBaseDirectory = imageBaseDirectory.concat("/");
 			}
 		}
+
 		byte[] report = null;
-		InputStream templateStream = this.getClass().getClassLoader()
-				.getResourceAsStream(templateName);
+		InputStream templateStream = this.getClass().getClassLoader().getResourceAsStream(templateName);
+
 		switch (output) {
 		case PDF:
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("imagesDir", imageBaseDirectory);
 			params.put("portfolio", data);
 			try {
-				report = JasperRunManager.runReportToPdf(templateStream,
-						params, new JREmptyDataSource());
+				report = JasperRunManager.runReportToPdf(templateStream, params, new JREmptyDataSource());
 			} catch (JRException e) {
 				logger.error("Exception creating report in pdf format", e);
 				throw new ReportException();

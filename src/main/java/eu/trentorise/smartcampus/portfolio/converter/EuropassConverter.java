@@ -58,9 +58,9 @@ public class EuropassConverter {
 
 	public static WorkExperience toWorkExperience(CurriculumEntry entry) {
 		WorkExperience we = new WorkExperience();
+		we.setOccupation(entry.getName());
 		we.setDate(entry.getTimePeriod());
 		we.setActivities(entry.getDescription());
-		we.setEmployerInfo(entry.getName());
 		return we;
 	}
 
