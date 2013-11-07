@@ -963,9 +963,9 @@ public class PortfolioController extends SCController {
 		}
 
 		List<String> udList = p.getShowUserGeneratedData();
-		// if no data is shared, neither the student exams are
-		if (udList == null || udList.isEmpty())
-			return null;
+//		// if no data is shared, neither the student exams are
+//		if (udList == null || udList.isEmpty())
+//			return null;
 
 		ArrayList<UserProducedData> updList = new ArrayList<UserProducedData>();
 		boolean showExams = false;
