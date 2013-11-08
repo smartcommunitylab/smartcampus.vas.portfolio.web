@@ -93,10 +93,6 @@ public class PortfolioController extends SCController {
 	@Value("${smartcampus.portfoliomanager.url}")
 	private String mainURL;
 
-	@Autowired
-	@Value("${smartcampus.vas.communitymanager.uri}")
-	private String profileServiceUri;
-
 	private Validator validator = ESAPI.validator();
 	private static final int INPUT_MAX_LENGTH = 9999;
 
@@ -949,13 +945,17 @@ public class PortfolioController extends SCController {
 			si = new StudentInfo();
 			si.setStudentData(new StudentData());
 		}
+		container.setStudentInfo(si);
+		BasicProfile basicProfile = null;
+		
 		if (!p.getUserId().equals(currentUserId)) {
 			List<String> shown = p.getShowStudentInfo();
 			si.getStudentData().filterData(shown);
+			basicProfile = getBasicProfile(request, p.getUserId());
+		} else {
+			basicProfile = getBasicProfile(request);
 		}
-		container.setStudentInfo(si);
 
-		BasicProfile basicProfile = getBasicProfile(request);
 		if (basicProfile != null) {
 			StudentData sd = container.getStudentInfo().getStudentData();
 			sd.setName(basicProfile.getName());

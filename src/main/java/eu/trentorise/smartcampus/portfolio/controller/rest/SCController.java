@@ -98,7 +98,10 @@ public class SCController {
 	 */
 	protected BasicProfile getBasicProfile(HttpServletRequest request) throws SecurityException, ProfileServiceException {
 		BasicProfile bp = profileService.getBasicProfile(getToken(request));
-		System.err.println("BP USER ID: "+bp.getUserId());
+		return bp;
+	}
+	protected BasicProfile getBasicProfile(HttpServletRequest request, String userId) throws SecurityException, ProfileServiceException {
+		BasicProfile bp = profileService.getBasicProfile(userId, getToken(request));
 		return bp;
 	}
 
