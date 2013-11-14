@@ -49,7 +49,11 @@ public class SCController {
 	@Autowired
 	@Value("${aacURL}")
 	private String aacURL;
-	
+
+	@Autowired
+	@Value("${aacExtURL}")
+	private String aacExtURL;
+
 	@Autowired
 	@Value("${smartcampus.client.id}")
 	private String client_id;
@@ -66,7 +70,7 @@ public class SCController {
 
 	@PostConstruct
 	public void init() {
-		aacService = new AACService(aacURL, client_id, client_secret);
+		aacService = new AACService(aacExtURL, client_id, client_secret);
 		profileService = new BasicProfileService(aacURL);
 	}
 	

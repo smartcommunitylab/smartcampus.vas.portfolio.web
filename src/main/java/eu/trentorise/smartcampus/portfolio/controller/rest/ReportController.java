@@ -42,11 +42,6 @@ public class ReportController extends SCController {
 	@Autowired
 	private Aggregator aggregatorData;
 
-	@Autowired
-	// http://vas.sc.trentorise.eu/smartcampus.vas.community-manager.web
-	@Value("${smartcampus.vas.communitymanager.uri}")
-	private String profileServiceUri;
-
 	private Logger log = Logger.getLogger(this.getClass());
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/generatecv/{portfolioId}/{outputFormat}/{base64}")
