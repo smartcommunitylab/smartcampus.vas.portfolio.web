@@ -47,8 +47,12 @@
 	background: rgba(255, 255, 255, 0.5);
 }
 
-#overview .overview_sub ul li a {
+#overview .overview_sub ul li .entry_tools {
 	display: none;
+}
+
+#overview .overview_sub ul li:hover .entry_tools, #overview .overview_sub ul li .entry_tools.entry_edit {
+	display: inline-block;
 }
 
 #overview .overview_sub_header {
@@ -81,7 +85,7 @@
 
 #overview label {
 	color: #999999;
-	margin-right: 5px;
+	/*margin-right: 5px;*/
 }
 
 #overview_card {
@@ -108,3 +112,11 @@
 	font-size: 18px;
 	margin-bottom: 18px;
 }
+
+#overview .entry_edit {
+	visibility: visible;
+}
+
+/*#overview .overview_sub ul li label, #overview .overview_sub ul li span {
+	float: left;
+}*/

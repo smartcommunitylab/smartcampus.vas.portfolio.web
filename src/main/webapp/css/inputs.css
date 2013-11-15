@@ -13,18 +13,16 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-/* Images */
-.icon {
-	width: 18px;
-	height: 18px;
-	display: inline-block;
-	vertical-align: middle;
-}
-
 input[type=checkbox].eye {
 	background: url('../img/icons/sprite_icons.png') -72px 0;
 }
 
 input[type=checkbox]:checked.eye {
 	background: url('../img/icons/sprite_icons.png') -54px 0;
+}
+
+form button {
+	background-color: #6699cc;
+	color: white;
+	border: 0px;
 }

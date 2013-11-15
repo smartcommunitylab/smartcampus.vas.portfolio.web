@@ -14,5 +14,9 @@ Copyright 2012-2013 Trento RISE
    limitations under the License.
 -->
 <div id="notes">
+    <div ng-bind-html="notes.notes" ng-if="editMode == false"></div>
+    <form class="form" ng-if="editMode == true">
+        <textarea class="input_content" name="content" required="required" ng-model="notes.notes" />
+    </form>
 </div>
 <div class="clear"></div>

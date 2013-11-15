@@ -13,7 +13,7 @@ Copyright 2012-2013 Trento RISE
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<div id="exams">
+<div id="exams" ng-if="showExams == true">
 	<table>
 		<thead>
 			<tr>
@@ -27,6 +27,19 @@ Copyright 2012-2013 Trento RISE
 			</tr>
 		</thead>
 		<tbody>
+			<tr ng-repeat="exam in exams">
+				<td class="exam_name">{{exam.name}}</td>
+				<td>{{exam.weight}}</td>
+				<td>
+					<span ng-if="exam.result == '' || exam.result == 0">-</span>
+					<span ng-if="exam.result != '' && exam.result != 0">{{exam.result}}</span>
+					<span ng-if="exam.lode == true"> L</span>
+				</td>
+				<td>
+					<span ng-if="exam.date <= 0">-</span>
+					<span ng-if="exam.date > 0">{{utils.customDateFormat(exam.date, '#DD#/#MM#/#YYYY#')}}</span>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </div>

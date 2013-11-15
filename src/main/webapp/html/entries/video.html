@@ -1,0 +1,18 @@
+<div class="entry_tools" ng-class="{ 'entry_edit': editMode == true }" ng-show="showEntry(item)">
+    <ul>
+        <li ng-repeat="tool in getTools(item)">
+            <a class="icon" ng-class="getToolsClasses(tool, item)" ng-click="useTool(tool, item)"></a>
+        </li>
+    </ul>
+</div>
+<div class="entry_body" ng-show="showEntry(item)">
+    <a class="oembed" href="{{item.content}}"></a>
+</div>
+
+<form class="form section_form simple" ng-controller="FormsController" ng-show="showEntryForm(item)">
+    <input class="input_content" type="text" placeholder="{{activeFormCategory == 'presentation' ? 'Video link, e.g.: http://www.youtube.com/watch?v=w0ffwDYo00Q)' : ''}}" ng-model="activeForms[activeFormCategory].content" />
+    <!-- <input type="submit" value="OK" /> -->
+    <button ng-click="temp(activeFormCategory)">OK</button>
+    <button ng-click="formCancel(activeFormCategory)">Cancel</button>
+</form>
+<div class="clear"></div>

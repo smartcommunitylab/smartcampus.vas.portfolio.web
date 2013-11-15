@@ -1,0 +1,16 @@
+<div ng-show="showEntry(item)">
+    {{item.title}}
+    <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
+        <a class="icon {{tool}}" ng-repeat="tool in getTools(item)" ng-class="getToolsClasses(tool, item)" ng-click="useTool(tool, item)"></a>
+    </span>
+</div>
+
+<form class="form" ng-controller="FormsController" ng-show="showEntryForm(item)">
+    <input class="input_skill" type="text" placeholder="Skill" ng-model="activeForms['skill'].title" />
+    <br />
+    <!-- <input type="submit" value="OK" /> -->
+    <button ng-click="formSend('skill')">OK</button>
+    <button ng-click="formCancel('skill')">Cancel</button>
+</form>
+
+<div class="clear"></div>

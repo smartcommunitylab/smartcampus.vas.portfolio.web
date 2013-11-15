@@ -1,0 +1,20 @@
+<div class="entry_tools" ng-class="{ 'entry_edit': editMode == true }" ng-show="showEntry(item)">
+    <ul>
+        <li ng-repeat="tool in getTools(item)">
+            <a class="icon" ng-class="getToolsClasses(tool, item)" ng-click="useTool(tool, item)"></a>
+        </li>
+    </ul>
+</div>
+<div class="entry_body" ng-show="showEntry(item)">
+    <div class="title">{{item.title}}</div>
+    <div class="subtitle">{{item.subtitle}}</div>
+</div>
+
+<form class="form section_form simple" ng-controller="FormsController" ng-show="showEntryForm(item)">
+    <input class="input_title" type="text" placeholder="{{activeFormCategory == 'education' ? 'Education title' : ''}}" ng-model="activeForms[activeFormCategory].title" />
+    <input class="input_subtitle" type="text" placeholder="{{activeFormCategory == 'education' ? 'Time period' : ''}}" ng-model="activeForms[activeFormCategory].subtitle" />
+    <!-- <input type="submit" value="OK" /> -->
+    <button ng-click="formSend(activeFormCategory)">OK</button>
+    <button ng-click="formCancel(activeFormCategory)">Cancel</button>
+</form>
+<div class="clear"></div>

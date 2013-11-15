@@ -14,110 +14,88 @@ Copyright 2012-2013 Trento RISE
    limitations under the License.
 --%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html ng-app="pm">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="lib/jquery/ui/jquery-ui-1.9.2.custom.min.css"
-	rel="stylesheet" type="text/css">
+
+<link href="lib/jquery/ui/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css">
 <link href="css/main.css" rel="stylesheet" type="text/css">
+<link href="css/animate.min.css" rel="stylesheet" type="text/css">
+
 <script>
 	auth_token = '<%=request.getAttribute("token")%>';
 </script>
-<script type="text/javascript" src="lib/json2.js"></script>
-<script type="text/javascript" src="lib/jquery/jquery-1.8.3.min.js"></script>
-<script type="text/javascript"
-	src="lib/jquery/plugins/jquery.oembed.min.js"></script>
-<script type="text/javascript"
-	src="lib/jquery/ui/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-sanitize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-animate.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="lib/jquery/plugins/jquery.oembed.min.js"></script>
+<script type="text/javascript" src="lib/jquery/ui/jquery-ui-1.10.3.custom.min.js"></script>
+
 <!-- CUSTOM -->
-<script type="text/javascript" src="js/renderers/entry_raw.js"></script>
-<script type="text/javascript" src="js/renderers/entry_simple.js"></script>
-<script type="text/javascript" src="js/renderers/entry_simple_desc.js"></script>
-<script type="text/javascript" src="js/renderers/entry_simple_pic.js"></script>
-<script type="text/javascript" src="js/renderers/entry_video.js"></script>
-<script type="text/javascript" src="js/renderers/entry_sys_simple.js"></script>
-<script type="text/javascript" src="js/renderers/entry_language.js"></script>
-<script type="text/javascript" src="js/renderers/entry_skill.js"></script>
-<script type="text/javascript" src="js/renderers/entry_contact.js"></script>
-<script type="text/javascript" src="js/renderers/studentinfo.js"></script>
-<script type="text/javascript" src="js/renderers/studentexams.js"></script>
-<script type="text/javascript" src="js/renderers/notes.js"></script>
-<script type="text/javascript" src="js/renderers/tools.js"></script>
-<script type="text/javascript" src="js/renderers/section.js"></script>
-<script type="text/javascript" src="js/renderers/overviewsection.js"></script>
-<script type="text/javascript" src="js/renderers/overview.js"></script>
-<script type="text/javascript" src="js/renderers/tabmenu.js"></script>
-<script type="text/javascript" src="js/renderers/toolbar.js"></script>
 <script type="text/javascript" src="js/properties.js"></script>
-<script type="text/javascript" src="js/sec.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/forms.js"></script>
-<script type="text/javascript" src="js/caller.js"></script>
-<script type="text/javascript" src="js/test.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/services.js"></script>
 <title>MyCVs</title>
 </head>
-<body>
+<body ng-controller="MainController">
 	<div id="top_menu">
 		<ul>
-			<li id="m_manager" onclick="__Main.go('manager');">MY DATA</li>
-			<li id="m_myportfolios" onclick="__Main.go('myportfolios');">MY
-				CVs</li>
-			<li id="m_noticebard" onclick="__Main.go('noticeboard');">NOTICEBOARD</li>
-			<li id="m_notes" onclick="__Main.go('notes');">NOTES</li>
-			<li><a class="icon guide"></a> <a class="icon close"
-				onclick="__Sec.logout();"></a></li>
+			<li id="m_manager" ng-class="{ 'active': isCurrentView('manager') }" ng-click="setCurrentView('manager')">MY DATA</li>
+			<li id="m_myportfolios" ng-class="{ 'active': isCurrentView('myportfolios') }" ng-click="setCurrentView('myportfolios')">MY CVs</li>
+			<li id="m_noticeboard" ng-class="{ 'active': isCurrentView('noticeboard') }" ng-click="setCurrentView('noticeboard')">NOTICEBOARD</li>
+			<li id="m_notes" ng-class="{ 'active': isCurrentView('notes') }" ng-click="setCurrentView('notes')">NOTES</li>
+			<li><a class="icon loader" ng-if="loading == true"></a></li>
+			<li><a class="icon guide"></a> <a class="icon close" ng-click="logout()"></a></li>
 		</ul>
 	</div>
 	<!-- TAB MENU: DO NOT DELETE THIS!!!!! -->
-	<div id="tab_menu">
+	<div id="tab_menu" ng-show="isCurrentView('myportfolios')">
 		<ul>
-			<!-- <li><a href="#">First portfolio</a></li>
-			<li><a href="#">Second portfolio</a></li>
-			<li class="active"><a href="#">Third portfolio</a></li>
-			<li><a href="#">+</a></li> -->
+			<li ng-click="formStart()">
+				<a id="tab_p_add">+</a>
+				<form class="form" ng-controller="FormsController" ng-if="newPortfolioName != null">
+					<input class="input_newportfolioname" type="text" placeholder="New CV name" ng-model="newPortfolioName" />
+					<button ng-click="formNewPortfolioSend()">OK</button>
+					<button ng-click="formCancel(null, $event)">Cancel</button>
+				</form>
+			</li>
+			<li ng-class="{ 'active': p.id == myPortfolioCurrent.id}" ng-repeat="p in myPortfolios" ng-click="setPortfolioCurrent($index)">
+				<a id="tab_p_{{$index}}">{{p.content.name}}</a>
+				<a id="tab_p_x_{{p.id}}" class="icon lax" ng-click="caller.deletePortfolio(p.id)"></a>
+			</li>
 		</ul>
 	</div>
 	<div id="toolbar">
 		<ul class="toolbar_tools">
-			<!-- <li><a href="#"><span class="icon ib import"></span><span>Import
-						external data</span></a></li>
-			<li><a href="#"><span class="icon ib add_section"></span><span>Add
-						section</span></a></li> -->
+			<li ng-show="isCurrentView('myportfolios')">
+				<form>
+					<input id="rb_edit" type="radio" name="editmode" value="edit" ng-click="editMode = true" ng-checked="editMode == true" />
+					<label for="rb_edit">Edit</label>
+					<input id="rb_preview" type="radio" name="editmode" value="preview" ng-click="editMode = false" ng-checked="editMode == false"/>
+					<label for="rb_preview">Preview</label>
+				</form>
+			</li>
+			<li ng-show="isCurrentView('myportfolios')">
+				<a id="download_cv_pdf" ng-click=""><span class="icon ib export"></span><span>PDF export</span></a>
+			</li>
+			<li ng-show="isCurrentView('notes')">
+				<a ng-click="formStart()"><span class="icon ib edit"></span><span>Edit notes</span></a>
+			</li>
 		</ul>
-		<div class="toolbar_buttons"></div>
+		<div class="toolbar_buttons">
+			<a class="btn save_btn" ng-if="somethingChanged" ng-click="btnSave()">Save</a>
+		</div>
 		<div class="toolbar_tags"></div>
 	</div>
-	<div id="main">
-		<!-- <div id="main_left">
-			<div id="overview">
-				<div id="overview_card"></div>
-				<div id="overview_personal"></div>
-				<div id="overview_languages">
-					<div class="overview_sub_header"></div>
-					<ul></ul>
-				</div>
-				<div id="overview_skills">
-					<div class="overview_sub_header"></div>
-					<ul></ul>
-				</div>
-				<div id="overview_contacts">
-					<div class="overview_sub_header"></div>
-					<ul></ul>
-				</div>
-			</div>
-			<div class="section" id="section_education"></div>
-		</div>
-		<div id="main_right">
-			<div class="section" id="section_presentation"></div>
-			<div class="section" id="section_professional"></div>
-			<div class="section" id="section_about"></div>
-		</div>
-		<div class="clear"></div> -->
+	<div id="main" ng-include="'./html/' + currentView + '.html'">
 	</div>
+	<div id="dialog-exams" title="Exams" ng-include="'./html/exams.html'"></div>
 	<div id="footer">
 		<div class="footerbg"></div>
 	</div>

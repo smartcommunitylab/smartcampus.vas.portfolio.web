@@ -1,0 +1,18 @@
+<div ng-show="showEntry(item)">
+    <label>{{item.title}}:</label>
+    <span>{{item.subtitle}}</span>
+    <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
+        <a class="icon {{tool}}" ng-repeat="tool in getTools(item)" ng-class="getToolsClasses(tool, item)" ng-click="useTool(tool, item)"></a>
+    </span>
+</div>
+
+<form class="form" ng-controller="FormsController" ng-show="showEntryForm(item)">
+    <input class="input_contacttype" type="text" placeholder="Type" ng-model="activeForms['contact'].title" />
+    <input class="input_contactvalue" type="text" placeholder="Contact" ng-model="activeForms['contact'].subtitle" />
+    <br />
+    <!-- <input type="submit" value="OK" /> -->
+    <button ng-click="formSend('contact')">OK</button>
+    <button ng-click="formCancel('contact')">Cancel</button>
+</form>
+
+<div class="clear"></div>

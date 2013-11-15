@@ -13,29 +13,196 @@ Copyright 2012-2013 Trento RISE
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<div id="main_left">
-	<div id="overview">
-		<div id="overview_card"></div>
-		<div id="overview_personal"></div>
-		<div id="overview_languages">
-			<div class="overview_sub_header"></div>
-			<ul></ul>
-		</div>
-		<div id="overview_skills">
-			<div class="overview_sub_header"></div>
-			<ul></ul>
-		</div>
-		<div id="overview_contacts">
-			<div class="overview_sub_header"></div>
-			<ul></ul>
-		</div>
-	</div>
-	<div class="section" id="section_education"></div>
+<div id="main_left" ng-if="myPortfolios.length > 0">
+    <div id="overview">
+        <div id="overview_card">
+            <div class="overview_photo">
+                <img src="{{studentPhoto}}" alt="{{profile.name}} {{profile.surname}}">
+            </div>
+            <div class="text">
+                <div class="overview_name" ng-show="utils.valid(studentInfo.cds)">
+                    <span>{{profile.name}} {{profile.surname}}</span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.cds) && showEntry({'category': 'cds'})">
+                    <label>Current occupation:</label>
+                    <span>{{studentInfo.cds}}</span>
+                    <span class="entry_tools" ng-show="editMode == true">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'cds'})" ng-class="getToolsClasses(tool, {'category': 'cds'})" ng-click="useTool(tool, {'category': 'cds'})"></a>
+                    </span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.academicYear) && showEntry({'category': 'academicYear'})">
+                    <label>Academic year:</label>
+                    <span>{{studentInfo.academicYear}}{{utils.valid(studentInfo.supplementaryYears) ? ' + ' + studentInfo.supplementaryYears : ''}}</span>
+                    <span class="entry_tools" ng-show="editMode == true">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'academicYear'})" ng-class="getToolsClasses(tool, {'category': 'academicYear'})" ng-click="useTool(tool, {'category': 'academicYear'})"></a>
+                    </span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.enrollmentYear) && showEntry({'category': 'enrollmentYear'})">
+                    <label>Enrollment year:</label>
+                    <span>{{studentInfo.enrollmentYear}}</span>
+                    <span class="entry_tools" ng-show="editMode == true">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'enrollmentYear'})" ng-class="getToolsClasses(tool, {'category': 'enrollmentYear'})" ng-click="useTool(tool, {'category': 'enrollmentYear'})"></a>
+                    </span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.cfu) && showEntry({'category': 'cfu_cfuTotal'})">
+                    <label>CFU:</label>
+                    <span>{{studentInfo.cfu}} / {{studentInfo.cfuTotal}}</span>
+                    <span class="entry_tools" ng-show="editMode == true">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'cfu_cfuTotal'})" ng-class="getToolsClasses(tool, {'category': 'cfu_cfuTotal'})" ng-click="useTool(tool, {'category': 'cfu_cfuTotal'})"></a>
+                    </span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.marksNumber) && showEntry({'category': 'marksNumber'})">
+                    <label>Marks:</label>
+                    <span>{{studentInfo.marksNumber}}</span>
+                    <span class="entry_tools" ng-show="editMode == true">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'marksNumber'})" ng-class="getToolsClasses(tool, {'category': 'marksNumber'})" ng-click="useTool(tool, {'category': 'marksNumber'})"></a>
+                    </span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.marksAverage) && showEntry({'category': 'marksAverage'})">
+                    <label>Average grade:</label>
+                    <span>{{studentInfo.marksAverage}}</span>
+                    <span class="entry_tools" ng-show="editMode == true">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'marksAverage'})" ng-class="getToolsClasses(tool, {'category': 'marksAverage'})" ng-click="useTool(tool, {'category': 'marksAverage'})"></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="overview_personal" class="overview_sub">
+            <ul class="overview_sub_large">
+                <li ng-show="utils.valid(studentInfo.gender) && showEntry({'category': 'gender'})">
+                    <label>Gender:</label>
+                    <span>{{studentInfo.gender}}</span>
+                    <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'gender'})" ng-class="getToolsClasses(tool, {'category': 'gender'})" ng-click="useTool(tool, {'category': 'gender'})"></a>
+                    </span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.dateOfBirth) && showEntry({'category': 'dateOfBirth'})">
+                    <label>Birthday:</label>
+                    <span>{{studentInfo.dateOfBirth}}</span>
+                    <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'dateOfBirth'})" ng-class="getToolsClasses(tool, {'category': 'dateOfBirth'})" ng-click="useTool(tool, {'category': 'dateOfBirth'})"></a>
+                    </span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.nation) && showEntry({'category': 'nation'})">
+                    <label>Citizenship:</label>
+                    <span>{{studentInfo.nation}}</span>
+                    <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'nation'})" ng-class="getToolsClasses(tool, {'category': 'nation'})" ng-click="useTool(tool, {'category': 'nation'})"></a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div id="overview_languages" class="overview_sub" ng-if="showSection('language')">
+            <div class="overview_sub_header">
+                <span>Languages</span>
+            </div>
+            <ul>
+                <li class="overview_userdata" ng-repeat="item in userProducedData['language']" ng-include="'./html/entries/' + item.type + '.html'"></li>
+            </ul>
+        </div>
+        <div id="overview_skills" class="overview_sub" ng-if="showSection('skill')">
+            <div class="overview_sub_header">
+                <span>Skills</span>
+            </div>
+            <ul>
+                <li class="overview_userdata" ng-repeat="item in userProducedData['skill']" ng-include="'./html/entries/' + item.type + '.html'"></li>
+            </ul>
+        </div>
+        <div id="overview_contacts" class="overview_sub" ng-if="showSection('education', 'address', 'email', 'phone', 'mobile')">
+            <div class="overview_sub_header">
+                <span>Contacts</span>
+            </div>
+            <ul>
+                <li ng-show="utils.valid(studentInfo.address) && showEntry({'category': 'address'})">
+                    <label>Address:</label>
+                    <span>{{studentInfo.address}}</span>
+                    <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'address'})" ng-class="getToolsClasses(tool, {'category': 'address'})" ng-click="useTool(tool, {'category': 'address'})"></a>
+                    </span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.email) && showEntry({'category': 'email'})">
+                    <label>Email:</label>
+                    <span>{{studentInfo.email}}</span>
+                    <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'email'})" ng-class="getToolsClasses(tool, {'category': 'email'})" ng-click="useTool(tool, {'category': 'email'})"></a>
+                    </span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.phone) && showEntry({'category': 'phone'})">
+                    <label>Phone:</label>
+                    <span>{{studentInfo.phone}}</span>
+                    <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'phone'})" ng-class="getToolsClasses(tool, {'category': 'phone'})" ng-click="useTool(tool, {'category': 'phone'})"></a>
+                    </span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.mobile) && showEntry({'category': 'mobile'})">
+                    <label>Mobile:</label>
+                    <span>{{studentInfo.mobile}}</span>
+                    <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
+                        <a class="icon" ng-repeat="tool in getTools({'category': 'mobile'})" ng-class="getToolsClasses(tool, {'category': 'mobile'})" ng-click="useTool(tool, {'category': 'mobile'})"></a>
+                    </span>
+                </li>
+                <li class="overview_userdata" ng-repeat="item in userProducedData['contact']" ng-include="'./html/entries/' + item.type + '.html'"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="section" id="section_education" ng-if="showSection('education')">
+        <div class="section_header">
+            <span>Education</span>
+        </div>
+        <div class="section_body">
+            <div class="entry {{item.type}}" ng-repeat="item in userProducedData['education']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
+        </div>
+        <div class="section_footer">
+        </div>
+        <div class="clear"></div>
+    </div>
 </div>
-<div id="main_right">
-	<div class="section highlighted" id="section_cherryotc"></div>
-	<div class="section" id="section_presentation"></div>
-	<div class="section" id="section_professional"></div>
-	<div class="section" id="section_about"></div>
+<div id="main_right" ng-if="myPortfolios.length > 0">
+    <div class="section highlighted" id="section_cherryotc" ng-show="showSection('cherryotc')">
+        <div class="section_header">
+            <span>Cherry on the cake</span>
+        </div>
+        <div class="section_body">
+            <div class="entry {{item.type}}" ng-repeat="item in myPortfolioCurrentCherries" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
+        </div>
+        <div class="section_footer">
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section" id="section_presentation" ng-if="showSection('presentation')">
+        <div class="section_header">
+            <span>Presentation</span>
+        </div>
+        <div class="section_body">
+            <div class="entry {{item.type}}" ng-repeat="item in userProducedData['presentation']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
+        </div>
+        <div class="section_footer">
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section" id="section_professional" ng-if="showSection('professional')">
+        <div class="section_header">
+            <span>Professional Experiences</span>
+        </div>
+        <div class="section_body">
+            <div class="entry {{item.type}}" ng-repeat="item in userProducedData['professional']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
+        </div>
+        <div class="section_footer">
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section" id="section_about" ng-if="showSection('about')">
+        <div class="section_header">
+            <span>More about me</span>
+        </div>
+        <div class="section_body">
+            <div class="entry {{item.type}}" ng-repeat="item in userProducedData['about']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
+        </div>
+        <div class="section_footer">
+        </div>
+        <div class="clear"></div>
+    </div>
 </div>
+<p ng-if="myPortfolios.length == 0">You don't have CVs yet. You can create a new CV clicking on the
+    <strong>+</strong> in the tab bar.</p>
 <div class="clear"></div>

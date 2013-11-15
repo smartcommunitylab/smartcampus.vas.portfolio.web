@@ -14,27 +14,163 @@ Copyright 2012-2013 Trento RISE
    limitations under the License.
 -->
 <div id="main_left">
-	<div id="overview">
-		<div id="overview_card"></div>
-		<div id="overview_personal"></div>
-		<div id="overview_languages">
-			<div class="overview_sub_header"></div>
-			<ul></ul>
-		</div>
-		<div id="overview_skills">
-			<div class="overview_sub_header"></div>
-			<ul></ul>
-		</div>
-		<div id="overview_contacts">
-			<div class="overview_sub_header"></div>
-			<ul></ul>
-		</div>
-	</div>
-	<div class="section" id="section_education"></div>
+    <div id="overview">
+        <div id="overview_card">
+            <div class="overview_photo">
+                <img src="{{studentPhoto}}" alt="{{profile.name}} {{profile.surname}}">
+            </div>
+            <div class="text">
+                <div class="overview_name">
+                    <span>{{profile.name}} {{profile.surname}}</span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.cds)">
+                    <label>Current occupation:</label>
+                    <span>{{studentInfo.cds}}</span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.academicYear)">
+                    <label>Academic year:</label>
+                    <span>{{studentInfo.academicYear}}{{utils.valid(studentInfo.supplementaryYears) ? ' + ' + studentInfo.supplementaryYears : ''}}</span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.enrollmentYear)">
+                    <label>Enrollment year:</label>
+                    <span>{{studentInfo.enrollmentYear}}</span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.cfu)">
+                    <label>CFU:</label>
+                    <span>{{studentInfo.cfu}} / {{studentInfo.cfuTotal}}</span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.marksNumber)">
+                    <label>Marks:</label>
+                    <span>{{studentInfo.marksNumber}}</span>
+                </div>
+                <div ng-show="utils.valid(studentInfo.marksAverage)">
+                    <label>Average grade:</label>
+                    <span>{{studentInfo.marksAverage}}</span>
+                </div>
+            </div>
+        </div>
+        <div id="overview_personal" class="overview_sub">
+            <ul class="overview_sub_large">
+                <li ng-show="utils.valid(studentInfo.gender)">
+                    <label>Gender:</label>
+                    <span>{{studentInfo.gender}}</span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.dateOfBirth)">
+                    <label>Birthday:</label>
+                    <span>{{studentInfo.dateOfBirth}}</span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.nation)">
+                    <label>Citizenship:</label>
+                    <span>{{studentInfo.nation}}</span>
+                </li>
+            </ul>
+        </div>
+        <div id="overview_languages" class="overview_sub">
+            <div class="overview_sub_header">
+                <span>Languages</span>
+                <div class="overview_sub_header_actions" ng-show="isCurrentView('manager')">
+                    <a ng-click="formStart('language')">+Add</a>
+                </div>
+            </div>
+            <ul>
+                <li class="overview_userdata" ng-repeat="item in userProducedData['language']" ng-include="'./html/entries/' + item.type + '.html'"></li>
+                <li class="overview_userdata" ng-show="activeFormCategory == 'language'" ng-include="'./html/entries/forms.html'"></li>
+            </ul>
+        </div>
+        <div id="overview_skills" class="overview_sub">
+            <div class="overview_sub_header">
+                <span>Skills</span>
+                <div class="overview_sub_header_actions" ng-show="isCurrentView('manager')">
+                    <a ng-click="formStart('skill')">+Add</a>
+                </div>
+            </div>
+            <ul>
+                <li class="overview_userdata" ng-repeat="item in userProducedData['skill']" ng-include="'./html/entries/' + item.type + '.html'"></li>
+                <li class="overview_userdata" ng-show="activeFormCategory == 'skill'" ng-include="'./html/entries/forms.html'"></li>
+            </ul>
+        </div>
+        <div id="overview_contacts" class="overview_sub">
+            <div class="overview_sub_header">
+                <span>Contacts</span>
+                <div class="overview_sub_header_actions" ng-show="isCurrentView('manager')">
+                    <a ng-click="formStart('contact')">+Add</a>
+                </div>
+            </div>
+            <ul>
+                <li ng-show="utils.valid(studentInfo.address)">
+                    <label>Address:</label>
+                    <span>{{studentInfo.address}}</span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.email)">
+                    <label>Email:</label>
+                    <span>{{studentInfo.email}}</span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.phone)">
+                    <label>Phone:</label>
+                    <span>{{studentInfo.phone}}</span>
+                </li>
+                <li ng-show="utils.valid(studentInfo.mobile)">
+                    <label>Mobile:</label>
+                    <span>{{studentInfo.mobile}}</span>
+                </li>
+                <li class="overview_userdata" ng-repeat="item in userProducedData['contact']" ng-include="'./html/entries/' + item.type + '.html'"></li>
+                <li class="overview_userdata" ng-show="activeFormCategory == 'contact'" ng-include="'./html/entries/forms.html'"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="section" id="section_education">
+        <div class="section_header">
+            <span>Education</span>
+        </div>
+        <div class="section_body">
+            <div class="entry {{item.type}}" ng-repeat="item in userProducedData['education']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
+            <div ng-include="'./html/entries/forms.html'" ng-show="activeFormCategory == 'education'"></div>
+        </div>
+        <div class="section_footer">
+            <a ng-click="formStart('education')">+Add</a>
+        </div>
+        <div class="clear"></div>
+    </div>
 </div>
 <div id="main_right">
-	<div class="section" id="section_presentation"></div>
-	<div class="section" id="section_professional"></div>
-	<div class="section" id="section_about"></div>
+    <div class="section" id="section_presentation">
+        <div class="section_header">
+            <span>Presentation</span>
+        </div>
+        <div class="section_body">
+            <div class="entry {{item.type}}" ng-repeat="item in userProducedData['presentation']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
+            <div ng-include="'./html/entries/forms.html'" ng-show="activeFormCategory == 'presentation'"></div>
+        </div>
+        <div class="section_footer">
+            <a ng-click="formStart('presentation')">+Add</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section" id="section_professional">
+        <div class="section_header">
+            <span>Professional Experiences</span>
+        </div>
+        <div class="section_body">
+            <div class="entry {{item.type}}" ng-repeat="item in userProducedData['professional']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
+            <div ng-include="'./html/entries/forms.html'" ng-show="activeFormCategory == 'professional'"></div>
+        </div>
+        <div class="section_footer">
+            <a ng-click="formStart('professional')">+Add</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section" id="section_about">
+        <div class="section_header">
+            <span>More about me</span>
+        </div>
+        <div class="section_body">
+            <div class="entry {{item.type}}" ng-repeat="item in userProducedData['about']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
+            <div ng-include="'./html/entries/forms.html'" ng-show="activeFormCategory == 'about'"></div>
+        </div>
+        <div class="section_footer">
+            <a ng-click="formStart('about')">+Add</a>
+        </div>
+        <div class="clear"></div>
+    </div>
 </div>
 <div class="clear"></div>

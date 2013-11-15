@@ -94,10 +94,18 @@
 	
 }
 
-.entry_tools {
+.entry .entry_tools {
 	visibility: hidden;
 	float: right;
 	width: 20px;
+}
+
+.entry .entry_tools.entry_edit {
+	visibility: visible;
+}
+
+.entry:hover .entry_tools {
+	visibility: visible;
 }
 
 .entry_body {

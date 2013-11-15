@@ -36,6 +36,7 @@
 }
 
 #tab_menu ul li {
+	cursor: pointer;
 	display: inline-block;
 	padding: 0 30px;
 	margin: 0 auto;
