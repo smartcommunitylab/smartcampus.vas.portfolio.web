@@ -1,7 +1,7 @@
 <div class="entry_tools" ng-class="{ 'entry_edit': editMode == true }" ng-show="showEntry(item)">
     <ul>
         <li ng-repeat="tool in getTools(item)">
-            <span class="glyphicon" ng-class="getToolsClasses(tool, item)" ng-click="useTool(tool, item)"></span>
+            <span ng-class="getToolsClasses(tool, item)" ng-click="useTool(tool, item)"></span>
         </li>
     </ul>
 </div>

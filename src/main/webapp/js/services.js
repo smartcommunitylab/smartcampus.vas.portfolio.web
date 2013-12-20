@@ -35,6 +35,10 @@ function MainController($scope, $http, $resource, $location) {
     $scope.somethingChanged = false;
     $scope.showExams = false;
 
+    $scope.setEditMode = function(em) {
+        $scope.editMode = em;
+    };
+
     $scope.setLoading = function(l) {
         if ($scope.loading != l) {
             $scope.loading = l;
@@ -527,9 +531,9 @@ function MainController($scope, $http, $resource, $location) {
     // 'delete_black': tool == 'delete',
     $scope.getToolsClasses = function(tool, item) {
         var toolsClasses = {
-            'lax': tool == 'lax',
-            'glyphicon-pencil': tool == 'edit',
-            'glyphicon-trash': tool == 'delete',
+            'icon lax': tool == 'lax',
+            'glyphicon glyphicon-pencil': tool == 'edit',
+            'glyphicon glyphicon-trash': tool == 'delete',
             'icon share_black': tool == 'share',
             'icon cherry': (tool == 'cherry' && $scope.isCherry(item.id)),
             'icon cherry_black': (tool == 'cherry' && !$scope.isCherry(item.id)),

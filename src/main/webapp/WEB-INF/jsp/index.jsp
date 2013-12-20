@@ -65,9 +65,9 @@
                     <ul class="toolbar_tools list-unstyled list-inline">
                         <li ng-if="isCurrentView('myportfolios')">
                             <form>
-                                <input id="rb_edit" type="radio" name="editmode" value="edit" ng-click="editMode = true" ng-checked="editMode == true" />
+                                <input id="rb_edit" type="radio" name="editmode" value="edit" ng-click="setEditMode(true)" ng-checked="editMode == true" />
                                 <label for="rb_edit">Edit</label>
-                                <input id="rb_preview" type="radio" name="editmode" value="preview" ng-click="editMode = false" ng-checked="editMode == false" />
+                                <input id="rb_preview" type="radio" name="editmode" value="preview" ng-click="setEditMode(false)" ng-checked="editMode == false" />
                                 <label for="rb_preview">Preview</label>
                             </form>
                         </li>
