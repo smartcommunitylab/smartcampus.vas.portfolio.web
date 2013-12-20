@@ -13,38 +13,22 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+function Renderer_Entry_raw() {
+};
 
-/* Toolbar */
- #toolbar {
-}
-#toolbar ul {
-    height: 74px;
-    line-height: 74px;
-}
-#toolbar ul li {
-    display: inline;
-}
-#toolbar ul li {
-    margin-right: 20px;
-}
-#toolbar ul li:last-child {
-    margin-right: 0;
-}
-#toolbar ul li a {
-    font-weight: bold;
-    /*font-size: smaller;*/
-}
-#toolbar ul li a img {
-    vertical-align: middle;
-}
-#toolbar ul li form {
-    display: inline;
-    margin-right: 72px;
-}
-#toolbar .toolbar_tags ul {
-    display: inline;
-}
-#toolbar .toolbar_tags ul li {
-    font-style: italic;
-    color: #666666;
-}
+Renderer_Entry_raw.prototype.render = function(entry) {
+	//var content = JSON.parse(entry.content);
+	var content = entry.content;
+
+	var div = $('<div></div>').addClass('entry');
+	div.addClass('raw');
+
+	var tools = __Renderer_Tools.render(entry);
+	div.append(tools);
+
+	var body = $('<div></div>').addClass('entry_body');
+	body.html(content['content']);
+	div.append(body);
+
+	return div;
+};

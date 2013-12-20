@@ -6,13 +6,15 @@
     </span>
 </div>
 
-<form class="form" ng-controller="FormsController" ng-show="showEntryForm(item)">
-    <input class="input_contacttype" type="text" placeholder="Type" ng-model="activeForms['contact'].title" />
-    <input class="input_contactvalue" type="text" placeholder="Contact" ng-model="activeForms['contact'].subtitle" />
-    <br />
-    <!-- <input type="submit" value="OK" /> -->
-    <button ng-click="formSend('contact')">OK</button>
-    <button ng-click="formCancel('contact')">Cancel</button>
+<form class="form form-entry" ng-controller="FormsController" ng-show="showEntryForm(item)">
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Type" ng-model="activeForms['contact'].title" />
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Contact" ng-model="activeForms['contact'].subtitle" />
+    </div>
+    <button class="btn btn-primary btn-sm" ng-click="formSend('contact')">OK</button>
+    <button class="btn btn-primary btn-sm" ng-click="formCancel('contact')">Cancel</button>
 </form>
 
 <div class="clear"></div>

@@ -13,38 +13,5 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-
-/* Toolbar */
- #toolbar {
-}
-#toolbar ul {
-    height: 74px;
-    line-height: 74px;
-}
-#toolbar ul li {
-    display: inline;
-}
-#toolbar ul li {
-    margin-right: 20px;
-}
-#toolbar ul li:last-child {
-    margin-right: 0;
-}
-#toolbar ul li a {
-    font-weight: bold;
-    /*font-size: smaller;*/
-}
-#toolbar ul li a img {
-    vertical-align: middle;
-}
-#toolbar ul li form {
-    display: inline;
-    margin-right: 72px;
-}
-#toolbar .toolbar_tags ul {
-    display: inline;
-}
-#toolbar .toolbar_tags ul li {
-    font-style: italic;
-    color: #666666;
-}
+function Test() {
+};

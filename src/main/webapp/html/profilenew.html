@@ -13,12 +13,27 @@ Copyright 2012-2013 Trento RISE
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<div id="notes" class="col-md-6 col-md-offset-3">
-    <div ng-bind-html="notes.notes" ng-if="editMode == false"></div>
-    <form class="form" ng-if="editMode == true">
-        <div class="form-group">
-            <textarea class="form-control" name="content" required="required" ng-model="notes.notes" />
-        </div>
-    </form>
+<div id="profilenew">
+	<p>
+		This is the first time you log in a SmartCampus application. Create
+		your profile simply providing your <strong>name</strong> and <strong>surname</strong>.
+	</p>
+	<form>
+		<table>
+			<tbody>
+				<tr>
+					<td><input type="text" id="name" name="name"
+						placeholder="Name" /></td>
+					<td><input type="text" id="surname" name="surname"
+						placeholder="Surname" /></td>
+				</tr>
+			</tbody>
+		</table>
+		<div>
+			<input type="button" id="ok" value="OK"
+				onclick="__Caller.execNewProfile();" /> or <a
+				onclick="__Sec.logout();">cancel</a>
+		</div>
+	</form>
 </div>
 <div class="clear"></div>

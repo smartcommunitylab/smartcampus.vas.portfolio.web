@@ -12,39 +12,29 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */
+ */function Renderer_StudentInfo() {
+};
 
-/* Toolbar */
- #toolbar {
-}
-#toolbar ul {
-    height: 74px;
-    line-height: 74px;
-}
-#toolbar ul li {
-    display: inline;
-}
-#toolbar ul li {
-    margin-right: 20px;
-}
-#toolbar ul li:last-child {
-    margin-right: 0;
-}
-#toolbar ul li a {
-    font-weight: bold;
-    /*font-size: smaller;*/
-}
-#toolbar ul li a img {
-    vertical-align: middle;
-}
-#toolbar ul li form {
-    display: inline;
-    margin-right: 72px;
-}
-#toolbar .toolbar_tags ul {
-    display: inline;
-}
-#toolbar .toolbar_tags ul li {
-    font-style: italic;
-    color: #666666;
-}
+Renderer_StudentInfo.prototype.render = function(key, labelstring, spanstring) {
+	var text = $('<div></div>');
+
+	var label = $('<label></label>').text(labelstring);
+	if (spanstring == ' ' || spanstring == '') {
+		spanstring = '-';
+	}
+	var span = $('<span></span>').text(spanstring);
+	text.append(label, span);
+	
+	if (key != undefined && key != null) {
+		var entry = {
+			content : {
+					category : 'studentinfo',
+					type : key
+				}
+		};
+		var tools = __Renderer_Tools.render(entry);
+		text.append(tools);
+	}
+
+	return text;
+};

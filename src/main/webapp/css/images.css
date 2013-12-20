@@ -13,119 +13,97 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+ .entry_tools .glyphicon {
+    cursor: pointer;
+}
 /* Images */
-.icon {
-	width: 18px;
-	height: 18px;
-	display: inline-block;
-	vertical-align: middle;
+ .icon {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
 }
-
 .icon.b {
-	display: block;
+    display: block;
 }
-
 .icon.share_black {
-	background: url('../img/icons/sprite_icons.png') 0 0;
+    background: url('../img/icons/sprite_icons.png') 0 0;
 }
-
 .icon.edit_black {
-	background: url('../img/icons/sprite_icons.png') -18px 0;
+    background: url('../img/icons/sprite_icons.png') -18px 0;
 }
-
 .icon.delete_black {
-	background: url('../img/icons/sprite_icons.png') -36px 0;
+    background: url('../img/icons/sprite_icons.png') -36px 0;
 }
-
 .icon.eye {
-	background: url('../img/icons/sprite_icons.png') -54px 0;
+    background: url('../img/icons/sprite_icons.png') -54px 0;
 }
-
 .icon.eye_black {
-	background: url('../img/icons/sprite_icons.png') -72px 0;
+    background: url('../img/icons/sprite_icons.png') -72px 0;
 }
-
 .icon.remove {
-	background: url('../img/icons/sprite_icons.png') -90px 0;
+    background: url('../img/icons/sprite_icons.png') -90px 0;
 }
-
 .icon.cherry {
-	background: url('../img/icons/sprite_icons.png') -108px 0;
+    background: url('../img/icons/sprite_icons.png') -108px 0;
 }
-
 .icon.cherry_black {
-	background: url('../img/icons/sprite_icons.png') -126px 0;
+    background: url('../img/icons/sprite_icons.png') -126px 0;
 }
-
 .icon.publish {
-	background: url('../img/icons/sprite_icons.png') -144px 0;
+    background: url('../img/icons/sprite_icons.png') -144px 0;
 }
-
 .icon.share {
-	background: url('../img/icons/sprite_icons.png') -162px 0;
+    background: url('../img/icons/sprite_icons.png') -162px 0;
 }
-
 .icon.export {
-	background: url('../img/icons/sprite_icons.png') -180px 0;
+    background: url('../img/icons/sprite_icons.png') -180px 0;
 }
-
 .icon.print {
-	background: url('../img/icons/sprite_icons.png') -198px 0;
+    background: url('../img/icons/sprite_icons.png') -198px 0;
 }
-
 .icon.delete {
-	background: url('../img/icons/sprite_icons.png') -216px 0;
+    background: url('../img/icons/sprite_icons.png') -216px 0;
 }
-
 .icon.back {
-	background: url('../img/icons/sprite_icons.png') -234px 0;
+    background: url('../img/icons/sprite_icons.png') -234px 0;
 }
-
 .icon.certify {
-	background: url('../img/icons/sprite_icons.png') -252px 0;
+    background: url('../img/icons/sprite_icons.png') -252px 0;
 }
-
 .icon.video {
-	background: url('../img/icons/sprite_icons.png') -270px 0;
+    background: url('../img/icons/sprite_icons.png') -270px 0;
 }
-
 .icon.image {
-	background: url('../img/icons/sprite_icons.png') -288px 0;
+    background: url('../img/icons/sprite_icons.png') -288px 0;
 }
-
 .icon.edit {
-	background: url('../img/icons/sprite_icons.png') -306px 0;
+    background: url('../img/icons/sprite_icons.png') -306px 0;
 }
-
 .icon.import {
-	background: url('../img/icons/sprite_icons.png') -324px 0;
+    background: url('../img/icons/sprite_icons.png') -324px 0;
 }
-
 .icon.add_section {
-	background: url('../img/icons/sprite_icons.png') -342px 0;
+    background: url('../img/icons/sprite_icons.png') -342px 0;
 }
-
 .icon.lax {
-	background: url('../img/icons/sprite_icons.png') -360px -4px;
-	height: 12px;
+    background: url('../img/icons/sprite_icons.png') -360px -4px;
+    height: 12px;
 }
-
 .icon.guide {
-	background: url('../img/icons/sprite_icons.png') 0 -18px;
+    background: url('../img/icons/sprite_icons.png') 0 -18px;
 }
-
 .icon.close {
-	background: url('../img/icons/sprite_icons.png') -18px -18px;
+    background: url('../img/icons/sprite_icons.png') -18px -18px;
 }
-
 .icon.certify_black {
-	background: url('../img/icons/sprite_icons.png') -36px -18px;
+    background: url('../img/icons/sprite_icons.png') -36px -18px;
 }
-
 .icon.loader {
-	background: url('../img/ajax-loader.gif'); /*url('../img/loader.gif');*/
-	width: 43px;
-	height: 11px;
-	display: block;
-	margin: 0 auto;
+    background: url('../img/ajax-loader.gif');
+    /*url('../img/loader.gif');*/
+    width: 43px;
+    height: 11px;
+    display: block;
+    margin: 0 auto;
 }

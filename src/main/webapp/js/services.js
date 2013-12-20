@@ -1,6 +1,12 @@
-angular.module('pm', ['ngResource', 'ngSanitize', 'ngAnimate']);
+var pm = angular.module('pm', ['ngResource', 'ngSanitize', 'ngAnimate']);
 
-function MainController($scope, $resource) {
+pm.config(['$compileProvider',
+    function($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|data):/);
+    }
+]);
+
+function MainController($scope, $http, $resource, $location) {
     $scope.studentInfoDefaultPhoto = 'img/photo.png';
 
     $scope.currentView;
@@ -102,6 +108,11 @@ function MainController($scope, $resource) {
         'Authorization': $scope.getToken()
     };
 
+    var authHeadersPdf = {
+        'Authorization': $scope.getToken(),
+        'Content-Type': 'text/plain; charset=x-user-defined'
+    };
+
     var Caller_Profile = $resource('rest/getprofile', {}, {
         'get': {
             method: 'GET',
@@ -174,6 +185,15 @@ function MainController($scope, $resource) {
             headers: authHeaders
         }
     });
+
+    var Caller_Exporter = $resource('rest/generatecv/:portfolioId/pdf/true', {}, {
+        'get': {
+            method: 'GET',
+            headers: authHeadersPdf,
+            responseType: 'text'
+        }
+    });
+    // req.overrideMimeType('text/plain; charset=x-user-defined');
 
     // CALLS
     $scope.caller = {};
@@ -316,35 +336,45 @@ function MainController($scope, $resource) {
         $scope.setLoading(true);
         Caller_Exams.get({}, function(value, responseHeaders) {
             $scope.exams = value.content.examData;
-
-            // var dialog = $('<div></div>').attr('id', 'dialog-exams');
-            // dialog.attr('title', 'Exams');
-            // $(dialog).empty();
-            // $.get($scope.properties.baseUrl + 'html/exams.html', function(data) {
-            //     $(dialog).html(data);
-            // });
-
             $scope.showExams = true;
-
-            $('#dialog-exams').dialog({
-                modal: true,
-                draggable: false,
-                resizable: false,
-                minWidth: 760,
-                position: {
-                    at: "top+20%"
-                },
-                dialogClass: 'dialog notitle-dialog',
-                buttons: [{
-                    text: "Close",
-                    click: function() {
-                        $(this).dialog("close");
-                        $scope.showExams = false;
-                    }
-                }]
-            });
+            $('#examsModal').modal();
             $scope.setLoading(false);
         });
+    };
+
+    $scope.caller.exportPortfolio = function(portfolioId) {
+        $scope.setLoading(true);
+
+        if ( !! portfolioId) {
+            $http({
+                method: 'GET',
+                url: 'rest/generatecv/' + portfolioId + '/pdf/true',
+                headers: {
+                    'Authorization': $scope.getToken(),
+                    'Content-Type': 'text/plain; charset=x-user-defined'
+                }
+            }).
+            success(function(data, status, headers, config) {
+                $scope.setLoading(false);
+                var encoded = encodeURIComponent(data);
+                $scope.pdfbase64 = 'data:application/pdf;base64,' + encoded;
+                // $scope.$apply(function() {
+                $('download_cv_pdf').attr('href', $scope.pdfbase64);
+                // });
+            }).
+            error(function(data, status, headers, config) {
+                $scope.setLoading(false);
+            });
+        }
+
+        // Caller_Exporter.get({
+        //     'portfolioId': portfolioId
+        // }, function(value, responseHeaders) {
+        //     $scope.setLoading(false);
+        //     var encoded = encodeURIComponent(value);
+        //     var newpath = 'data:application/pdf;base64,' + encoded;
+        //     $location.path(newpath);
+        // });
     };
 
     // FORMS HELPERS
@@ -456,10 +486,12 @@ function MainController($scope, $resource) {
                             return true;
                         }
                     } else {
-                        for (var i = 0; i < $scope.userProducedData[cat].length; i++) {
-                            var entry = $scope.userProducedData[cat][i];
-                            if ($scope.isShow(entry)) {
-                                return true;
+                        if ( !! $scope.userProducedData[cat]) {
+                            for (var i = 0; i < $scope.userProducedData[cat].length; i++) {
+                                var entry = $scope.userProducedData[cat][i];
+                                if ($scope.isShow(entry)) {
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -491,22 +523,34 @@ function MainController($scope, $resource) {
         }
     };
 
+    // 'edit_black': tool == 'edit',
+    // 'delete_black': tool == 'delete',
     $scope.getToolsClasses = function(tool, item) {
         var toolsClasses = {
             'lax': tool == 'lax',
-            'edit_black': tool == 'edit',
-            'delete_black': tool == 'delete',
-            'share_black': tool == 'share',
-            'cherry': (tool == 'cherry' && $scope.isCherry(item.id)),
-            'cherry_black': (tool == 'cherry' && !$scope.isCherry(item.id)),
-            'eye': (tool == 'eye' && $scope.isShow(item)),
-            'eye_black': (tool == 'eye' && !$scope.isShow(item))
+            'glyphicon-pencil': tool == 'edit',
+            'glyphicon-trash': tool == 'delete',
+            'icon share_black': tool == 'share',
+            'icon cherry': (tool == 'cherry' && $scope.isCherry(item.id)),
+            'icon cherry_black': (tool == 'cherry' && !$scope.isCherry(item.id)),
+            'icon eye': (tool == 'eye' && $scope.isShow(item)),
+            'icon eye_black': (tool == 'eye' && !$scope.isShow(item))
         };
 
         return toolsClasses;
     };
 
+
+    $scope.useTool_item;
+    $scope.uniModalContinue = function() {
+        $scope.myPortfolioCurrent.content.showUserGeneratedData.push($scope.useTool_item.id);
+        $scope.somethingChanged = true;
+        $('#uniModal').modal('hide');
+    }
+
     $scope.useTool = function(tool, item) {
+        $scope.useTool_item = item;
+
         if (tool == 'edit') {
             $scope.activeFormCategory = item.category;
             $scope.activeForms[item.category] = item;
@@ -530,29 +574,7 @@ function MainController($scope, $resource) {
                     $scope.somethingChanged = true;
                 } else {
                     if (item.type == 'sys_simple') {
-                        var dialog = $('<div></div>').attr('id', 'dialog');
-                        dialog.append($scope.properties.SYS_entry_dialog);
-                        $(dialog).dialog({
-                            modal: true,
-                            draggable: false,
-                            resizable: false,
-                            dialogClass: 'dialog notitle-dialog',
-                            buttons: [{
-                                text: "Cancel",
-                                click: function() {
-                                    $(this).dialog("close");
-                                }
-                            }, {
-                                text: "Continue",
-                                click: function() {
-                                    $scope.$apply(function() {
-                                        $scope.myPortfolioCurrent.content.showUserGeneratedData.push(item.id);
-                                        $scope.somethingChanged = true;
-                                    });
-                                    $(this).dialog("close");
-                                }
-                            }]
-                        });
+                        $('#uniModal').modal('show');
                     } else {
                         $scope.myPortfolioCurrent.content.showUserGeneratedData.push(item.id);
                         $scope.somethingChanged = true;
@@ -594,6 +616,12 @@ function MainController($scope, $resource) {
             $scope.caller.getPortfolios();
         } else if (newValue == 'notes') {
             $scope.caller.getNotes();
+        }
+    });
+
+    $scope.$watch('myPortfolioCurrent', function(newValue, oldValue, scope) {
+        if ( !! newValue) {
+            $scope.caller.exportPortfolio(newValue.id);
         }
     });
 

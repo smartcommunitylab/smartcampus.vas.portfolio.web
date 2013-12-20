@@ -1,7 +1,8 @@
 <div class="entry_tools" ng-class="{ 'entry_edit': editMode == true }" ng-show="showEntry(item)">
     <ul>
         <li ng-repeat="tool in getTools(item)">
-            <a class="icon" ng-class="getToolsClasses(tool, item)" ng-click="useTool(tool, item)"></a>
+            <!-- <a class="icon" ng-class="getToolsClasses(tool, item)" ng-click="useTool(tool, item)"></a> -->
+            <span class="glyphicon" ng-class="getToolsClasses(tool, item)" ng-click="useTool(tool, item)"></span>
         </li>
     </ul>
 </div>
@@ -9,10 +10,11 @@
     <div class="content">{{item.content}}</div>
 </div>
 
-<form class="form section_form raw" ng-controller="FormsController" ng-show="showEntryForm(item)">
-    <textarea class="input_content" ng-model="activeForms[activeFormCategory].content"></textarea>
-    <!-- <input type="submit" value="OK" /> -->
-    <button ng-click="formSend(activeFormCategory)">OK</button>
-    <button ng-click="formCancel(activeFormCategory)">Cancel</button>
+<form class="form section_form raw form-entry" ng-controller="FormsController" ng-show="showEntryForm(item)">
+    <div class="form-group">
+        <textarea class="form-control" ng-model="activeForms[activeFormCategory].content"></textarea>
+    </div>
+    <button class="btn btn-primary btn-form btn-sm" ng-click="formSend(activeFormCategory)">OK</button>
+    <button class="btn btn-primary btn-form btn-sm" ng-click="formCancel(activeFormCategory)">Cancel</button>
 </form>
 <div class="clear"></div>

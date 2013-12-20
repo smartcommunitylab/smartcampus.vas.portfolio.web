@@ -42,6 +42,8 @@
         pattern="/login" security="none" />
 	<http xmlns="http://www.springframework.org/schema/security"
         pattern="/check" security="none" />
+	<http xmlns="http://www.springframework.org/schema/security"
+        pattern="/mobile" security="none" />
 
 	<sec:http pattern="/rest/**" entry-point-ref="forbEntryPoint"
 		use-expressions="true" create-session="stateless">

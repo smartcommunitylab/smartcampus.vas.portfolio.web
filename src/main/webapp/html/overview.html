@@ -13,12 +13,17 @@ Copyright 2012-2013 Trento RISE
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<div id="notes" class="col-md-6 col-md-offset-3">
-    <div ng-bind-html="notes.notes" ng-if="editMode == false"></div>
-    <form class="form" ng-if="editMode == true">
-        <div class="form-group">
-            <textarea class="form-control" name="content" required="required" ng-model="notes.notes" />
-        </div>
-    </form>
+<div id="overview_card"></div>
+<div id="overview_personal"></div>
+<div id="overview_languages">
+	<div class="overview_sub_header"></div>
+	<ul></ul>
 </div>
-<div class="clear"></div>
+<div id="overview_skills">
+	<div class="overview_sub_header"></div>
+	<ul></ul>
+</div>
+<div id="overview_contacts">
+	<div class="overview_sub_header"></div>
+	<ul></ul>
+</div>

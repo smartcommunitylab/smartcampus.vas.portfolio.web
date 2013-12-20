@@ -108,6 +108,18 @@ public class PortfolioController extends SCController {
 		return new ModelAndView("index", model);
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/mobile")
+	public ModelAndView secureMobile(HttpServletRequest request, @RequestParam String token)
+			throws SecurityException, AACException {
+		List<GrantedAuthority> list = Collections.<GrantedAuthority> singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+		Authentication auth = new PreAuthenticatedAuthenticationToken(token, "", list);
+		auth = authenticationManager.authenticate(auth);
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+				SecurityContextHolder.getContext());
+		return new ModelAndView("redirect:/");
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/check")
 	public ModelAndView securePage(HttpServletRequest request, @RequestParam(required = false) String code)
 			throws SecurityException, AACException {

@@ -13,16 +13,50 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-input[type=checkbox].eye {
-	background: url('../img/icons/sprite_icons.png') -72px 0;
+ input[type=checkbox].eye {
+    background: url('../img/icons/sprite_icons.png') -72px 0;
 }
-
 input[type=checkbox]:checked.eye {
-	background: url('../img/icons/sprite_icons.png') -54px 0;
+    background: url('../img/icons/sprite_icons.png') -54px 0;
 }
-
-form button {
-	background-color: #6699cc;
-	color: white;
-	border: 0px;
+.btn {
+    border-radius: 0;
+}
+.btn-section {
+    color: white;
+    background-color: #666666;
+    padding: 0 12px;
+}
+.btn-section:hover {
+    color: white;
+    background-color: #333333;
+}
+.btn-overview {
+    color: #6699cc;
+    background-color: transparent;
+    padding: 0 12px;
+}
+.btn-overview:hover {
+    color: #6699cc;
+    background-color: transparent;
+}
+.btn-save {
+    width: 100%;
+    margin-bottom: 18px;
+}
+.btn-form {
+    background-color: #6699cc;
+}
+.form-entry {
+    margin-top: 15px;
+}
+.form-control {
+    /*-webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;*/
+    outline: none;
+    /*border: none !important;*/
+    box-shadow: none !important;
 }

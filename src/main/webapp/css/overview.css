@@ -13,110 +13,91 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
 /* OVERVIEW */
-#overview {
-	padding: 15px;
-	border: 1px solid #cdcdcd;
-	margin-bottom: 50px;
-	font-size: smaller;
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	border-color: #cccccc;
-	/* Old browsers */
-	background: #ffffff;
-	/* CSS3 */
-	background-image: linear-gradient(top, #ffffff 0%, #ebebeb 100%);
-	background-image: -o-linear-gradient(top, #ffffff 0%, #ebebeb 100%);
-	background-image: -moz-linear-gradient(top, #ffffff 0%, #ebebeb 100%);
-	background-image: -webkit-linear-gradient(top, #ffffff 0%, #ebebeb 100%);
-	background-image: -ms-linear-gradient(top, #ffffff 0%, #ebebeb 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff),
-		color-stop(1, #ebebeb) );
+ #overview {
+    padding: 15px;
+    /*border: 1px solid #cdcdcd;
+    margin-bottom: 50px;*/
+    /*font-size: smaller;*/
+    /*-webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    border-color: #cccccc;*/
+    /* Old browsers */
+    background: #ffffff;
+    /* CSS3 gradient */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #ebebeb));
+    background-image: -webkit-linear-gradient(top, #ffffff 0%, #ebebeb 100%);
+    background-image: -moz-linear-gradient(top, #ffffff 0%, #ebebeb 100%);
+    background-image: -ms-linear-gradient(top, #ffffff 0%, #ebebeb 100%);
+    background-image: -o-linear-gradient(top, #ffffff 0%, #ebebeb 100%);
+    background-image: linear-gradient(top, #ffffff 0%, #ebebeb 100%);
 }
-
 #overview .overview_photo {
-	position: relative;
-	display: inline-block;
+    position: relative;
+    display: inline-block;
 }
-
 #overview .overview_photo .entry_tools {
-	position: absolute;
-	right: 18px;
-	top: 0;
-	background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    right: 18px;
+    top: 0;
+    background: rgba(255, 255, 255, 0.5);
 }
-
+#overview .overview_photo img {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    margin-right: 18px;
+}
 #overview .overview_sub ul li .entry_tools {
-	display: none;
+    display: none;
 }
-
 #overview .overview_sub ul li:hover .entry_tools, #overview .overview_sub ul li .entry_tools.entry_edit {
-	display: inline-block;
+    display: inline-block;
 }
-
 #overview .overview_sub_header {
-	width: 100%;
-	border-bottom: 1px solid #cdcdcd;
-	margin: 18px 0 10px;
+    width: 100%;
+    border-bottom: 1px solid #cdcdcd;
+    margin: 18px 0 10px;
 }
-
 #overview .overview_sub_header span {
-	color: #999999;
+    color: #999999;
 }
-
 #overview .overview_sub_header .overview_sub_header_actions {
-	float: right;
-	width: 100px;
-	text-align: right;
+    float: right;
+    width: 100px;
+    text-align: right;
 }
-
 #overview ul {
-	clear: both;
+    clear: both;
 }
-
 #overview .overview_sub_large div {
-	margin-top: 18px;
+    margin-top: 18px;
 }
-
 #overview .overview_sub_large div:first-child {
-	margin-top: 0;
+    margin-top: 0;
 }
-
 #overview label {
-	color: #999999;
-	/*margin-right: 5px;*/
+    color: #999999;
+    /*margin-right: 5px;*/
 }
-
 #overview_card {
-	margin-bottom: 18px;
+    margin-bottom: 18px;
 }
-
-#overview_card img {
-	display: inline-block;
-	width: 120px;
-	height: 120px;
-	margin-right: 18px;
-}
-
 #overview_card div.text {
-	display: inline-block;
-	width: 245px;
-	vertical-align: top;
+    display: inline-block;
+    width: 260px;
+    vertical-align: top;
 }
-
 #overview_card .overview_name {
-	display: block;
-	color: #666666;
-	font-weight: bold;
-	font-size: 18px;
-	margin-bottom: 18px;
+    display: block;
+    color: #666666;
+    font-weight: bold;
+    /*font-size: 18px;*/
+    font-size: large;
+    margin-bottom: 18px;
 }
-
 #overview .entry_edit {
-	visibility: visible;
+    visibility: visible;
 }
-
-/*#overview .overview_sub ul li label, #overview .overview_sub ul li span {
-	float: left;
-}*/

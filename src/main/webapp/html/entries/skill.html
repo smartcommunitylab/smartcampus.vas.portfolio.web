@@ -5,12 +5,12 @@
     </span>
 </div>
 
-<form class="form" ng-controller="FormsController" ng-show="showEntryForm(item)">
-    <input class="input_skill" type="text" placeholder="Skill" ng-model="activeForms['skill'].title" />
-    <br />
-    <!-- <input type="submit" value="OK" /> -->
-    <button ng-click="formSend('skill')">OK</button>
-    <button ng-click="formCancel('skill')">Cancel</button>
+<form class="form form-entry" ng-controller="FormsController" ng-show="showEntryForm(item)">
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Skill" ng-model="activeForms['skill'].title" />
+    </div>
+    <button class="btn btn-primary btn-sm" ng-click="formSend('skill')">OK</button>
+    <button class="btn btn-primary btn-sm" ng-click="formCancel('skill')">Cancel</button>
 </form>
 
 <div class="clear"></div>
