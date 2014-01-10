@@ -23,21 +23,22 @@
     background-repeat: repeat-x;
     background-position: bottom;
 }
-#tab_menu a {
-    color: #ffffff;
-}
-#tab_menu ul {
+#tab_menu ul.tabs {
     /*width: 860px;
     margin: 0 auto;
     padding: 0 50px;
     font-family: arial;*/
+    display: inline-block;
 }
-#tab_menu ul li {
+#tab_menu ul.tabs a {
+    color: #ffffff;
+}
+#tab_menu ul.tabs li {
     cursor: pointer;
     display: inline-block;
-    padding: 0 30px;
+    padding: 0 1em;
     margin: 0 auto;
-    margin-right: 5px;
+    margin-right: 4px;
     font-weight: bold;
     /* CSS3 */
     background-image: linear-gradient(top, #999999 0%, #666666 100%);
@@ -49,23 +50,43 @@
     /* Old browsers */
     background-color: #666666;
 }
-#tab_menu ul li:last-child {
+#tab_menu ul.tabs li:last-child {
     margin-right: 0;
 }
-#tab_menu ul li.active {
+#tab_menu ul.tabs li.active {
     background-image: none;
     background-color: #ffffff;
 }
-#tab_menu ul li.active a {
+#tab_menu ul.tabs li.active a {
     color: #666666;
 }
-#tab_menu ul li a.remove {
+#tab_menu ul.tabs li a.remove {
     color: #6699cc;
 }
-#tab_menu ul li form {
+#tab_menu ul.tabs li form {
     display: inline-block;
     margin-left: 30px;
 }
-#tab_menu ul li form input {
+#tab_menu ul.tabs li form input {
     width: 200px;
+}
+#tab_menu .btn-group-cvs {
+    display: none;
+}
+#tab_menu .btn-group-cvs button {
+    border: none;
+    color: white;
+    font-weight: bold;
+    /* CSS3 */
+    background-image: linear-gradient(top, #999999 0%, #666666 100%);
+    background-image: -o-linear-gradient(top, #999999 0%, #666666 100%);
+    background-image: -moz-linear-gradient(top, #999999 0%, #666666 100%);
+    background-image: -webkit-linear-gradient(top, #999999 0%, #666666 100%);
+    background-image: -ms-linear-gradient(top, #999999 0%, #666666 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #999999), color-stop(1, #666666));
+    /* Old browsers */
+    background-color: #666666;
+}
+#tab_menu .btn-group-cvs ul.dropdown-menu li div {
+    padding: 0 1em;
 }

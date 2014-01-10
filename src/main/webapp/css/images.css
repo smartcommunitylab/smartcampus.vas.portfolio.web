@@ -101,9 +101,10 @@
 }
 .icon.loader {
     background: url('../img/ajax-loader.gif');
-    /*url('../img/loader.gif');*/
+    background-repeat: no-repeat;
+    background-position: bottom;
     width: 43px;
     height: 11px;
     display: block;
-    margin: 0 auto;
+    padding: 15px;
 }

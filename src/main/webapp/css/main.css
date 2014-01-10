@@ -82,9 +82,24 @@ a {
 .form {
     font-size: smaller;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     #footer {
         margin: 0 auto;
         display: none;
+    }
+    #tab_menu .tabs_cvs {
+        display: none !important;
+    }
+    #tab_menu .btn-group-cvs {
+        display: inline-block;
+    }
+    #top_menu .top_menu_help span, #top_menu .top_menu_logout span {
+        display: inline;
+    }
+    #examsModal {
+        font-size: smaller;
+    }
+    #examsModal .modal-body {
+        padding: 5px;
     }
 }

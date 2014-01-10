@@ -10,6 +10,7 @@ function MainController($scope, $http, $resource, $location) {
     $scope.studentInfoDefaultPhoto = 'img/photo.png';
 
     $scope.currentView;
+    $scope.currentViewName;
     $scope.loading = false;
 
     $scope.properties = new Properties();
@@ -30,6 +31,8 @@ function MainController($scope, $http, $resource, $location) {
     $scope.activeForms = {};
     $scope.activeFormCategory = null;
     $scope.newPortfolioName = null;
+    $scope.portfolioToBeDeleted = null;
+
     $scope.editMode = false;
 
     $scope.somethingChanged = false;
@@ -52,10 +55,16 @@ function MainController($scope, $http, $resource, $location) {
         return false;
     };
 
-    $scope.setCurrentView = function(view) {
+    $scope.setCurrentView = function(view, name) {
         $scope.somethingChanged = false;
         $scope.editMode = false;
         $scope.currentView = view;
+        if ( !! !name) {
+            name = '';
+        }
+        $scope.currentViewName = name;
+
+        $('#top_menu_collapse').collapse('toggle');
     };
 
     $scope.isCurrentView = function(view) {
@@ -108,13 +117,21 @@ function MainController($scope, $http, $resource, $location) {
         }
     };
 
+    $scope.setPortfolioToBeDeleted = function(p) {
+        $scope.portfolioToBeDeleted = p;
+        if ( !! p) {
+            $('#deleteCvModal').modal('show');
+        }
+    };
+
     var authHeaders = {
-        'Authorization': $scope.getToken()
+        'Authorization': $scope.getToken(),
+        'Accept': 'application/json;charset=UTF-8'
     };
 
     var authHeadersPdf = {
         'Authorization': $scope.getToken(),
-        'Content-Type': 'text/plain; charset=x-user-defined'
+        'Accept': 'text/plain;charset=x-user-defined'
     };
 
     var Caller_Profile = $resource('rest/getprofile', {}, {
@@ -243,6 +260,38 @@ function MainController($scope, $http, $resource, $location) {
             $scope.userProducedData[category] = contentsArray;
             $scope.setLoading(false);
         });
+
+        // $http({
+        //     method: 'GET',
+        //     url: 'rest/smartcampus.services.esse3.UserProducedData/' + category,
+        //     headers: {
+        //         'Authorization': $scope.getToken(),
+        //         'Accept': 'application/json;charset=UTF-8'
+        //     },
+        //     transformResponse: function(data, headersGetter) {
+        //         var json = angular.fromJson(data);
+        //         return json;
+        //     }
+        // }).
+        // success(function(data, status, headers, config) {
+        //     var contentsArray = [];
+        //     angular.forEach(data, function(entry) {
+        //         var content = entry.content;
+        //         content.id = entry.id;
+
+        //         // prevents errors for wrong previous savings
+        //         if (!$scope.utils.valid(content.type)) {
+        //             content.type = content.category;
+        //         }
+
+        //         contentsArray.push(content);
+        //     });
+        //     $scope.userProducedData[category] = contentsArray;
+        //     $scope.setLoading(false);
+        // }).
+        // error(function(data, status, headers, config) {
+        //     $scope.setLoading(false);
+        // });
     };
 
     $scope.caller.saveUserProducedData = function(entry) {
@@ -290,6 +339,7 @@ function MainController($scope, $http, $resource, $location) {
             $scope.caller.getPortfolios();
             $scope.formCancel();
             $scope.setLoading(false);
+            $('#newCvModal').modal('hide');
         });
     };
 
@@ -313,6 +363,7 @@ function MainController($scope, $http, $resource, $location) {
             $scope.myPortfolioCurrentIndex = 0;
             $scope.caller.getPortfolios();
             $scope.setLoading(false);
+            $('#deleteCvModal').modal('hide');
         });
     };
 
@@ -346,25 +397,48 @@ function MainController($scope, $http, $resource, $location) {
         });
     };
 
-    $scope.caller.exportPortfolio = function(portfolioId) {
+    $scope.b64toBlob = function(b64Data, contentType, sliceSize) {
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
+        var byteCharacters = atob(b64Data);
+        var byteArrays = [];
+        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+            var byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+        var blob = new Blob(byteArrays, {
+            type: contentType
+        });
+        return blob;
+    }
+
+    $scope.caller.exportPortfolio = function(portfolio) {
         $scope.setLoading(true);
 
-        if ( !! portfolioId) {
+        if ( !! portfolio.id) {
             $http({
                 method: 'GET',
-                url: 'rest/generatecv/' + portfolioId + '/pdf/true',
+                url: 'rest/generatecv/' + portfolio.id + '/pdf/true',
                 headers: {
                     'Authorization': $scope.getToken(),
-                    'Content-Type': 'text/plain; charset=x-user-defined'
+                    'Content-Type': 'text/plain;charset=x-user-defined'
                 }
             }).
             success(function(data, status, headers, config) {
                 $scope.setLoading(false);
                 var encoded = encodeURIComponent(data);
                 $scope.pdfbase64 = 'data:application/pdf;base64,' + encoded;
-                // $scope.$apply(function() {
-                $('download_cv_pdf').attr('href', $scope.pdfbase64);
-                // });
+                // window.open($scope.pdfbase64);
+                // var elem = $('#download_cv_pdf_do')[0];
+                // elem.click();
+
+                var blob = $scope.b64toBlob(data, 'application/json');
+                saveAs(blob, portfolio.content.name + '.pdf')
             }).
             error(function(data, status, headers, config) {
                 $scope.setLoading(false);
@@ -399,7 +473,12 @@ function MainController($scope, $http, $resource, $location) {
                 $scope.activeForms[category]['type'] = $scope.properties.categories[category].choose[0];
             }
         } else if ($scope.isCurrentView('myportfolios')) {
-            $scope.newPortfolioName = '';
+            if ( !! $scope.deletePortfolioId) {
+
+            } else {
+                $scope.newPortfolioName = '';
+                $('#newCvModal').modal('show');
+            }
         } else if ($scope.isCurrentView('notes')) {
             $scope.editMode = true;
             $scope.somethingChanged = true;
@@ -415,6 +494,7 @@ function MainController($scope, $http, $resource, $location) {
             if ($scope.utils.valid($event)) {
                 $event.stopImmediatePropagation();
             }
+            $('#newCvModal').modal('hide');
         } else if ($scope.isCurrentView('notes')) {
             $scope.editMode = false;
             $scope.somethingChanged = false;
@@ -623,14 +703,14 @@ function MainController($scope, $http, $resource, $location) {
         }
     });
 
-    $scope.$watch('myPortfolioCurrent', function(newValue, oldValue, scope) {
-        if ( !! newValue) {
-            $scope.caller.exportPortfolio(newValue.id);
-        }
-    });
+    // $scope.$watch('myPortfolioCurrent', function(newValue, oldValue, scope) {
+    //     if ( !! newValue) {
+    //         $scope.caller.exportPortfolio(newValue.id);
+    //     }
+    // });
 
     // LET'S DO IT!
-    $scope.setCurrentView('manager');
+    $scope.setCurrentView('manager', 'MY DATA');
 }
 
 function FormsController($scope, $resource) {

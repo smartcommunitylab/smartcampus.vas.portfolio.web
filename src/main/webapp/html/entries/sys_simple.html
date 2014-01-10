@@ -7,8 +7,8 @@
 </div>
 <div class="entry_body" ng-show="showEntry(item)">
     <div class="title">
-        <a ng-click="caller.getExams()">{{item.title}}</a>
+        <a ng-click="caller.getExams()" ng-bind-html="item.title"></a>
     </div>
-    <div class="subtitle">{{item.subtitle}}</div>
+    <div class="subtitle" ng-bind-html="item.subtitle"></div>
 </div>
 <div class="clear"></div>

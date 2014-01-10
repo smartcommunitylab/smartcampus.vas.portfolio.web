@@ -224,3 +224,41 @@ Copyright 2012-2013 Trento RISE
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="deleteCvModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete "{{portfolioToBeDeleted.content.name}}"</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary btn-form" ng-click="caller.deletePortfolio(portfolioToBeDeleted.id)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newCvModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form-inline" ng-controller="FormsController" ng-if="newPortfolioName != null">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">CV name</h4>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" placeholder="New CV name" ng-model="newPortfolioName" />
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <button class="btn btn-default" ng-click="formCancel(null, $event)">Cancel</button>
+                    <button class="btn btn-primary btn-form" ng-click="formNewPortfolioSend()">OK</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
