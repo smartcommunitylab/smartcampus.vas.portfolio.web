@@ -63,7 +63,7 @@ function Properties() {
             tools: ['lax']
         },
         'raw': {
-            description: 'Text',
+            description: 'entry_raw',
             tools: ['edit', 'delete']
         },
         'simple': {
@@ -76,7 +76,7 @@ function Properties() {
             tools: ['edit', 'delete']
         },
         'video': {
-            description: 'Video',
+            description: 'entry_video',
             tools: ['edit', 'delete'],
             maxWidth: 390,
             maxHeight: 293
@@ -85,6 +85,4 @@ function Properties() {
             tools: []
         }
     };
-
-    this.SYS_entry_dialog = 'Having enabled this entry, if you share this CV, your University marks will be visible to other users.';
 };

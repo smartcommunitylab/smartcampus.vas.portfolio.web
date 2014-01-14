@@ -25,27 +25,27 @@ Copyright 2012-2013 Trento RISE
                         <span>{{profile.name}} {{profile.surname}}</span>
                     </div>
                     <div ng-if="utils.valid(studentInfo.cds)">
-                        <label>Current occupation:</label>
+                        <label>{{'overview_current-occupation' | i18n}}</label>
                         <span>{{studentInfo.cds}}</span>
                     </div>
                     <div ng-if="utils.valid(studentInfo.academicYear)">
-                        <label>Academic year:</label>
+                        <label>{{'overview_academic-year' | i18n}}</label>
                         <span>{{studentInfo.academicYear}}{{utils.valid(studentInfo.supplementaryYears) ? ' + ' + studentInfo.supplementaryYears : ''}}</span>
                     </div>
                     <div ng-if="utils.valid(studentInfo.enrollmentYear)">
-                        <label>Enrollment year:</label>
+                        <label>{{'overview_enrollment-year' | i18n}}</label>
                         <span>{{studentInfo.enrollmentYear}}</span>
                     </div>
                     <div ng-if="utils.valid(studentInfo.cfu)">
-                        <label>CFU:</label>
+                        <label>{{'overview_cfu' | i18n}}</label>
                         <span>{{studentInfo.cfu}} / {{studentInfo.cfuTotal}}</span>
                     </div>
                     <div ng-if="utils.valid(studentInfo.marksNumber)">
-                        <label>Marks:</label>
+                        <label>{{'overview_marks' | i18n}}</label>
                         <span>{{studentInfo.marksNumber}}</span>
                     </div>
                     <div ng-if="utils.valid(studentInfo.marksAverage)">
-                        <label>Average grade:</label>
+                        <label>{{'overview_average-grade' | i18n}}</label>
                         <span>{{studentInfo.marksAverage}}</span>
                     </div>
                 </div>
@@ -53,24 +53,24 @@ Copyright 2012-2013 Trento RISE
             <div id="overview_personal" class="overview_sub">
                 <ul class="overview_sub_large">
                     <li ng-if="utils.valid(studentInfo.gender)">
-                        <label>Gender:</label>
+                        <label>{{'overview_gender' | i18n}}</label>
                         <span>{{studentInfo.gender}}</span>
                     </li>
                     <li ng-if="utils.valid(studentInfo.dateOfBirth)">
-                        <label>Birthday:</label>
+                        <label>{{'overview_birthday' | i18n}}</label>
                         <span>{{studentInfo.dateOfBirth}}</span>
                     </li>
                     <li ng-if="utils.valid(studentInfo.nation)">
-                        <label>Citizenship:</label>
+                        <label>{{'overview_citizenship' | i18n}}</label>
                         <span>{{studentInfo.nation}}</span>
                     </li>
                 </ul>
             </div>
             <div id="overview_languages" class="overview_sub">
                 <div class="overview_sub_header">
-                    <span>Languages</span>
+                    <span>{{'overview_languages' | i18n}}</span>
                     <div class="overview_sub_header_actions" ng-if="isCurrentView('manager')">
-                        <button type="button" class="btn btn-overview" ng-click="formStart('language')">+Add</button>
+                        <button type="button" class="btn btn-overview" ng-click="formStart('language')">{{'btn_add' | i18n}}</button>
                     </div>
                 </div>
                 <ul>
@@ -80,9 +80,9 @@ Copyright 2012-2013 Trento RISE
             </div>
             <div id="overview_skills" class="overview_sub">
                 <div class="overview_sub_header">
-                    <span>Skills</span>
+                    <span>{{'overview_skills' | i18n}}</span>
                     <div class="overview_sub_header_actions" ng-if="isCurrentView('manager')">
-                        <button type="button" class="btn btn-overview" ng-click="formStart('skill')">+Add</button>
+                        <button type="button" class="btn btn-overview" ng-click="formStart('skill')">{{'btn_add' | i18n}}</button>
                     </div>
                 </div>
                 <ul>
@@ -92,26 +92,26 @@ Copyright 2012-2013 Trento RISE
             </div>
             <div id="overview_contacts" class="overview_sub">
                 <div class="overview_sub_header">
-                    <span>Contacts</span>
+                    <span>{{'overview_contacts' | i18n}}</span>
                     <div class="overview_sub_header_actions" ng-if="isCurrentView('manager')">
-                        <button type="button" class="btn btn-overview" ng-click="formStart('contact')">+Add</button>
+                        <button type="button" class="btn btn-overview" ng-click="formStart('contact')">{{'btn_add' | i18n}}</button>
                     </div>
                 </div>
                 <ul>
                     <li ng-if="utils.valid(studentInfo.address)">
-                        <label>Address:</label>
+                        <label>{{'overview_contacts-address' | i18n}}</label>
                         <span>{{studentInfo.address}}</span>
                     </li>
                     <li ng-if="utils.valid(studentInfo.email)">
-                        <label>Email:</label>
+                        <label>{{'overview_contacts-email' | i18n}}</label>
                         <span>{{studentInfo.email}}</span>
                     </li>
                     <li ng-if="utils.valid(studentInfo.phone)">
-                        <label>Phone:</label>
+                        <label>{{'overview_contacts-phone' | i18n}}</label>
                         <span>{{studentInfo.phone}}</span>
                     </li>
                     <li ng-if="utils.valid(studentInfo.mobile)">
-                        <label>Mobile:</label>
+                        <label>{{'overview_contacts-mobile' | i18n}}</label>
                         <span>{{studentInfo.mobile}}</span>
                     </li>
                     <li class="overview_userdata" ng-repeat="item in userProducedData['contact']" ng-include="'./html/entries/' + item.type + '.html'"></li>
@@ -122,15 +122,15 @@ Copyright 2012-2013 Trento RISE
     </div>
     <div class="section" id="section_education">
         <div class="section_header">
-            <span>Education</span>
+            <span>{{'section_education' | i18n}}</span>
         </div>
         <div class="section_body">
             <div class="entry {{item.type}}" ng-repeat="item in userProducedData['education']" ng-if="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
             <div ng-include="'./html/entries/forms.html'" ng-if="activeFormCategory == 'education'"></div>
         </div>
         <div class="section_footer">
-            <!-- <a ng-click="formStart('education')">+Add</a> -->
-            <button type="button" class="btn btn-section" ng-click="formStart('education')">+Add</button>
+            <!-- <a ng-click="formStart('education')">{{'btn_add' | i18n}}</a> -->
+            <button type="button" class="btn btn-section" ng-click="formStart('education')">{{'btn_add' | i18n}}</button>
         </div>
         <div class="clear"></div>
     </div>
@@ -138,40 +138,40 @@ Copyright 2012-2013 Trento RISE
 <div class="col-md-3">
     <div class="section" id="section_presentation">
         <div class="section_header">
-            <span>Presentation</span>
+            <span>{{'section_presentation' | i18n}}</span>
         </div>
         <div class="section_body">
             <div class="entry {{item.type}}" ng-repeat="item in userProducedData['presentation']" ng-if="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
             <div ng-include="'./html/entries/forms.html'" ng-if="activeFormCategory == 'presentation'"></div>
         </div>
         <div class="section_footer">
-            <button type="button" class="btn btn-section" ng-click="formStart('presentation')">+Add</button>
+            <button type="button" class="btn btn-section" ng-click="formStart('presentation')">{{'btn_add' | i18n}}</button>
         </div>
         <div class="clear"></div>
     </div>
     <div class="section" id="section_professional">
         <div class="section_header">
-            <span>Professional Experiences</span>
+            <span>{{'section_professional-experiences' | i18n}}</span>
         </div>
         <div class="section_body">
             <div class="entry {{item.type}}" ng-repeat="item in userProducedData['professional']" ng-if="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
             <div ng-include="'./html/entries/forms.html'" ng-if="activeFormCategory == 'professional'"></div>
         </div>
         <div class="section_footer">
-            <button type="button" class="btn btn-section" ng-click="formStart('professional')">+Add</button>
+            <button type="button" class="btn btn-section" ng-click="formStart('professional')">{{'btn_add' | i18n}}</button>
         </div>
         <div class="clear"></div>
     </div>
     <div class="section" id="section_about">
         <div class="section_header">
-            <span>More about me</span>
+            <span>{{'section_more-about-me' | i18n}}</span>
         </div>
         <div class="section_body">
             <div class="entry {{item.type}}" ng-repeat="item in userProducedData['about']" ng-if="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
             <div ng-include="'./html/entries/forms.html'" ng-if="activeFormCategory == 'about'"></div>
         </div>
         <div class="section_footer">
-            <button type="button" class="btn btn-section" ng-click="formStart('about')">+Add</button>
+            <button type="button" class="btn btn-section" ng-click="formStart('about')">{{'btn_add' | i18n}}</button>
         </div>
         <div class="clear"></div>
     </div>

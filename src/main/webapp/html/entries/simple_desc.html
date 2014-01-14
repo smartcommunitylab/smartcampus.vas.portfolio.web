@@ -13,16 +13,16 @@
 
 <form class="form section_form simple form-entry" ng-controller="FormsController" ng-show="showEntryForm(item)">
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="{{activeFormCategory == 'professional' ? 'Experience' : ''}}" ng-model="activeForms[activeFormCategory].title" />
+        <input class="form-control" type="text" placeholder="{{activeFormCategory == 'professional' ? ('ph_experience' | i18n) : ''}}" ng-model="activeForms[activeFormCategory].title" />
     </div>
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="{{activeFormCategory == 'professional' ? 'Time period' : ''}}" ng-model="activeForms[activeFormCategory].subtitle" />
+        <input class="form-control" type="text" placeholder="{{activeFormCategory == 'professional' ? ('ph_time-period' | i18n) : ''}}" ng-model="activeForms[activeFormCategory].subtitle" />
     </div>
     <div class="form-group">
-        <textarea class="form-control" placeholder="{{activeFormCategory == 'professional' ? 'Description' : ''}}" ng-model="activeForms[activeFormCategory].content"></textarea>
+        <textarea class="form-control" placeholder="{{activeFormCategory == 'professional' ? ('ph_description' | i18n) : ''}}" ng-model="activeForms[activeFormCategory].content"></textarea>
     </div>
     <!-- <input type="submit" value="OK" /> -->
-    <button class="btn btn-primary btn-form btn-sm" ng-click="formSend(activeFormCategory)">OK</button>
-    <button class="btn btn-primary btn-form btn-sm" ng-click="formCancel(activeFormCategory)">Cancel</button>
+    <button class="btn btn-primary btn-form btn-sm" ng-click="formCancel(activeFormCategory)">{{'btn_cancel' | i18n}}</button>
+    <button class="btn btn-primary btn-form btn-sm" ng-click="formSend(activeFormCategory)">{{'btn_ok' | i18n}}</button>
 </form>
 <div class="clear"></div>

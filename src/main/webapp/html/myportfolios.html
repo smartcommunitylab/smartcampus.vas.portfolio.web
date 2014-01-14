@@ -25,42 +25,42 @@ Copyright 2012-2013 Trento RISE
                         <span>{{profile.name}} {{profile.surname}}</span>
                     </div>
                     <div ng-show="utils.valid(studentInfo.cds) && showEntry({'category': 'cds'})">
-                        <label>Current occupation:</label>
+                        <label>{{'overview_current-occupation' | i18n}}</label>
                         <span>{{studentInfo.cds}}</span>
                         <span class="entry_tools" ng-show="editMode == true">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'cds'})" ng-class="getToolsClasses(tool, {'category': 'cds'})" ng-click="useTool(tool, {'category': 'cds'})"></a>
                         </span>
                     </div>
                     <div ng-show="utils.valid(studentInfo.academicYear) && showEntry({'category': 'academicYear'})">
-                        <label>Academic year:</label>
+                        <label>{{'overview_academic-year' | i18n}}</label>
                         <span>{{studentInfo.academicYear}}{{utils.valid(studentInfo.supplementaryYears) ? ' + ' + studentInfo.supplementaryYears : ''}}</span>
                         <span class="entry_tools" ng-show="editMode == true">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'academicYear'})" ng-class="getToolsClasses(tool, {'category': 'academicYear'})" ng-click="useTool(tool, {'category': 'academicYear'})"></a>
                         </span>
                     </div>
                     <div ng-show="utils.valid(studentInfo.enrollmentYear) && showEntry({'category': 'enrollmentYear'})">
-                        <label>Enrollment year:</label>
+                        <label>{{'overview_enrollment-year' | i18n}}</label>
                         <span>{{studentInfo.enrollmentYear}}</span>
                         <span class="entry_tools" ng-show="editMode == true">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'enrollmentYear'})" ng-class="getToolsClasses(tool, {'category': 'enrollmentYear'})" ng-click="useTool(tool, {'category': 'enrollmentYear'})"></a>
                         </span>
                     </div>
                     <div ng-show="utils.valid(studentInfo.cfu) && showEntry({'category': 'cfu_cfuTotal'})">
-                        <label>CFU:</label>
+                        <label>{{'overview_cfu' | i18n}}</label>
                         <span>{{studentInfo.cfu}} / {{studentInfo.cfuTotal}}</span>
                         <span class="entry_tools" ng-show="editMode == true">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'cfu_cfuTotal'})" ng-class="getToolsClasses(tool, {'category': 'cfu_cfuTotal'})" ng-click="useTool(tool, {'category': 'cfu_cfuTotal'})"></a>
                         </span>
                     </div>
                     <div ng-show="utils.valid(studentInfo.marksNumber) && showEntry({'category': 'marksNumber'})">
-                        <label>Marks:</label>
+                        <label>{{'overview_marks' | i18n}}</label>
                         <span>{{studentInfo.marksNumber}}</span>
                         <span class="entry_tools" ng-show="editMode == true">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'marksNumber'})" ng-class="getToolsClasses(tool, {'category': 'marksNumber'})" ng-click="useTool(tool, {'category': 'marksNumber'})"></a>
                         </span>
                     </div>
                     <div ng-show="utils.valid(studentInfo.marksAverage) && showEntry({'category': 'marksAverage'})">
-                        <label>Average grade:</label>
+                        <label>{{'overview_average-grade' | i18n}}</label>
                         <span>{{studentInfo.marksAverage}}</span>
                         <span class="entry_tools" ng-show="editMode == true">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'marksAverage'})" ng-class="getToolsClasses(tool, {'category': 'marksAverage'})" ng-click="useTool(tool, {'category': 'marksAverage'})"></a>
@@ -71,21 +71,21 @@ Copyright 2012-2013 Trento RISE
             <div id="overview_personal" class="overview_sub">
                 <ul class="overview_sub_large">
                     <li ng-show="utils.valid(studentInfo.gender) && showEntry({'category': 'gender'})">
-                        <label>Gender:</label>
+                        <label>{{'overview_gender' | i18n}}</label>
                         <span>{{studentInfo.gender}}</span>
                         <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'gender'})" ng-class="getToolsClasses(tool, {'category': 'gender'})" ng-click="useTool(tool, {'category': 'gender'})"></a>
                         </span>
                     </li>
                     <li ng-show="utils.valid(studentInfo.dateOfBirth) && showEntry({'category': 'dateOfBirth'})">
-                        <label>Birthday:</label>
+                        <label>{{'overview_birthday' | i18n}}</label>
                         <span>{{studentInfo.dateOfBirth}}</span>
                         <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'dateOfBirth'})" ng-class="getToolsClasses(tool, {'category': 'dateOfBirth'})" ng-click="useTool(tool, {'category': 'dateOfBirth'})"></a>
                         </span>
                     </li>
                     <li ng-show="utils.valid(studentInfo.nation) && showEntry({'category': 'nation'})">
-                        <label>Citizenship:</label>
+                        <label>{{'overview_citizenship' | i18n}}</label>
                         <span>{{studentInfo.nation}}</span>
                         <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'nation'})" ng-class="getToolsClasses(tool, {'category': 'nation'})" ng-click="useTool(tool, {'category': 'nation'})"></a>
@@ -95,7 +95,7 @@ Copyright 2012-2013 Trento RISE
             </div>
             <div id="overview_languages" class="overview_sub" ng-if="showSection('language')">
                 <div class="overview_sub_header">
-                    <span>Languages</span>
+                    <span>{{'overview_languages' | i18n}}</span>
                 </div>
                 <ul>
                     <li class="overview_userdata" ng-repeat="item in userProducedData['language']" ng-include="'./html/entries/' + item.type + '.html'"></li>
@@ -103,7 +103,7 @@ Copyright 2012-2013 Trento RISE
             </div>
             <div id="overview_skills" class="overview_sub" ng-if="showSection('skill')">
                 <div class="overview_sub_header">
-                    <span>Skills</span>
+                    <span>{{'overview_skills' | i18n}}</span>
                 </div>
                 <ul>
                     <li class="overview_userdata" ng-repeat="item in userProducedData['skill']" ng-include="'./html/entries/' + item.type + '.html'"></li>
@@ -111,32 +111,32 @@ Copyright 2012-2013 Trento RISE
             </div>
             <div id="overview_contacts" class="overview_sub" ng-if="showSection('education', 'address', 'email', 'phone', 'mobile')">
                 <div class="overview_sub_header">
-                    <span>Contacts</span>
+                    <span>{{'overview_contacts' | i18n}}</span>
                 </div>
                 <ul>
                     <li ng-show="utils.valid(studentInfo.address) && showEntry({'category': 'address'})">
-                        <label>Address:</label>
+                        <label>{{'overview_contacts-address' | i18n}}</label>
                         <span>{{studentInfo.address}}</span>
                         <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'address'})" ng-class="getToolsClasses(tool, {'category': 'address'})" ng-click="useTool(tool, {'category': 'address'})"></a>
                         </span>
                     </li>
                     <li ng-show="utils.valid(studentInfo.email) && showEntry({'category': 'email'})">
-                        <label>Email:</label>
+                        <label>{{'overview_contacts-email' | i18n}}</label>
                         <span>{{studentInfo.email}}</span>
                         <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'email'})" ng-class="getToolsClasses(tool, {'category': 'email'})" ng-click="useTool(tool, {'category': 'email'})"></a>
                         </span>
                     </li>
                     <li ng-show="utils.valid(studentInfo.phone) && showEntry({'category': 'phone'})">
-                        <label>Phone:</label>
+                        <label>{{'overview_contacts-phone' | i18n}}</label>
                         <span>{{studentInfo.phone}}</span>
                         <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'phone'})" ng-class="getToolsClasses(tool, {'category': 'phone'})" ng-click="useTool(tool, {'category': 'phone'})"></a>
                         </span>
                     </li>
                     <li ng-show="utils.valid(studentInfo.mobile) && showEntry({'category': 'mobile'})">
-                        <label>Mobile:</label>
+                        <label>{{'overview_contacts-mobile' | i18n}}</label>
                         <span>{{studentInfo.mobile}}</span>
                         <span class="entry_tools" ng-class="{'entry_edit': editMode == true}">
                             <a class="icon" ng-repeat="tool in getTools({'category': 'mobile'})" ng-class="getToolsClasses(tool, {'category': 'mobile'})" ng-click="useTool(tool, {'category': 'mobile'})"></a>
@@ -149,7 +149,7 @@ Copyright 2012-2013 Trento RISE
     </div>
     <div class="section" id="section_education" ng-if="showSection('education')">
         <div class="section_header">
-            <span>Education</span>
+            <span>{{'section_education' | i18n}}</span>
         </div>
         <div class="section_body">
             <div class="entry {{item.type}}" ng-repeat="item in userProducedData['education']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
@@ -162,7 +162,7 @@ Copyright 2012-2013 Trento RISE
 <div class="col-md-3" ng-if="myPortfolios.length > 0">
     <div class="section highlighted" id="section_cherryotc" ng-show="showSection('cherryotc')">
         <div class="section_header">
-            <span>Cherry on the cake</span>
+            <span>{{'section_cherry-on-the-cake' | i18n}}</span>
         </div>
         <div class="section_body">
             <div class="entry {{item.type}}" ng-repeat="item in myPortfolioCurrentCherries" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
@@ -173,7 +173,7 @@ Copyright 2012-2013 Trento RISE
     </div>
     <div class="section" id="section_presentation" ng-if="showSection('presentation')">
         <div class="section_header">
-            <span>Presentation</span>
+            <span>{{'section_presentation' | i18n}}</span>
         </div>
         <div class="section_body">
             <div class="entry {{item.type}}" ng-repeat="item in userProducedData['presentation']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
@@ -184,7 +184,7 @@ Copyright 2012-2013 Trento RISE
     </div>
     <div class="section" id="section_professional" ng-if="showSection('professional')">
         <div class="section_header">
-            <span>Professional Experiences</span>
+            <span>{{'section_professional-experiences' | i18n}}</span>
         </div>
         <div class="section_body">
             <div class="entry {{item.type}}" ng-repeat="item in userProducedData['professional']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
@@ -195,7 +195,7 @@ Copyright 2012-2013 Trento RISE
     </div>
     <div class="section" id="section_about" ng-if="showSection('about')">
         <div class="section_header">
-            <span>More about me</span>
+            <span>{{'section_more-about-me' | i18n}}</span>
         </div>
         <div class="section_body">
             <div class="entry {{item.type}}" ng-repeat="item in userProducedData['about']" ng-show="utils.valid(item.type)" ng-include="'./html/entries/' + item.type + '.html'"></div>
@@ -206,8 +206,7 @@ Copyright 2012-2013 Trento RISE
     </div>
 </div>
 <div class="col-md-6 col-md-offset-3">
-    <p ng-if="myPortfolios.length == 0">You don't have CVs yet. You can create a new CV clicking on the
-        <strong>+</strong>in the tab bar.</p>
+    <p ng-if="myPortfolios.length == 0">{{'msg_portfolios-empty' | i18n}}</p>
 </div>
 <div class="clear"></div>
 
@@ -215,11 +214,11 @@ Copyright 2012-2013 Trento RISE
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <p>{{properties.SYS_entry_dialog}}</p>
+                <p>{{'msg_university-marks-warning' | i18n}}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary btn-form" ng-click="uniModalContinue()">Continue</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{'btn_cancel' | i18n}}</button>
+                <button type="button" class="btn btn-primary btn-form" ng-click="uniModalContinue()">{{'btn_continue' | i18n}}</button>
             </div>
         </div>
     </div>
@@ -229,14 +228,14 @@ Copyright 2012-2013 Trento RISE
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Delete "{{portfolioToBeDeleted.content.name}}"</h4>
+                <h4 class="modal-title">{{'msg_delete' | i18n}} "{{portfolioToBeDeleted.content.name}}"</h4>
             </div>
             <div class="modal-body">
-                <p>Are you sure?</p>
+                <p>{{'msg_are-you-sure' | i18n}}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary btn-form" ng-click="caller.deletePortfolio(portfolioToBeDeleted.id)">Delete</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{'btn_cancel' | i18n}}</button>
+                <button type="button" class="btn btn-primary btn-form" ng-click="caller.deletePortfolio(portfolioToBeDeleted.id)">{{'btn_delete' | i18n}}</button>
             </div>
         </div>
     </div>
@@ -248,15 +247,15 @@ Copyright 2012-2013 Trento RISE
             <form class="form-inline" ng-controller="FormsController" ng-if="newPortfolioName != null">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">CV name</h4>
+                    <h4 class="modal-title">{{'msg_cv-name' | i18n}}</h4>
                 </div>
                 <div class="modal-body">
-                    <input class="form-control" type="text" placeholder="New CV name" ng-model="newPortfolioName" />
+                    <input class="form-control" type="text" placeholder="{{'ph_cv-name' | i18n}}" ng-model="newPortfolioName" />
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-                    <button class="btn btn-default" ng-click="formCancel(null, $event)">Cancel</button>
-                    <button class="btn btn-primary btn-form" ng-click="formNewPortfolioSend()">OK</button>
+                    <button class="btn btn-default" ng-click="formCancel(null, $event)">{{'btn_cancel' | i18n}}</button>
+                    <button class="btn btn-primary btn-form" ng-click="formNewPortfolioSend()">{{'btn_ok' | i18n}}</button>
                 </div>
             </form>
         </div>

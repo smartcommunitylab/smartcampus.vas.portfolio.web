@@ -7,10 +7,10 @@
 
 <form class="form form-entry" ng-controller="FormsController" ng-show="showEntryForm(item)">
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="Skill" ng-model="activeForms['skill'].title" />
+        <input class="form-control" type="text" placeholder="{{'ph_skill' | i18n}}" ng-model="activeForms['skill'].title" />
     </div>
-    <button class="btn btn-primary btn-sm" ng-click="formSend('skill')">OK</button>
-    <button class="btn btn-primary btn-sm" ng-click="formCancel('skill')">Cancel</button>
+    <button class="btn btn-primary btn-sm" ng-click="formCancel('skill')">{{'btn_cancel' | i18n}}</button>
+    <button class="btn btn-primary btn-sm" ng-click="formSend('skill')">{{'btn_ok' | i18n}}</button>
 </form>
 
 <div class="clear"></div>

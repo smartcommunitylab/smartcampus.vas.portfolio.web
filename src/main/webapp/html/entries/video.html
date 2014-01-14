@@ -11,9 +11,9 @@
 
 <form class="form section_form simple form-entry" ng-controller="FormsController" ng-show="showEntryForm(item)">
     <div class="form-group">
-        <input class="form-control" type="text" placeholder="{{activeFormCategory == 'presentation' ? 'Video link, e.g.: http://www.youtube.com/watch?v=w0ffwDYo00Q)' : ''}}" ng-model="activeForms[activeFormCategory].content" />
+        <input class="form-control" type="text" placeholder="{{activeFormCategory == 'presentation' ? ('ph_video' | i18n) : ''}}" ng-model="activeForms[activeFormCategory].content" />
     </div>
-    <button class="btn btn-primary btn-form btn-sm" ng-click="temp(activeFormCategory)">OK</button>
-    <button class="btn btn-primary btn-form btn-sm" ng-click="formCancel(activeFormCategory)">Cancel</button>
+    <button class="btn btn-primary btn-form btn-sm" ng-click="formCancel(activeFormCategory)">{{'btn_cancel' | i18n}}</button>
+    <button class="btn btn-primary btn-form btn-sm" ng-click="temp(activeFormCategory)">{{'btn_ok' | i18n}}</button>
 </form>
 <div class="clear"></div>

@@ -1,6 +1,6 @@
 <div class="form choose" ng-show="activeFormCategory != null && activeForms[activeFormCategory].id == 'new' && activeForms[activeFormCategory].type == ''">
-    <span>Choose:</span>
-    <a ng-repeat="option in properties.categories[activeFormCategory].choose" ng-click="activeForms[activeFormCategory].type = option">  {{properties.entries[option].description}}  </a>
-    <span>or</span><a ng-click="formCancel(activeFormCategory)">cancel</a>
+    <span>{{'msg_choose' | i18n}}</span>
+    <a ng-repeat="option in properties.categories[activeFormCategory].choose" ng-click="activeForms[activeFormCategory].type = option">  {{properties.entries[option].description | i18n}}  </a>
+    <span>|</span><a ng-click="formCancel(activeFormCategory)">{{'btn_cancel' | i18n}}</a>
 </div>
 <div ng-show="activeForms[activeFormCategory].id == 'new' && activeForms[activeFormCategory].type != ''" ng-include="'./html/entries/' + activeForms[activeFormCategory].type + '.html'"></div>

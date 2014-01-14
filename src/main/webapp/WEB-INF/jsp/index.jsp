@@ -19,23 +19,6 @@
         </head>
 
         <body ng-controller="MainController">
-            <!-- <div id="top_menu" class="row">
-                <nav class="col-md-6 col-md-offset-3">
-                    <ul class="list-unstyled list-inline">
-                        <li id="m_manager" ng-class="{ 'active': isCurrentView('manager') }" ng-click="setCurrentView('manager')">MY DATA</li>
-                        <li id="m_myportfolios" ng-class="{ 'active': isCurrentView('myportfolios') }" ng-click="setCurrentView('myportfolios')">MY CVs</li>
-                        <li id="m_noticeboard" ng-class="{ 'active': isCurrentView('noticeboard') }" ng-click="setCurrentView('noticeboard')">NOTICEBOARD</li>
-                        <li id="m_notes" ng-class="{ 'active': isCurrentView('notes') }" ng-click="setCurrentView('notes')">NOTES</li>
-                        <li>
-                            <span class="icon loader" ng-if="loading == true"></span>
-                        </li>
-                        <li>
-                            <span class="glyphicon glyphicon-question-sign"></span>
-                            <span class="glyphicon glyphicon-remove" ng-click="logout()"></span>
-                        </li>
-                    </ul>
-                </nav>
-            </div> -->
             <div id="top_menu" class="row">
                 <nav class="col-md-6 col-md-offset-3 navbar" role="navigation">
                     <div class="navbar-header">
@@ -48,29 +31,19 @@
                             <span class="navbar-text" ng-if="!! currentViewName">{{currentViewName}}</span>
                         </button>
                     </div>
-                    <!-- <div class="pull-right">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <span class="glyphicon glyphicon-question-sign"></span>
-                            </li>
-                            <li>
-                                <span class="glyphicon glyphicon-remove" ng-click="logout()"></span>
-                            </li>
-                        </ul>
-                    </div> -->
                     <div class="collapse navbar-collapse" id="top_menu_collapse">
                         <ul class="nav navbar-nav">
-                            <li id="m_manager" ng-class="{ 'active': isCurrentView('manager') }" ng-click="setCurrentView('manager', 'MY DATA')">
-                                <a>MY DATA</a>
+                            <li id="m_manager" ng-class="{ 'active': isCurrentView('manager') }" ng-click="setCurrentView('manager', ('menu_my-data' | i18n))">
+                                <a>{{'menu_my-data' | i18n}}</a>
                             </li>
-                            <li id="m_myportfolios" ng-class="{ 'active': isCurrentView('myportfolios') }" ng-click="setCurrentView('myportfolios', 'MY CVs')">
-                                <a>MY CVs</a>
+                            <li id="m_myportfolios" ng-class="{ 'active': isCurrentView('myportfolios') }" ng-click="setCurrentView('myportfolios', ('menu_my-cvs' | i18n))">
+                                <a>{{'menu_my-cvs' | i18n}}</a>
                             </li>
-                            <!-- <li id="m_noticeboard" ng-class="{ 'active': isCurrentView('noticeboard') }" ng-click="setCurrentView('noticeboard', 'NOTICEBOARD')">
-                                <a>NOTICEBOARD</a>
+                            <!-- <li id="m_noticeboard" ng-class="{ 'active': isCurrentView('noticeboard') }" ng-click="setCurrentView('noticeboard', ('menu_noticeboard' | i18n))">
+                                <a>{{'menu_noticeboard' | i18n}}</a>
                             </li> -->
-                            <li id="m_notes" ng-class="{ 'active': isCurrentView('notes') }" ng-click="setCurrentView('notes', 'NOTES')">
-                                <a>NOTES</a>
+                            <li id="m_notes" ng-class="{ 'active': isCurrentView('notes') }" ng-click="setCurrentView('notes', ('menu_notes' | i18n))">
+                                <a>{{'menu_notes' | i18n}}</a>
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -79,12 +52,12 @@
                             </li>
                             <li>
                                 <a class="glyphicon glyphicon-question-sign top_menu_help">
-                                    <span>HELP</span>
+                                    <span>{{'menu_help' | i18n}}</span>
                                 </a>
                             </li>
                             <li>
                                 <a class="glyphicon glyphicon-remove top_menu_logout" ng-click="logout()">
-                                    <span>LOGOUT</span>
+                                    <span>{{'menu_logout' | i18n}}</span>
                                 </a>
                             </li>
                         </ul>
@@ -96,16 +69,9 @@
                 <nav class="col-md-6 col-md-offset-3">
                     <ul class="tabs">
                         <li ng-click="formStart()">
-                            <!-- ng-click="formStart()" -->
-                            <!-- data-toggle="modal" data-target="#newCvModal" -->
                             <a id="tab_p_add">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
-                            <!-- <form class="form-inline" ng-controller="FormsController" ng-if="newPortfolioName != null">
-                                <input class="form-control" type="text" placeholder="New CV name" ng-model="newPortfolioName" />
-                                <button class="btn btn-primary btn-form btn-sm" ng-click="formNewPortfolioSend()">OK</button>
-                                <button class="btn btn-primary btn-form btn-sm" ng-click="formCancel(null, $event)">Cancel</button>
-                            </form> -->
                         </li>
                     </ul>
                     <ul class="tabs tabs_cvs">
@@ -125,7 +91,6 @@
                             <li ng-class="{ 'active': p.id == myPortfolioCurrent.id}" ng-repeat="p in myPortfolios" ng-click="setPortfolioCurrent($index)">
                                 <div>
                                     <span id="tab_p_{{$index}}">{{p.content.name}}</span>
-                                    <!-- class="icon lax" -->
                                     <a id="tab_p_x_{{p.id}}" class="remove pull-right" ng-click="setPortfolioToBeDeleted(p)">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
@@ -141,23 +106,21 @@
                         <li ng-if="isCurrentView('myportfolios')">
                             <form>
                                 <input id="rb_edit" type="radio" name="editmode" value="edit" ng-click="setEditMode(true)" ng-checked="editMode == true" />
-                                <label for="rb_edit">Edit</label>
+                                <label for="rb_edit">{{'toolbar_edit' | i18n}}</label>
                                 <input id="rb_preview" type="radio" name="editmode" value="preview" ng-click="setEditMode(false)" ng-checked="editMode == false" />
-                                <label for="rb_preview">Preview</label>
+                                <label for="rb_preview">{{'toolbar_preview' | i18n}}</label>
                             </form>
                         </li>
                         <li ng-if="isCurrentView('myportfolios')">
-                            <!-- ng-href="{{pdfbase64}}" -->
                             <a id="download_cv_pdf" ng-click="caller.exportPortfolio(myPortfolioCurrent)">
                                 <span class="icon ib export"></span>
-                                <span>PDF export</span>
+                                <span>{{'toolbar_pdf-export' | i18n}}</span>
                             </a>
-                            <!-- <a id="download_cv_pdf_do" ng-href="{{pdfbase64}}" target="_blank"></a> -->
                         </li>
                         <li ng-if="isCurrentView('notes')">
                             <a ng-click="formStart()">
                                 <span class="icon ib edit"></span>
-                                <span>Edit notes</span>
+                                <span>{{'toolbar_edit-notes' | i18n}}</span>
                             </a>
                         </li>
                     </ul>
@@ -182,23 +145,7 @@
                     <div class="modal-content">
                         <div class="modal-body" ng-include="'./html/exams.html'"></div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="pdfModal" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <p>YEAH</p>
-                        </div>
-                        <div class="modal-body">
-                            <canvas id="pdf-canvas"></canvas>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{'btn_close' | i18n}}</button>
                         </div>
                     </div>
                 </div>
@@ -208,6 +155,7 @@
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-sanitize.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-animate.min.js"></script>
+            <script src="js/vendor/angularjs/localize.js"></script>
             <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
             <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
             <script src="js/vendor/jquery/plugins/jquery.oembed.min.js"></script>

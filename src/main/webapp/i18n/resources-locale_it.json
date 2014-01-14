@@ -1,0 +1,237 @@
+[{
+    "key": "menu_my-data",
+    "value": "I MIEI DATI",
+    "description": "My data menu entry"
+}, {
+    "key": "menu_my-cvs",
+    "value": "I MIEI CVs",
+    "description": "My CVs menu entry"
+}, {
+    "key": "menu_noticeboard",
+    "value": "NOTIZIE",
+    "description": "Noticeboard menu entry"
+}, {
+    "key": "menu_notes",
+    "value": "NOTE",
+    "description": "Notes menu entry"
+}, {
+    "key": "menu_help",
+    "value": "AIUTO",
+    "description": "Help menu entry"
+}, {
+    "key": "menu_logout",
+    "value": "ESCI",
+    "description": "Logout menu entry"
+}, {
+    "key": "toolbar_edit",
+    "value": "Modifica",
+    "description": "Edit toolbar entry"
+}, {
+    "key": "toolbar_preview",
+    "value": "Anteprima",
+    "description": "Preview toolbar entry"
+}, {
+    "key": "toolbar_pdf-export",
+    "value": "Esporta PDF",
+    "description": "PDF export toolbar entry"
+}, {
+    "key": "toolbar_edit-notes",
+    "value": "Modifica note",
+    "description": "PDF export toolbar entry"
+}, {
+    "key": "overview_current-occupation",
+    "value": "Corso attuale:",
+    "description": "Current occupation overview data"
+}, {
+    "key": "overview_academic-year",
+    "value": "Anno accademico:",
+    "description": "Academic year overview data"
+}, {
+    "key": "overview_enrollment-year",
+    "value": "Anno di iscrizione:",
+    "description": "Enrollment year overview data"
+}, {
+    "key": "overview_cfu",
+    "value": "CFU:",
+    "description": "CFU overview data"
+}, {
+    "key": "overview_marks",
+    "value": "Voti:",
+    "description": "Marks overview data"
+}, {
+    "key": "overview_average-grade",
+    "value": "Media voto:",
+    "description": "Average grade overview data"
+}, {
+    "key": "overview_gender",
+    "value": "Genere:",
+    "description": "Gender overview data"
+}, {
+    "key": "overview_birthday",
+    "value": "Data di nascita:",
+    "description": "Birthday year overview data"
+}, {
+    "key": "overview_citizenship",
+    "value": "Cittadinanza:",
+    "description": "Citizenship overview data"
+}, {
+    "key": "overview_languages",
+    "value": "Lingue",
+    "description": "Languages overview section"
+}, {
+    "key": "overview_skills",
+    "value": "Abilità",
+    "description": "Skills overview section"
+}, {
+    "key": "overview_contacts",
+    "value": "Contatti",
+    "description": "Contacts overview section"
+}, {
+    "key": "overview_contacts-address",
+    "value": "Indirizzo:",
+    "description": "Address contacts data"
+}, {
+    "key": "overview_contacts-email",
+    "value": "Email:",
+    "description": "Email contacts data"
+}, {
+    "key": "overview_contacts-phone",
+    "value": "Telefono:",
+    "description": "Phone contacts data"
+}, {
+    "key": "overview_contacts-mobile",
+    "value": "Cellulare:",
+    "description": "Mobile contacts data"
+}, {
+    "key": "section_education",
+    "value": "Istruzione",
+    "description": "Education section"
+}, {
+    "key": "section_presentation",
+    "value": "Presentazione",
+    "description": "Presentation section"
+}, {
+    "key": "section_professional-experiences",
+    "value": "Esperienze professionali",
+    "description": "Professional experiences section"
+}, {
+    "key": "section_more-about-me",
+    "value": "Altro di me",
+    "description": "More about me section"
+}, {
+    "key": "section_cherry-on-the-cake",
+    "value": "Ciliegina sulla torta",
+    "description": "More about me section"
+}, {
+    "key": "msg_portfolios-empty",
+    "value": "Non hai ancora CV. Puoi creare un nuovo CV cliccando sul <strong>+</strong> nella barra dei tab.",
+    "description": "Portfolios list empty message"
+}, {
+    "key": "msg_university-marks-warning",
+    "value": "Abilitando questa voce, se condividi il tuo CV, i tuoi voti universitari saranno visibili agli altri utenti.",
+    "description": "Portfolios list empty message"
+}, {
+    "key": "msg_delete",
+    "value": "Cancellare",
+    "description": "Delete message"
+}, {
+    "key": "msg_are-you-sure",
+    "value": "Sei sicuro?",
+    "description": "Are you sure message"
+}, {
+    "key": "msg_cv-name",
+    "value": "Nome CV",
+    "description": "CV name message"
+}, {
+    "key": "msg_choose",
+    "value": "Scegli:",
+    "description": "Choose message"
+}, {
+    "key": "entry_raw",
+    "value": "Testo",
+    "description": "Raw entry name"
+}, {
+    "key": "entry_video",
+    "value": "Video",
+    "description": "Video entry name"
+}, {
+    "key": "ph_cv-name",
+    "value": "Nome nuovo CV",
+    "description": "New CV name placeholder"
+}, {
+    "key": "ph_type",
+    "value": "Tipo",
+    "description": "Type placeholder"
+}, {
+    "key": "ph_contact",
+    "value": "Contatto",
+    "description": "Contact placeholder"
+}, {
+    "key": "ph_language",
+    "value": "Lingua",
+    "description": "Language placeholder"
+}, {
+    "key": "ph_level",
+    "value": "Livello",
+    "description": "Level placeholder"
+}, {
+    "key": "ph_education-title",
+    "value": "Titolo di studio",
+    "description": "Education title placeholder"
+}, {
+    "key": "ph_time-period",
+    "value": "Periodo",
+    "description": "Time period placeholder"
+}, {
+    "key": "ph_experience",
+    "value": "Esperienza",
+    "description": "Experience placeholder"
+}, {
+    "key": "ph_description",
+    "value": "Descrizione",
+    "description": "Description placeholder"
+}, {
+    "key": "ph_title",
+    "value": "Titolo",
+    "description": "Title placeholder"
+}, {
+    "key": "ph_comment",
+    "value": "Commento",
+    "description": "Comment placeholder"
+}, {
+    "key": "ph_coming-soon",
+    "value": "...prossimamente...",
+    "description": "Coming soon placeholder"
+}, {
+    "key": "ph_skill",
+    "value": "Skill",
+    "description": "Skill placeholder"
+}, {
+    "key": "ph_video",
+    "value": "Link del video, es.: http://www.youtube.com/watch?v=w0ffwDYo00Q)",
+    "description": "Video placeholder"
+}, {
+    "key": "btn_close",
+    "value": "Chiudi",
+    "description": "Close entry"
+}, {
+    "key": "btn_add",
+    "value": "+Aggiungi",
+    "description": "Add section button"
+}, {
+    "key": "btn_cancel",
+    "value": "Annulla",
+    "description": "Cancel button"
+}, {
+    "key": "btn_continue",
+    "value": "Continua",
+    "description": "Continue button"
+}, {
+    "key": "btn_delete",
+    "value": "Cancella",
+    "description": "Delete button"
+}, {
+    "key": "btn_ok",
+    "value": "OK",
+    "description": "OK button"
+}]

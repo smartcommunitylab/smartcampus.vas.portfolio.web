@@ -1,4 +1,4 @@
-var pm = angular.module('pm', ['ngResource', 'ngSanitize', 'ngAnimate']);
+var pm = angular.module('pm', ['ngResource', 'ngSanitize', 'ngAnimate', 'localization']);
 
 pm.config(['$compileProvider',
     function($compileProvider) {
