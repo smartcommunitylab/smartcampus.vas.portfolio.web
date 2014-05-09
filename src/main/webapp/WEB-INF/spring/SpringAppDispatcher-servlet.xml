@@ -38,16 +38,6 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	<!-- <bean id="viewResolver" -->
-	<!-- class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"> -->
-	<!-- <property name="viewResolvers"> -->
-	<!-- <bean -->
-	<!-- class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
-	<!-- <property name="prefix" value="/WEB-INF/jsp/"></property> -->
-	<!-- <property name="suffix" value=".jsp"></property> -->
-	<!-- </bean> -->
-	<!-- </property> -->
-	<!-- </bean> -->
 
 	<bean
 		class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer" />
@@ -99,7 +89,7 @@
 		<constructor-arg ref="domainEngineClient" />
 	</bean>
 
-	<!-- <bean id="acClient" class="eu.trentorise.smartcampus.ac.provider.filters.AcClient"> -->
-	<!-- <property name="endpointUrl" value="${ac.endpoint.url}" /> -->
-	<!-- </bean> -->
+	<!-- SocialEngine implementation -->
+	<bean id="socialEngine" class="${socialengine.impl}" />
+
 </beans>

