@@ -181,7 +181,7 @@
 			</plugin>
 		</plugins>
 
-		<finalName>portfolio-dev</finalName>
+		<finalName>portfolio</finalName>
 
 	</build>
 
