@@ -16,12 +16,10 @@
 package eu.trentorise.smartcampus.portfolio.manager;
 
 import it.sayservice.platform.client.DomainEngineClient;
-import it.sayservice.platform.client.DomainObject;
 import it.sayservice.platform.client.InvocationException;
 import it.sayservice.platform.core.common.util.ServiceUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +33,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import eu.trentorise.smartcampus.portfolio.controller.rest.PortfolioUser;
-import eu.trentorise.smartcampus.portfolio.models.Concept;
 import eu.trentorise.smartcampus.portfolio.models.Portfolio;
 import eu.trentorise.smartcampus.portfolio.models.UserProducedData;
 import eu.trentorise.smartcampus.portfolio.util.PortfolioUtils;
@@ -357,51 +354,71 @@ public class PortfolioManager {
 	// }
 	// }
 
-	@SuppressWarnings("unchecked")
 	public void updatePortfolio(Portfolio portfolio, String portfolioId,
 			String userId) throws Exception {
 		if (portfolio != null) {
-			String s = domainClient.searchDomainObject(
-					"smartcampus.services.esse3.Portfolio", portfolioId,
-					"vas_portfolio_subscriber");
-			if (s != null) {
-				DomainObject o = new DomainObject(s);
-				if (!userId.equals(o.getContent().get("userId"))) {
+
+			Portfolio loaded = portfolioStorage.getObjectById(portfolioId,
+					Portfolio.class);
+			if (loaded != null) {
+				if (!loaded.getUserId().equals(userId)) {
 					throw new SecurityException("Incorrect user");
 				}
-			}
 
-			Map<String, Object> pars = new TreeMap<String, Object>();
-			pars.put("newName", portfolio.getName());
+				portfolio.setUser(userId);
+				portfolio.setUserId(userId);
+				portfolio.setId(portfolioId);
 
-			// IMPORTANT: these arrays CANNOT BE NULL
-			ArrayList<String> showPart = (ArrayList<String>) portfolio
-					.getShowUserGeneratedData();
+				portfolioStorage.updateObject(portfolio);
 
-			Object[] showPartArray = showPart.toArray();
-			pars.put("newShowUserGeneratedData", showPartArray);
-
-			showPart = (ArrayList<String>) portfolio
-					.getHighlightUserGeneratedData();
-			showPartArray = showPart.toArray();
-			pars.put("newHighlightUserGeneratedData", showPartArray);
-
-			showPart = (ArrayList<String>) portfolio.getShowStudentInfo();
-			showPartArray = showPart.toArray();
-			pars.put("newShowStudentInfo", showPartArray);
-
-			if (portfolio.getTags() != null) {
-				List<Map<String, Object>> tagMapList = new ArrayList<Map<String, Object>>();
-				for (Concept c : portfolio.getTags()) {
-					tagMapList.add(mapper.convertValue(c, Map.class));
-				}
-				pars.put("newTags", tagMapList);
-			}
-
-			if (!pars.containsValue(null)) {
-				domainClient.invokeDomainOperation("updatePortfolio",
-						"smartcampus.services.esse3.Portfolio", portfolioId,
-						pars, portfolioId, "vas_portfolio_subscriber");
+				// String s = domainClient.searchDomainObject(
+				// "smartcampus.services.esse3.Portfolio", portfolioId,
+				// "vas_portfolio_subscriber");
+				// if (s != null) {
+				// DomainObject o = new DomainObject(s);
+				// if (!userId.equals(o.getContent().get("userId"))) {
+				// throw new SecurityException("Incorrect user");
+				// }
+				// }
+				//
+				// Map<String, Object> pars = new TreeMap<String, Object>();
+				// pars.put("newName", portfolio.getName());
+				//
+				// // IMPORTANT: these arrays CANNOT BE NULL
+				// ArrayList<String> showPart = (ArrayList<String>) portfolio
+				// .getShowUserGeneratedData();
+				//
+				// Object[] showPartArray = showPart.toArray();
+				// pars.put("newShowUserGeneratedData", showPartArray);
+				//
+				// showPart = (ArrayList<String>) portfolio
+				// .getHighlightUserGeneratedData();
+				// showPartArray = showPart.toArray();
+				// pars.put("newHighlightUserGeneratedData", showPartArray);
+				//
+				// showPart = (ArrayList<String>)
+				// portfolio.getShowStudentInfo();
+				// showPartArray = showPart.toArray();
+				// pars.put("newShowStudentInfo", showPartArray);
+				//
+				// if (portfolio.getTags() != null) {
+				// List<Map<String, Object>> tagMapList = new
+				// ArrayList<Map<String,
+				// Object>>();
+				// for (Concept c : portfolio.getTags()) {
+				// tagMapList.add(mapper.convertValue(c, Map.class));
+				// }
+				// pars.put("newTags", tagMapList);
+				// }
+				//
+				// if (!pars.containsValue(null)) {
+				// domainClient.invokeDomainOperation("updatePortfolio",
+				// "smartcampus.services.esse3.Portfolio", portfolioId,
+				// pars, portfolioId, "vas_portfolio_subscriber");
+				// }
+			} else {
+				logger.warn(String
+						.format("Portfolio %s not exist", portfolioId));
 			}
 		}
 	}
@@ -412,24 +429,34 @@ public class PortfolioManager {
 		// domainClient.invokeDomainOperation("deletePortfolio",
 		// "smartcampus.services.esse3.Portfolio", id, pars, id,
 		// "vas_portfolio_subscriber");
+		Portfolio loaded = portfolioStorage.getObjectById(portfolioId,
+				Portfolio.class);
 
-		portfolioStorage.deleteObjectById(portfolioId);
-		// String s = domainClient.searchDomainObject(
-		// "smartcampus.services.esse3.Portfolio", portfolioId,
-		// "vas_portfolio_subscriber");
-		// if (s != null) {
-		// DomainObject o = new DomainObject(s);
-		// if (!user.getUserId().equals(o.getContent().get("userId"))) {
-		// throw new SecurityException("Incorrect user");
-		// }
-		// domainClient.invokeDomainOperation("deletePortfolio",
-		// "smartcampus.services.esse3.Portfolio", portfolioId, pars,
-		// portfolioId, "vas_portfolio_subscriber");
-		//
-		// // delete social entity
-		// socialEngine.deleteEntity(user, portfolioId);
-		logger.info(String.format("Deleted social entity for portfolio %s",
-				portfolioId));
+		if (loaded != null) {
+			if (!loaded.getUserId().equals(user.getUserId())) {
+				throw new SecurityException("Incorrect user");
+			}
+			portfolioStorage.deleteObjectById(portfolioId);
+			// String s = domainClient.searchDomainObject(
+			// "smartcampus.services.esse3.Portfolio", portfolioId,
+			// "vas_portfolio_subscriber");
+			// if (s != null) {
+			// DomainObject o = new DomainObject(s);
+			// if (!user.getUserId().equals(o.getContent().get("userId"))) {
+			// throw new SecurityException("Incorrect user");
+			// }
+			// domainClient.invokeDomainOperation("deletePortfolio",
+			// "smartcampus.services.esse3.Portfolio", portfolioId, pars,
+			// portfolioId, "vas_portfolio_subscriber");
+			//
+
+			// delete social entity
+			socialEngine.deleteEntity(user, portfolioId);
+			logger.info(String.format("Deleted social entity for portfolio %s",
+					portfolioId));
+		} else {
+			logger.warn(String.format("Portfolio %s not exist", portfolioId));
+		}
 		// }
 	}
 
@@ -535,6 +562,8 @@ public class PortfolioManager {
 					logger.warn("title, subtitle,content field are all empty in userProducedData "
 							+ userDataId);
 				}
+			} else {
+				logger.warn(String.format("UserData %s not exist", userDataId));
 			}
 		}
 		// String s = domainClient.searchDomainObject(
