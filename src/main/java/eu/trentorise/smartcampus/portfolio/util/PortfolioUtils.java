@@ -71,6 +71,23 @@ public class PortfolioUtils {
 		}
 	}
 
+	public static <T> String toJSONString(List<T> o) {
+		StringBuffer buf = new StringBuffer();
+		buf.append("[");
+
+		int total = o.size();
+		for (T oo : o) {
+			buf.append(toJSON(oo));
+			total -= 1;
+			if (total > 0) {
+				buf.append(",");
+			}
+		}
+		buf.append("]");
+
+		return buf.toString();
+	}
+
 	public static <T> List<String> toJSONList(List<T> list, Class<T> cls) {
 		if (list == null) {
 			return null;

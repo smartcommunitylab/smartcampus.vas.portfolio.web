@@ -284,14 +284,13 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/rest/smartcampus.services.esse3.Portfolio/{id}")
 	public @ResponseBody
-	String updatePortfolio(HttpServletRequest request,
+	void updatePortfolio(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-				return "";
 			}
 
 			Portfolio portfolio = (Portfolio) extractContent(request,
@@ -301,12 +300,11 @@ public class PortfolioController extends SCController {
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		return "";
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/rest/smartcampus.services.esse3.Portfolio/{id}")
 	public @ResponseBody
-	String deletePortfolio(HttpServletRequest request,
+	void deletePortfolio(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		try {
@@ -314,14 +312,12 @@ public class PortfolioController extends SCController {
 			String userId = user.getUserId();
 			if (userId == null) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-				return "";
 			}
 			portfolioManager.deletePortfolio(id, user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		return "";
 	}
 
 	/*
@@ -329,25 +325,28 @@ public class PortfolioController extends SCController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/smartcampus.services.esse3.UserProducedData")
 	public @ResponseBody
-	String getUserProducedDataAll(HttpServletRequest request,
+	List<UserProducedData> getUserProducedDataAll(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)
 			throws IOException, InvocationException {
-		return PortfolioUtils.listToJSON(getUserProducedDataList(request,
-				response, null));
+		// return PortfolioUtils.listToJSON(getUserProducedDataList(request,
+		// response, null));
+		return getUserProducedDataList(request, response, null);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/smartcampus.services.esse3.UserProducedData/{category}")
 	public @ResponseBody
-	String getUserProducedData(HttpServletRequest request,
+	List<UserProducedData> getUserProducedData(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			@PathVariable String category) throws IOException,
 			InvocationException {
-		return PortfolioUtils.listToJSON(getUserProducedDataList(request,
-				response, category));
+		// return PortfolioUtils.listToJSON(getUserProducedDataList(request,
+		// response, category));
+		return getUserProducedDataList(request, response, category);
 	}
 
-	private List<String> getUserProducedDataList(HttpServletRequest request,
-			HttpServletResponse response, String category) {
+	private List<UserProducedData> getUserProducedDataList(
+			HttpServletRequest request, HttpServletResponse response,
+			String category) {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
@@ -364,14 +363,13 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/rest/smartcampus.services.esse3.UserProducedData")
 	public @ResponseBody
-	String createUserProducedData(HttpServletRequest request,
+	void createUserProducedData(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)
 			throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-				return "";
 			}
 
 			UserProducedData upd = (UserProducedData) extractContent(request,
@@ -382,19 +380,17 @@ public class PortfolioController extends SCController {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		return "";
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/rest/smartcampus.services.esse3.UserProducedData/{id}")
 	public @ResponseBody
-	String updateUserProducedData(HttpServletRequest request,
+	void updateUserProducedData(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-				return "";
 			}
 
 			UserProducedData upd = (UserProducedData) extractContent(request,
@@ -404,26 +400,23 @@ public class PortfolioController extends SCController {
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		return "";
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/rest/smartcampus.services.esse3.UserProducedData/{id}")
 	public @ResponseBody
-	String deleteUserProducedData(HttpServletRequest request,
+	void deleteUserProducedData(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-				return "";
 			}
 			portfolioManager.deleteUserProducedData(id, userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		return "";
 	}
 
 	// GENERIC OBJECT
@@ -694,20 +687,20 @@ public class PortfolioController extends SCController {
 	List<UserProducedData> getUserProducedDataAll_Remote(
 			HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) throws Exception {
-		List<UserProducedData> updList = new ArrayList<UserProducedData>();
-		List<String> list = getUserProducedDataList(request, response, null);
+		// List<UserProducedData> updList = new ArrayList<UserProducedData>();
+		return getUserProducedDataList(request, response, null);
 
-		if (list != null) {
-			for (String s : list) {
-				DomainObject obj = new DomainObject(s);
-				UserProducedData p = PortfolioUtils.convert(obj.getContent(),
-						UserProducedData.class);
-				p.setId(obj.getId());
-				updList.add(p);
-			}
-		}
-
-		return updList;
+		// if (list != null) {
+		// for (String s : list) {
+		// DomainObject obj = new DomainObject(s);
+		// UserProducedData p = PortfolioUtils.convert(obj.getContent(),
+		// UserProducedData.class);
+		// p.setId(obj.getId());
+		// updList.add(p);
+		// }
+		// }
+		//
+		// return updList;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.Portfolio")
@@ -749,18 +742,18 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.PUT, value = "/rest/eu.trentorise.smartcampus.portfolio.models.Portfolio/{id}")
 	public @ResponseBody
-	String updatePortfolio_Remote(HttpServletRequest request,
+	void updatePortfolio_Remote(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
-		return updatePortfolio(request, response, session, id);
+		updatePortfolio(request, response, session, id);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/rest/eu.trentorise.smartcampus.portfolio.models.Portfolio/{id}")
 	public @ResponseBody
-	String deletePortfolio_Remote(HttpServletRequest request,
+	void deletePortfolio_Remote(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
-		return deletePortfolio(request, response, session, id);
+		deletePortfolio(request, response, session, id);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.UserData")

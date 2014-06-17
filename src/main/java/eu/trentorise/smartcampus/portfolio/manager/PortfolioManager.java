@@ -40,6 +40,7 @@ import eu.trentorise.smartcampus.portfolio.models.Portfolio;
 import eu.trentorise.smartcampus.portfolio.models.UserProducedData;
 import eu.trentorise.smartcampus.portfolio.util.PortfolioUtils;
 import eu.trentorise.smartcampus.presentation.common.exception.DataException;
+import eu.trentorise.smartcampus.presentation.common.exception.NotFoundException;
 import eu.trentorise.smartcampus.presentation.storage.BasicObjectStorage;
 import eu.trentorise.smartcampus.social.SocialEngine;
 
@@ -57,7 +58,7 @@ public class PortfolioManager {
 	private DomainEngineClient domainClient;
 
 	@Autowired
-	private BasicObjectStorage porfolioStorage;
+	private BasicObjectStorage portfolioStorage;
 
 	@Autowired
 	private SocialEngine socialEngine;
@@ -132,7 +133,7 @@ public class PortfolioManager {
 		crit.put("userId", userId);
 		List<Portfolio> result;
 		try {
-			result = porfolioStorage.searchObjects(Portfolio.class, crit);
+			result = portfolioStorage.searchObjects(Portfolio.class, crit);
 			return result;
 			// return PortfolioUtils.toJSONList(result, Portfolio.class);
 		} catch (DataException e) {
@@ -159,7 +160,7 @@ public class PortfolioManager {
 		crit.put("userId", userId);
 		List<Portfolio> result;
 		try {
-			result = porfolioStorage.searchObjects(Portfolio.class, crit);
+			result = portfolioStorage.searchObjects(Portfolio.class, crit);
 			return result;
 			// return PortfolioUtils.toJSONList(result, Portfolio.class);
 		} catch (DataException e) {
@@ -179,7 +180,7 @@ public class PortfolioManager {
 		crit.put("id", portfolioId);
 		List<Portfolio> result;
 		try {
-			result = porfolioStorage.searchObjects(Portfolio.class, crit);
+			result = portfolioStorage.searchObjects(Portfolio.class, crit);
 			return result != null ? PortfolioUtils.toJSON(result.get(0)) : null;
 		} catch (DataException e) {
 			logger.error(String.format(
@@ -203,7 +204,7 @@ public class PortfolioManager {
 		crit.put("entityId", id);
 		List<Portfolio> result;
 		try {
-			result = porfolioStorage.searchObjects(Portfolio.class, crit);
+			result = portfolioStorage.searchObjects(Portfolio.class, crit);
 			return result != null ? PortfolioUtils.toJSON(result.get(0)) : null;
 		} catch (DataException e) {
 			logger.error(String.format(
@@ -267,13 +268,13 @@ public class PortfolioManager {
 						portfolio.getId()));
 				portfolio.setEntityId(entityId);
 
-				porfolioStorage.storeObject(portfolio);
+				portfolioStorage.storeObject(portfolio);
 				logger.info(String.format("Stored portfolio %s",
 						portfolio.getId()));
 
 				Map<String, Object> crit = new HashMap<String, Object>();
 				crit.put("name", portfolio.getName());
-				List<Portfolio> result = porfolioStorage.searchObjects(
+				List<Portfolio> result = portfolioStorage.searchObjects(
 						Portfolio.class, crit);
 				return result != null ? PortfolioUtils.toJSON(result.get(0))
 						: null;
@@ -412,7 +413,7 @@ public class PortfolioManager {
 		// "smartcampus.services.esse3.Portfolio", id, pars, id,
 		// "vas_portfolio_subscriber");
 
-		porfolioStorage.deleteObjectById(portfolioId);
+		portfolioStorage.deleteObjectById(portfolioId);
 		// String s = domainClient.searchDomainObject(
 		// "smartcampus.services.esse3.Portfolio", portfolioId,
 		// "vas_portfolio_subscriber");
@@ -432,17 +433,26 @@ public class PortfolioManager {
 		// }
 	}
 
-	public List<String> getUserProducedData(String userId, String category)
-			throws InvocationException {
-		Map<String, Object> pars = new TreeMap<String, Object>();
-		pars.put("userId", userId);
-		if (category != null) {
-			pars.put("category", category);
+	public List<UserProducedData> getUserProducedData(String userId,
+			String category) throws InvocationException, DataException {
+		// Map<String, Object> pars = new TreeMap<String, Object>();
+		// pars.put("userId", userId);
+		// if (category != null) {
+		// pars.put("category", category);
+		// }
+		// List<String> res = domainClient.searchDomainObjects(
+		// "smartcampus.services.esse3.UserProducedData", pars,
+		// "vas_portfolio_subscriber");
+		// return res;
+
+		Map<String, Object> crit = new HashMap<String, Object>();
+		crit.put("userId", userId);
+		if (!StringUtils.isBlank(category)) {
+			crit.put("category", category);
 		}
-		List<String> res = domainClient.searchDomainObjects(
-				"smartcampus.services.esse3.UserProducedData", pars,
-				"vas_portfolio_subscriber");
-		return res;
+
+		return portfolioStorage.searchObjects(UserProducedData.class, crit);
+		// return PortfolioUtils.toJSONList(result, UserProducedData.class);
 	}
 
 	public String getUserUNITNData(String userId) throws InvocationException {
@@ -479,73 +489,105 @@ public class PortfolioManager {
 	// }
 
 	public void createUserProducedData(UserProducedData upd, String userId)
-			throws InvocationException {
+			throws InvocationException, DataException {
 		if (upd != null) {
-			Map<String, Object> pars = new TreeMap<String, Object>();
-			pars.put("newUserId", userId);
-			pars.put("newCategory", upd.getCategory());
-			pars.put("newType", upd.getType());
-			pars.put("newTitle", upd.getTitle());
-			pars.put("newSubtitle", upd.getSubtitle());
-			pars.put("newContent", upd.getContent());
-			if (!pars.containsValue(null)
-					&& (!upd.getTitle().isEmpty()
-							|| !upd.getSubtitle().isEmpty() || !upd
-							.getContent().isEmpty())) {
-				domainClient.invokeDomainOperation("createUserProducedData",
-						"smartcampus.services.esse3.UserProducedDataFactory",
-						"smartcampus.services.esse3.UserProducedDataFactory.0",
-						pars, userId, "vas_portfolio_subscriber");
-			}
+			// Map<String, Object> pars = new TreeMap<String, Object>();
+			// pars.put("newUserId", userId);
+			// pars.put("newCategory", upd.getCategory());
+			// pars.put("newType", upd.getType());
+			// pars.put("newTitle", upd.getTitle());
+			// pars.put("newSubtitle", upd.getSubtitle());
+			// pars.put("newContent", upd.getContent());
+			// if (!pars.containsValue(null)
+			// && (!upd.getTitle().isEmpty()
+			// || !upd.getSubtitle().isEmpty() || !upd
+			// .getContent().isEmpty())) {
+			// domainClient.invokeDomainOperation("createUserProducedData",
+			// "smartcampus.services.esse3.UserProducedDataFactory",
+			// "smartcampus.services.esse3.UserProducedDataFactory.0",
+			// pars, userId, "vas_portfolio_subscriber");
+			// }
+
+			upd.setUser(userId);
+			upd.setUserId(userId);
+			portfolioStorage.storeObject(upd);
 		}
 	}
 
 	public void updateUserProducedData(UserProducedData upd, String userDataId,
 			String userId) throws Exception {
 		if (upd != null) {
-			String s = domainClient.searchDomainObject(
-					"smartcampus.services.esse3.UserProducedData", userDataId,
-					"vas_portfolio_subscriber");
-			if (s != null) {
-				DomainObject o = new DomainObject(s);
-				if (!userId.equals(o.getContent().get("userId"))) {
+			UserProducedData loaded = (UserProducedData) portfolioStorage
+					.getObjectById(userDataId);
+			if (loaded != null) {
+				if (!loaded.getUserId().equals(userId)) {
 					throw new SecurityException("Incorrect user");
 				}
-			}
+				upd.setUserId(userId);
+				upd.setUser(userId);
+				upd.setId(userDataId);
 
-			Map<String, Object> pars = new TreeMap<String, Object>();
-			pars.put("newType", upd.getType());
-			pars.put("newTitle", upd.getTitle());
-			pars.put("newSubtitle", upd.getSubtitle());
-			pars.put("newContent", upd.getContent());
-			if (!pars.containsValue(null)
-					&& (!upd.getTitle().isEmpty()
-							|| !upd.getSubtitle().isEmpty() || !upd
-							.getContent().isEmpty())) {
-				domainClient.invokeDomainOperation("updateUserProducedData",
-						"smartcampus.services.esse3.UserProducedData",
-						userDataId, pars, userDataId,
-						"vas_portfolio_subscriber");
+				if (!StringUtils.isBlank(upd.getTitle())
+						|| !StringUtils.isBlank(upd.getSubtitle())
+						|| !StringUtils.isBlank(upd.getContent())) {
+					portfolioStorage.updateObject(upd);
+				} else {
+					logger.warn("title, subtitle,content field are all empty in userProducedData "
+							+ userDataId);
+				}
 			}
 		}
+		// String s = domainClient.searchDomainObject(
+		// "smartcampus.services.esse3.UserProducedData", userDataId,
+		// "vas_portfolio_subscriber");
+		// if (s != null) {
+		// DomainObject o = new DomainObject(s);
+		// if (!userId.equals(o.getContent().get("userId"))) {
+		// throw new SecurityException("Incorrect user");
+		// }
+		// }
+		//
+		// Map<String, Object> pars = new TreeMap<String, Object>();
+		// pars.put("newType", upd.getType());
+		// pars.put("newTitle", upd.getTitle());
+		// pars.put("newSubtitle", upd.getSubtitle());
+		// pars.put("newContent", upd.getContent());
+		// if (!pars.containsValue(null)
+		// && (!upd.getTitle().isEmpty()
+		// || !upd.getSubtitle().isEmpty() || !upd
+		// .getContent().isEmpty())) {
+		// domainClient.invokeDomainOperation("updateUserProducedData",
+		// "smartcampus.services.esse3.UserProducedData",
+		// userDataId, pars, userDataId,
+		// "vas_portfolio_subscriber");
+		// }
+		// }
 	}
 
 	public void deleteUserProducedData(String userDataId, String userId)
 			throws Exception {
-		String s = domainClient.searchDomainObject(
-				"smartcampus.services.esse3.UserProducedData", userDataId,
-				"vas_portfolio_subscriber");
-		if (s != null) {
-			DomainObject o = new DomainObject(s);
-			if (!userId.equals(o.getContent().get("userId"))) {
+		UserProducedData loaded = (UserProducedData) portfolioStorage
+				.getObjectById(userDataId);
+		if (loaded != null) {
+			if (!loaded.getUserId().equals(userId)) {
 				throw new SecurityException("Incorrect user");
 			}
+
+			portfolioStorage.deleteObjectById(userDataId);
+			// String s = domainClient.searchDomainObject(
+			// "smartcampus.services.esse3.UserProducedData", userDataId,
+			// "vas_portfolio_subscriber");
+			// if (s != null) {
+			// DomainObject o = new DomainObject(s);
+			// if (!userId.equals(o.getContent().get("userId"))) {
+			// throw new SecurityException("Incorrect user");
+			// }
 		}
 
-		Map<String, Object> pars = new TreeMap<String, Object>();
-		domainClient.invokeDomainOperation("deleteUserProducedData",
-				"smartcampus.services.esse3.UserProducedData", userDataId,
-				pars, userDataId, "vas_portfolio_subscriber");
+		// Map<String, Object> pars = new TreeMap<String, Object>();
+		// domainClient.invokeDomainOperation("deleteUserProducedData",
+		// "smartcampus.services.esse3.UserProducedData", userDataId,
+		// pars, userDataId, "vas_portfolio_subscriber");
 	}
 
 	public String getDomainObject(String type, String id)
@@ -554,18 +596,27 @@ public class PortfolioManager {
 				"vas_portfolio_subscriber");
 	}
 
-	public String getUserProducedData(String id) throws InvocationException {
-		return domainClient.searchDomainObject(
-				"smartcampus.services.esse3.UserProducedData", id,
-				"vas_portfolio_subscriber");
+	public String getUserProducedData(String id) throws InvocationException,
+			NotFoundException, DataException {
+		return PortfolioUtils.toJSON(portfolioStorage.getObjectById(id,
+				UserProducedData.class));
+		// return domainClient.searchDomainObject(
+		// "smartcampus.services.esse3.UserProducedData", id,
+		// "vas_portfolio_subscriber");
 	}
 
 	public List<String> getAllUserProducedData(String userId)
-			throws InvocationException {
-		Map<String, Object> pars = new TreeMap<String, Object>();
-		pars.put("userId", userId);
-		return domainClient.searchDomainObjects(
-				"smartcampus.services.esse3.UserProducedData", pars,
-				"vas_portfolio_subscriber");
+			throws InvocationException, DataException {
+		// Map<String, Object> pars = new TreeMap<String, Object>();
+		// pars.put("userId", userId);
+		// return domainClient.searchDomainObjects(
+		// "smartcampus.services.esse3.UserProducedData", pars,
+		// "vas_portfolio_subscriber");
+
+		Map<String, Object> crit = new HashMap<String, Object>();
+		crit.put("userId", userId);
+		List<UserProducedData> result = portfolioStorage.searchObjects(
+				UserProducedData.class, crit);
+		return PortfolioUtils.toJSONList(result, UserProducedData.class);
 	}
 }

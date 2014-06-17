@@ -247,8 +247,7 @@ function MainController($scope, $http, $resource, $location) {
         }, function(value, responseHeaders) {
             var contentsArray = [];
             angular.forEach(value, function(entry) {
-                var content = entry.content;
-                content.id = entry.id;
+                var content = entry;
 
                 // prevents errors for wrong previous savings
                 if (!$scope.utils.valid(content.type)) {

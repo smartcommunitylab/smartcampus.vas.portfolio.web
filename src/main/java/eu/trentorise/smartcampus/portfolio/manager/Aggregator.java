@@ -40,6 +40,7 @@ import eu.trentorise.smartcampus.portfolio.data.cv.Language;
 import eu.trentorise.smartcampus.portfolio.data.cv.Training;
 import eu.trentorise.smartcampus.portfolio.data.cv.WorkExperience;
 import eu.trentorise.smartcampus.portfolio.util.PortfolioUtils;
+import eu.trentorise.smartcampus.presentation.common.exception.DataException;
 import eu.trentorise.smartcampus.profileservice.model.BasicProfile;
 
 @Component
@@ -74,8 +75,8 @@ public class Aggregator {
 	private List<String> getVisibleItems(String userId, String portfolioId)
 			throws InvocationException, JSONException {
 		List<String> items = new ArrayList<String>();
-		// FIXME temp
-		String json = ""; // SPortfolioUtils.listToJSON(portfolioManager.getStudentPortfolios(userId));
+		String json = PortfolioUtils.toJSONString(portfolioManager
+				.getStudentPortfolios(userId));
 		JSONArray portfolios = new JSONArray(json);
 		for (int i = 0; i < portfolios.length(); i++) {
 			if (portfolios.getJSONObject(i).getString("id").equals(portfolioId)) {
@@ -100,8 +101,8 @@ public class Aggregator {
 	private Europass populateContacts(String userId, Europass europass,
 			List<String> visibleItems) throws InvocationException,
 			JsonParseException, JsonMappingException, IOException,
-			JSONException {
-		String json = PortfolioUtils.listToJSON(portfolioManager
+			JSONException, DataException {
+		String json = PortfolioUtils.toJSONString(portfolioManager
 				.getUserProducedData(userId, "contact"));
 		List<ContactData> contacts = JsonConverter.toClassList(json,
 				ContactData.class);
@@ -127,8 +128,8 @@ public class Aggregator {
 	private Europass populateTraining(String userId, Europass europass,
 			List<String> visibleItems) throws InvocationException,
 			JsonParseException, JsonMappingException, IOException,
-			JSONException {
-		String json = PortfolioUtils.listToJSON(portfolioManager
+			JSONException, DataException {
+		String json = PortfolioUtils.toJSONString(portfolioManager
 				.getUserProducedData(userId, "education"));
 		if (europass.getTraining() == null) {
 			europass.setTraining(new ArrayList<Training>());
@@ -148,8 +149,8 @@ public class Aggregator {
 	private Europass populateWorkExperiences(String userId, Europass europass,
 			List<String> visibleItems) throws InvocationException,
 			JsonParseException, JsonMappingException, IOException,
-			JSONException {
-		String json = PortfolioUtils.listToJSON(portfolioManager
+			JSONException, DataException {
+		String json = PortfolioUtils.toJSONString(portfolioManager
 				.getUserProducedData(userId, "professional"));
 		if (europass.getWorkExperience() == null) {
 			europass.setWorkExperience(new ArrayList<WorkExperience>());
@@ -169,8 +170,8 @@ public class Aggregator {
 	private Europass populateLanguages(String userId, Europass europass,
 			List<String> visibleItems) throws InvocationException,
 			JsonParseException, JsonMappingException, IOException,
-			JSONException {
-		String json = PortfolioUtils.listToJSON(portfolioManager
+			JSONException, DataException {
+		String json = PortfolioUtils.toJSONString(portfolioManager
 				.getUserProducedData(userId, "language"));
 		List<LanguageData> languages = JsonConverter.toClassList(json,
 				LanguageData.class);
