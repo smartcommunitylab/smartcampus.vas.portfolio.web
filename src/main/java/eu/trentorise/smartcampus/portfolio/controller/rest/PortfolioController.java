@@ -232,15 +232,16 @@ public class PortfolioController extends SCController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/smartcampus.services.esse3.Portfolio")
 	public @ResponseBody
-	String getStudentPortfolios(HttpServletRequest request,
+	List<Portfolio> getStudentPortfolios(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session)
 			throws InvocationException {
-		return PortfolioUtils.listToJSON(getStudentPortfoliosList(request,
-				response));
+		// return PortfolioUtils.listToJSON(getStudentPortfoliosList(request,
+		// response));
+		return getStudentPortfoliosList(request, response);
 	}
 
-	private List<String> getStudentPortfoliosList(HttpServletRequest request,
-			HttpServletResponse response) {
+	private List<Portfolio> getStudentPortfoliosList(
+			HttpServletRequest request, HttpServletResponse response) {
 		try {
 			String userId = getBasicProfile(request).getUserId();
 			if (userId == null) {
@@ -261,7 +262,9 @@ public class PortfolioController extends SCController {
 			HttpServletResponse response, HttpSession session)
 			throws InvocationException {
 		try {
-			String userId = getBasicProfile(request).getUserId();
+			PortfolioUser user = new PortfolioUser(getBasicProfile(request));
+			user.setUserToken(getToken(request));
+			String userId = user.getUserId();
 			if (userId == null) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 				return "";
@@ -270,7 +273,7 @@ public class PortfolioController extends SCController {
 			Portfolio portfolio = (Portfolio) extractContent(request,
 					Portfolio.class);
 			portfolio = sanitize(portfolio);
-			return portfolioManager.createPortfolio(portfolio, userId,
+			return portfolioManager.createPortfolio(portfolio, user, userId,
 					Long.valueOf(getBasicProfile(request).getSocialId()));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -307,12 +310,13 @@ public class PortfolioController extends SCController {
 			HttpServletResponse response, HttpSession session,
 			@PathVariable String id) throws InvocationException {
 		try {
-			String userId = getBasicProfile(request).getUserId();
+			PortfolioUser user = new PortfolioUser(getBasicProfile(request));
+			String userId = user.getUserId();
 			if (userId == null) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 				return "";
 			}
-			portfolioManager.deletePortfolio(id, userId);
+			portfolioManager.deletePortfolio(id, user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -711,19 +715,19 @@ public class PortfolioController extends SCController {
 	List<Portfolio> getStudentPortfolios_Remote(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception {
 		List<Portfolio> portfoliosList = new ArrayList<Portfolio>();
-		List<String> list = getStudentPortfoliosList(request, response);
-
-		if (list != null) {
-			for (String s : list) {
-				DomainObject obj = new DomainObject(s);
-				Portfolio p = PortfolioUtils.convert(obj.getContent(),
-						Portfolio.class);
-				p.setId(obj.getId());
-				portfoliosList.add(p);
-			}
-		}
-
-		return portfoliosList;
+		// List<String> list = getStudentPortfoliosList(request, response);
+		return getStudentPortfoliosList(request, response);
+		// if (list != null) {
+		// for (String s : list) {
+		// DomainObject obj = new DomainObject(s);
+		// Portfolio p = PortfolioUtils.convert(obj.getContent(),
+		// Portfolio.class);
+		// p.setId(obj.getId());
+		// portfoliosList.add(p);
+		// }
+		// }
+		//
+		// return portfoliosList;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/rest/eu.trentorise.smartcampus.portfolio.models.Portfolio")
@@ -809,7 +813,7 @@ public class PortfolioController extends SCController {
 	public @ResponseBody
 	Portfolio getPortfolioByEntityId(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
-			@PathVariable Long entityId) throws Exception {
+			@PathVariable String entityId) throws Exception {
 
 		// check the current user
 		BasicProfile profile = getBasicProfile(request);
@@ -1013,7 +1017,7 @@ public class PortfolioController extends SCController {
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.SharedPortfolioContainer/{entityId}")
 	public @ResponseBody
 	SharedPortfolioContainer getSharedPortfolio(HttpServletRequest request,
-			HttpServletResponse response, @PathVariable Long entityId)
+			HttpServletResponse response, @PathVariable String entityId)
 			throws Exception {
 
 		// check the current user

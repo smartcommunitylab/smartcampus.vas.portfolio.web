@@ -23,12 +23,12 @@ import eu.trentorise.smartcampus.presentation.data.BasicObject;
 public class Portfolio extends BasicObject {
 
 	private static final long serialVersionUID = -5222645739554096556L;
-	
+
 	private String userId;
 	private long timestamp;
 	private String name;
 	private List<Concept> tags;
-	private Long entityId;
+	private String entityId;
 	private List<String> showUserGeneratedData = new ArrayList<String>();
 	private List<String> highlightUserGeneratedData = new ArrayList<String>();
 	private List<String> showStudentInfo = new ArrayList<String>();
@@ -67,11 +67,11 @@ public class Portfolio extends BasicObject {
 		this.tags = tags;
 	}
 
-	public Long getEntityId() {
+	public String getEntityId() {
 		return entityId;
 	}
 
-	public void setEntityId(Long entityId) {
+	public void setEntityId(String entityId) {
 		this.entityId = entityId;
 	}
 
@@ -87,7 +87,8 @@ public class Portfolio extends BasicObject {
 		return highlightUserGeneratedData;
 	}
 
-	public void setHighlightUserGeneratedData(List<String> highlightUserGeneratedData) {
+	public void setHighlightUserGeneratedData(
+			List<String> highlightUserGeneratedData) {
 		this.highlightUserGeneratedData = highlightUserGeneratedData;
 	}
 

@@ -49,7 +49,8 @@ public class Aggregator {
 	@Autowired
 	private PortfolioManager portfolioManager;
 
-	public Europass getEuropass(BasicProfile basicProfile, String portfolioId) throws Exception {
+	public Europass getEuropass(BasicProfile basicProfile, String portfolioId)
+			throws Exception {
 		String userId = basicProfile.getUserId();
 		Europass europass = new Europass();
 		List<String> visibleItems = getVisibleItems(userId, portfolioId);
@@ -62,24 +63,32 @@ public class Aggregator {
 		return europass;
 	}
 
-	private Europass populateProfileInfo(BasicProfile basicProfile, Europass europass) throws Exception {
-		String fullname = basicProfile.getName() + " " + basicProfile.getSurname();
+	private Europass populateProfileInfo(BasicProfile basicProfile,
+			Europass europass) throws Exception {
+		String fullname = basicProfile.getName() + " "
+				+ basicProfile.getSurname();
 		europass.setFullname(fullname);
 		return europass;
 	}
 
-	private List<String> getVisibleItems(String userId, String portfolioId) throws InvocationException, JSONException {
+	private List<String> getVisibleItems(String userId, String portfolioId)
+			throws InvocationException, JSONException {
 		List<String> items = new ArrayList<String>();
-		String json = PortfolioUtils.listToJSON(portfolioManager.getStudentPortfolios(userId));
+		// FIXME temp
+		String json = ""; // SPortfolioUtils.listToJSON(portfolioManager.getStudentPortfolios(userId));
 		JSONArray portfolios = new JSONArray(json);
 		for (int i = 0; i < portfolios.length(); i++) {
 			if (portfolios.getJSONObject(i).getString("id").equals(portfolioId)) {
-				String content = portfolios.getJSONObject(i).getString("content");
-				JSONArray values = new JSONArray(new org.json.JSONObject(content).getString("showUserGeneratedData"));
+				String content = portfolios.getJSONObject(i).getString(
+						"content");
+				JSONArray values = new JSONArray(new org.json.JSONObject(
+						content).getString("showUserGeneratedData"));
 				for (int j = 0; j < values.length(); j++) {
 					items.add(values.getString(j));
 				}
-				values = new JSONArray(new org.json.JSONObject(content).getString("showStudentInfo"));
+				values = new JSONArray(
+						new org.json.JSONObject(content)
+								.getString("showStudentInfo"));
 				for (int j = 0; j < values.length(); j++) {
 					items.add(values.getString(j));
 				}
@@ -88,10 +97,14 @@ public class Aggregator {
 		return items;
 	}
 
-	private Europass populateContacts(String userId, Europass europass, List<String> visibleItems) throws InvocationException,
-			JsonParseException, JsonMappingException, IOException, JSONException {
-		String json = PortfolioUtils.listToJSON(portfolioManager.getUserProducedData(userId, "contact"));
-		List<ContactData> contacts = JsonConverter.toClassList(json, ContactData.class);
+	private Europass populateContacts(String userId, Europass europass,
+			List<String> visibleItems) throws InvocationException,
+			JsonParseException, JsonMappingException, IOException,
+			JSONException {
+		String json = PortfolioUtils.listToJSON(portfolioManager
+				.getUserProducedData(userId, "contact"));
+		List<ContactData> contacts = JsonConverter.toClassList(json,
+				ContactData.class);
 		for (ContactData temp : contacts) {
 			if (visibleItems.contains(temp.getId())) {
 				if (temp.getName().equalsIgnoreCase("address")) {
@@ -100,7 +113,8 @@ public class Aggregator {
 					europass.setEmail(temp.getValue());
 				} else if (temp.getName().equalsIgnoreCase("fax")) {
 					europass.setFax(temp.getValue());
-				} else if (temp.getName().equalsIgnoreCase("phone") || temp.getName().equalsIgnoreCase("telefono")) {
+				} else if (temp.getName().equalsIgnoreCase("phone")
+						|| temp.getName().equalsIgnoreCase("telefono")) {
 					europass.setTelephone(temp.getValue());
 				} else if (temp.getName().equalsIgnoreCase("mobile")) {
 					europass.setMobile(temp.getValue());
@@ -110,14 +124,18 @@ public class Aggregator {
 		return europass;
 	}
 
-	private Europass populateTraining(String userId, Europass europass, List<String> visibleItems) throws InvocationException,
-			JsonParseException, JsonMappingException, IOException, JSONException {
-		String json = PortfolioUtils.listToJSON(portfolioManager.getUserProducedData(userId, "education"));
+	private Europass populateTraining(String userId, Europass europass,
+			List<String> visibleItems) throws InvocationException,
+			JsonParseException, JsonMappingException, IOException,
+			JSONException {
+		String json = PortfolioUtils.listToJSON(portfolioManager
+				.getUserProducedData(userId, "education"));
 		if (europass.getTraining() == null) {
 			europass.setTraining(new ArrayList<Training>());
 		}
 
-		List<CurriculumEntry> entries = JsonConverter.toClassList(json, CurriculumEntry.class);
+		List<CurriculumEntry> entries = JsonConverter.toClassList(json,
+				CurriculumEntry.class);
 
 		for (CurriculumEntry entry : entries) {
 			if (visibleItems.contains(entry.getId())) {
@@ -127,26 +145,35 @@ public class Aggregator {
 		return europass;
 	}
 
-	private Europass populateWorkExperiences(String userId, Europass europass, List<String> visibleItems)
-			throws InvocationException, JsonParseException, JsonMappingException, IOException, JSONException {
-		String json = PortfolioUtils.listToJSON(portfolioManager.getUserProducedData(userId, "professional"));
+	private Europass populateWorkExperiences(String userId, Europass europass,
+			List<String> visibleItems) throws InvocationException,
+			JsonParseException, JsonMappingException, IOException,
+			JSONException {
+		String json = PortfolioUtils.listToJSON(portfolioManager
+				.getUserProducedData(userId, "professional"));
 		if (europass.getWorkExperience() == null) {
 			europass.setWorkExperience(new ArrayList<WorkExperience>());
 		}
 
-		List<CurriculumEntry> entries = JsonConverter.toClassList(json, CurriculumEntry.class);
+		List<CurriculumEntry> entries = JsonConverter.toClassList(json,
+				CurriculumEntry.class);
 		for (CurriculumEntry entry : entries) {
 			if (visibleItems.contains(entry.getId())) {
-				europass.getWorkExperience().add(EuropassConverter.toWorkExperience(entry));
+				europass.getWorkExperience().add(
+						EuropassConverter.toWorkExperience(entry));
 			}
 		}
 		return europass;
 	}
 
-	private Europass populateLanguages(String userId, Europass europass, List<String> visibleItems) throws InvocationException,
-			JsonParseException, JsonMappingException, IOException, JSONException {
-		String json = PortfolioUtils.listToJSON(portfolioManager.getUserProducedData(userId, "language"));
-		List<LanguageData> languages = JsonConverter.toClassList(json, LanguageData.class);
+	private Europass populateLanguages(String userId, Europass europass,
+			List<String> visibleItems) throws InvocationException,
+			JsonParseException, JsonMappingException, IOException,
+			JSONException {
+		String json = PortfolioUtils.listToJSON(portfolioManager
+				.getUserProducedData(userId, "language"));
+		List<LanguageData> languages = JsonConverter.toClassList(json,
+				LanguageData.class);
 
 		if (europass.getLanguages() == null) {
 			europass.setLanguages(new ArrayList<Language>());
@@ -160,11 +187,12 @@ public class Aggregator {
 		return europass;
 	}
 
-	private Europass populateStudentInfo(String userId, Europass europass, List<String> visibleItems)
-			throws InvocationException {
+	private Europass populateStudentInfo(String userId, Europass europass,
+			List<String> visibleItems) throws InvocationException {
 		String json = portfolioManager.getStudentInfo(userId);
 		if (json != null && !json.isEmpty()) {
-			StudentInfoData student = JsonConverter.toClass(json, StudentInfoData.class, null);
+			StudentInfoData student = JsonConverter.toClass(json,
+					StudentInfoData.class, null);
 			if (visibleItems.contains("address")) {
 				europass.setAddress(student.getAddress());
 			}
@@ -193,7 +221,8 @@ public class Aggregator {
 		for (int i = 0, l = words.length; i < l; ++i) {
 			if (i > 0)
 				result.append(" ");
-			result.append(Character.toUpperCase(words[i].charAt(0))).append(words[i].substring(1));
+			result.append(Character.toUpperCase(words[i].charAt(0))).append(
+					words[i].substring(1));
 		}
 		return result.toString();
 

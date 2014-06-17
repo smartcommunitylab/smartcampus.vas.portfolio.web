@@ -49,8 +49,8 @@ public class EventProcessorImpl implements DomainUpdateListener {
 
 	@Override
 	public void onDomainEvents(String subscriptionId, List<DomainEvent> events) {
-//		System.out.println("SUBID: " + subscriptionId);
-//		System.out.println("EVENTS: " + events.size() + " -> " + events);
+		// System.out.println("SUBID: " + subscriptionId);
+		// System.out.println("EVENTS: " + events.size() + " -> " + events);
 
 		List<BasicObject> created = new ArrayList<BasicObject>();
 		List<BasicObject> deleted = new ArrayList<BasicObject>();
@@ -60,7 +60,8 @@ public class EventProcessorImpl implements DomainUpdateListener {
 		for (DomainEvent e : events) {
 			if (STUDENT_EXAMS.equals(e.getDoType())) {
 				try {
-					processStudentExamsEvent(e, created, updated, deleted, notifications);
+					processStudentExamsEvent(e, created, updated, deleted,
+							notifications);
 				} catch (DataException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -71,7 +72,10 @@ public class EventProcessorImpl implements DomainUpdateListener {
 	}
 
 	// TODO: update to not use fiscalCode
-	private void processStudentExamsEvent(DomainEvent e, List<BasicObject> created, List<BasicObject> updated, List<BasicObject> deleted, List<NotificationObject> notifications) throws DataException {
+	private void processStudentExamsEvent(DomainEvent e,
+			List<BasicObject> created, List<BasicObject> updated,
+			List<BasicObject> deleted, List<NotificationObject> notifications)
+			throws DataException {
 		DomainObject obj = readDOFromEvent(e);
 
 		if (obj == null) {
@@ -87,7 +91,8 @@ public class EventProcessorImpl implements DomainUpdateListener {
 			ExamData exam = new ExamData();
 			Map<String, Object> criteria = new HashMap<String, Object>();
 			criteria.put("id", exam.getId());
-			List<ExamData> storedExamList = storage.searchObjects(ExamData.class, criteria, userId);
+			List<ExamData> storedExamList = storage.searchObjects(
+					ExamData.class, criteria, userId);
 			if (storedExamList == null || storedExamList.size() == 0) {
 				exam.setUpdateTime(System.currentTimeMillis());
 				exam.setUser(userId);
@@ -97,7 +102,8 @@ public class EventProcessorImpl implements DomainUpdateListener {
 				NotificationObject notification = createNotification(e, userId);
 				notification.getContent().put("event", "ADDED_EXAM");
 				String title = exam.getName();
-				notification.getContent().put("text", String.format("Exam %s has been registered.", title));
+				notification.getContent().put("text",
+						String.format("Exam %s has been registered.", title));
 				notification.getContent().put("title", "Exam registered.");
 				notification.getContent().put("id", obj.getId());
 				notification.getContent().put("type", obj.getType());

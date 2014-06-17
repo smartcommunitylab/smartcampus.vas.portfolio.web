@@ -58,12 +58,17 @@
 		class="eu.trentorise.smartcampus.presentation.storage.sync.mongo.NotificationMongoStorage">
 		<constructor-arg ref="mongoTemplate" />
 	</bean>
+	
+<!-- 	<bean id="portfolioStorage" -->
+<!-- 		class="eu.trentorise.smartcampus.presentation.storage.sync.mongo.BasicObjectSyncMongoStorage"> -->
+<!-- 		<constructor-arg ref="mongoTemplate" /> -->
+<!-- 	</bean> -->
 
 	<!-- JMS Configuration -->
 	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
 		<property name="brokerURL" value="${smartcampus.vas.web.activeMQ.brokerURL}" />
-		<!-- tcp://localhost:61616 -->
-		<!-- ${smartcampus.vas.web.activeMQ.brokerURL} -->
+<!--  		tcp://localhost:61616  -->
+<!--  		${smartcampus.vas.web.activeMQ.brokerURL} -->
 	</bean>
 
 	<bean id="eventProcessor"
@@ -72,9 +77,9 @@
 	</bean>
 
 	<!-- Dummy domain engine client -->
-	<!-- <bean id="domainEngineClient" -->
-	<!-- class="eu.trentorise.smartcampus.portfolio.util.DummyDomainEngineClient" 
-		/> -->
+<!-- 	<bean id="domainEngineClient" -->
+<!-- 	class="eu.trentorise.smartcampus.portfolio.util.DummyDomainEngineClient"  -->
+<!-- 		/> -->
 
 	<bean id="domainEngineClient" class="it.sayservice.platform.client.jms.JMSDomainEngineClient"
 		scope="singleton" destroy-method="destroy">

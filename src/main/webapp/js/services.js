@@ -89,7 +89,7 @@ function MainController($scope, $http, $resource, $location) {
 
         var cherryotcEntries = [];
         angular.forEach(allEntries, function(entry) {
-            if ($scope.utils.valid($scope.myPortfolioCurrent) && $scope.myPortfolioCurrent.content.highlightUserGeneratedData.indexOf(entry.id) != -1) {
+            if ($scope.utils.valid($scope.myPortfolioCurrent) && $scope.myPortfolioCurrent.highlightUserGeneratedData.indexOf(entry.id) != -1) {
                 cherryotcEntries.push(entry);
             }
         });
@@ -99,7 +99,7 @@ function MainController($scope, $http, $resource, $location) {
     };
 
     $scope.isCherry = function(id) {
-        return $scope.myPortfolioCurrent.content.highlightUserGeneratedData.indexOf(id) != -1;
+        return $scope.myPortfolioCurrent.highlightUserGeneratedData.indexOf(id) != -1;
     };
 
     $scope.isStudentInfo = function(item) {
@@ -261,37 +261,6 @@ function MainController($scope, $http, $resource, $location) {
             $scope.setLoading(false);
         });
 
-        // $http({
-        //     method: 'GET',
-        //     url: 'rest/smartcampus.services.esse3.UserProducedData/' + category,
-        //     headers: {
-        //         'Authorization': $scope.getToken(),
-        //         'Accept': 'application/json;charset=UTF-8'
-        //     },
-        //     transformResponse: function(data, headersGetter) {
-        //         var json = angular.fromJson(data);
-        //         return json;
-        //     }
-        // }).
-        // success(function(data, status, headers, config) {
-        //     var contentsArray = [];
-        //     angular.forEach(data, function(entry) {
-        //         var content = entry.content;
-        //         content.id = entry.id;
-
-        //         // prevents errors for wrong previous savings
-        //         if (!$scope.utils.valid(content.type)) {
-        //             content.type = content.category;
-        //         }
-
-        //         contentsArray.push(content);
-        //     });
-        //     $scope.userProducedData[category] = contentsArray;
-        //     $scope.setLoading(false);
-        // }).
-        // error(function(data, status, headers, config) {
-        //     $scope.setLoading(false);
-        // });
     };
 
     $scope.caller.saveUserProducedData = function(entry) {
@@ -347,7 +316,7 @@ function MainController($scope, $http, $resource, $location) {
         $scope.setLoading(true);
         Caller_Portfolios.update({
             'id': portfolio.id
-        }, portfolio.content, function(value, responseHeaders) {
+        }, portfolio, function(value, responseHeaders) {
             $scope.somethingChanged = false;
             $scope.editMode = false;
             $scope.caller.getPortfolios();
@@ -415,7 +384,7 @@ function MainController($scope, $http, $resource, $location) {
             type: contentType
         });
         return blob;
-    }
+    };
 
     $scope.caller.exportPortfolio = function(portfolio) {
         $scope.setLoading(true);
@@ -438,7 +407,7 @@ function MainController($scope, $http, $resource, $location) {
                 // elem.click();
 
                 var blob = $scope.b64toBlob(data, 'application/json');
-                saveAs(blob, portfolio.content.name + '.pdf')
+                saveAs(blob, portfolio.name + '.pdf')
             }).
             error(function(data, status, headers, config) {
                 $scope.setLoading(false);
@@ -505,10 +474,10 @@ function MainController($scope, $http, $resource, $location) {
         var show;
         if ($scope.isStudentInfo(item)) {
             // studentInfo
-            show = $scope.myPortfolioCurrent.content.showStudentInfo.indexOf(item.category) != -1;
+            show = $scope.myPortfolioCurrent.showStudentInfo.indexOf(item.category) != -1;
         } else {
             // userProducedData
-            show = $scope.myPortfolioCurrent.content.showUserGeneratedData.indexOf(item.id) != -1;
+            show = $scope.myPortfolioCurrent.showUserGeneratedData.indexOf(item.id) != -1;
         }
         return show;
     };
@@ -526,7 +495,7 @@ function MainController($scope, $http, $resource, $location) {
             if ($scope.editMode) {
                 // edit mode
                 return true;
-            } else if ($scope.myPortfolioCurrent != null && $scope.myPortfolioCurrent.hasOwnProperty('content')) {
+            } else if ($scope.myPortfolioCurrent != null) {
                 return $scope.isShow(item);
             }
         }
@@ -545,7 +514,7 @@ function MainController($scope, $http, $resource, $location) {
             if ($scope.editMode == true) {
                 return false;
             } else {
-                return $scope.myPortfolioCurrent.content.highlightUserGeneratedData.length > 0;
+                return $scope.myPortfolioCurrent.highlightUserGeneratedData.length > 0;
             }
         } else {
             if ($scope.editMode == true) {
@@ -627,7 +596,7 @@ function MainController($scope, $http, $resource, $location) {
 
     $scope.useTool_item;
     $scope.uniModalContinue = function() {
-        $scope.myPortfolioCurrent.content.showUserGeneratedData.push($scope.useTool_item.id);
+        $scope.myPortfolioCurrent.showUserGeneratedData.push($scope.useTool_item.id);
         $scope.somethingChanged = true;
         $('#uniModal').modal('hide');
     }
@@ -646,30 +615,30 @@ function MainController($scope, $http, $resource, $location) {
             if ($scope.isStudentInfo(item)) {
                 // studentInfos
                 if ($scope.isShow(item)) {
-                    $scope.myPortfolioCurrent.content.showStudentInfo.splice($scope.myPortfolioCurrent.content.showStudentInfo.indexOf(item.category), 1);
+                    $scope.myPortfolioCurrent.showStudentInfo.splice($scope.myPortfolioCurrent.showStudentInfo.indexOf(item.category), 1);
                 } else {
-                    $scope.myPortfolioCurrent.content.showStudentInfo.push(item.category);
+                    $scope.myPortfolioCurrent.showStudentInfo.push(item.category);
                 }
                 $scope.somethingChanged = true;
             } else {
                 // userProducedData
                 if ($scope.isShow(item)) {
-                    $scope.myPortfolioCurrent.content.showUserGeneratedData.splice($scope.myPortfolioCurrent.content.showUserGeneratedData.indexOf(item.id), 1);
+                    $scope.myPortfolioCurrent.showUserGeneratedData.splice($scope.myPortfolioCurrent.showUserGeneratedData.indexOf(item.id), 1);
                     $scope.somethingChanged = true;
                 } else {
                     if (item.type == 'sys_simple') {
                         $('#uniModal').modal('show');
                     } else {
-                        $scope.myPortfolioCurrent.content.showUserGeneratedData.push(item.id);
+                        $scope.myPortfolioCurrent.showUserGeneratedData.push(item.id);
                         $scope.somethingChanged = true;
                     }
                 }
             }
         } else if (tool == 'cherry') {
             if ($scope.isCherry(item.id)) {
-                $scope.myPortfolioCurrent.content.highlightUserGeneratedData.splice($scope.myPortfolioCurrent.content.highlightUserGeneratedData.indexOf(item.id), 1);
+                $scope.myPortfolioCurrent.highlightUserGeneratedData.splice($scope.myPortfolioCurrent.highlightUserGeneratedData.indexOf(item.id), 1);
             } else {
-                $scope.myPortfolioCurrent.content.highlightUserGeneratedData.push(item.id);
+                $scope.myPortfolioCurrent.highlightUserGeneratedData.push(item.id);
             }
             $scope.myPortfolioCurrentCherries = $scope.getCherryEntries();
             $scope.somethingChanged = true;

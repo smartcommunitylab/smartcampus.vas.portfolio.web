@@ -76,7 +76,7 @@
                     </ul>
                     <ul class="tabs tabs_cvs">
                         <li ng-class="{ 'active': p.id == myPortfolioCurrent.id}" ng-repeat="p in myPortfolios" ng-click="setPortfolioCurrent($index)">
-                            <a id="tab_p_{{$index}}">{{p.content.name}}</a>
+                            <a id="tab_p_{{$index}}">{{p.name}}</a>
                             <a id="tab_p_x_{{p.id}}" class="remove" ng-click="setPortfolioToBeDeleted(p)">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>

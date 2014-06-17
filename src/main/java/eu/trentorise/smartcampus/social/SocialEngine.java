@@ -1,6 +1,8 @@
 package eu.trentorise.smartcampus.social;
 
 import eu.trentorise.smartcampus.portfolio.controller.rest.PortfolioUser;
+import eu.trentorise.smartcampus.portfolio.models.Portfolio;
+import eu.trentorise.smartcampus.socialservice.beans.Entity;
 
 public interface SocialEngine {
 
@@ -16,5 +18,9 @@ public interface SocialEngine {
 	 *             exception thrown by social engine
 	 */
 	public boolean checkPermission(PortfolioUser user, String entityId);
+
+	public Entity createEntity(PortfolioUser user, Portfolio portfolio);
+
+	public boolean deleteEntity(PortfolioUser user, String entityURI);
 
 }

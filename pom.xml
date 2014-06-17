@@ -105,7 +105,7 @@
 		<dependency>
 			<groupId>eu.trentorise.smartcampus</groupId>
 			<artifactId>aac.client</artifactId>
-			<version>1.0</version>
+			<version>1.1</version>
 			<type>jar</type>
 		</dependency>
 
@@ -181,7 +181,7 @@
 			</plugin>
 		</plugins>
 
-		<finalName>portfolio</finalName>
+		<finalName>portfolio-dev</finalName>
 
 	</build>
 

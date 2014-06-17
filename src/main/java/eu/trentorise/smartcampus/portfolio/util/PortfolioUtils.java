@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
@@ -31,19 +32,55 @@ import org.codehaus.jackson.map.introspect.NopAnnotationIntrospector;
 
 public class PortfolioUtils {
 
+	private static final Logger logger = Logger.getLogger(PortfolioUtils.class);
+
 	private static ObjectMapper fullMapper = new ObjectMapper();
 	static {
-		fullMapper.setAnnotationIntrospector(NopAnnotationIntrospector.nopInstance());
-		fullMapper.configure(DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING, true);
-		fullMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		fullMapper.configure(DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING, true);
+		fullMapper.setAnnotationIntrospector(NopAnnotationIntrospector
+				.nopInstance());
+		fullMapper.configure(
+				DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING, true);
+		fullMapper
+				.configure(
+						DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,
+						false);
+		fullMapper.configure(
+				DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING, true);
 
-		fullMapper.configure(SerializationConfig.Feature.WRITE_ENUMS_USING_TO_STRING, true);
-		fullMapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
+		fullMapper.configure(
+				SerializationConfig.Feature.WRITE_ENUMS_USING_TO_STRING, true);
+		fullMapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS,
+				false);
 	}
 
 	public static <T> T convert(Object o, Class<T> cls) {
 		return fullMapper.convertValue(o, cls);
+	}
+
+	public static String toJSON(Object o) {
+		if (o == null) {
+			return null;
+		}
+		try {
+			return fullMapper.writeValueAsString(o);
+		} catch (Exception e) {
+			logger.error(String.format(
+					"Exception %s converting to JSON (msg: %s)", e.getClass()
+							.getSimpleName(), e.getMessage()));
+			return null;
+		}
+	}
+
+	public static <T> List<String> toJSONList(List<T> list, Class<T> cls) {
+		if (list == null) {
+			return null;
+		}
+		List<String> result = new ArrayList<String>();
+		for (T o : list) {
+			result.add(toJSON(o));
+		}
+
+		return result;
 	}
 
 	/*
@@ -87,7 +124,8 @@ public class PortfolioUtils {
 
 			@Override
 			public int compare(DomainObject o1, DomainObject o2) {
-				if (!o1.getContent().containsKey("timestamp") || !o2.getContent().containsKey("timestamp")) {
+				if (!o1.getContent().containsKey("timestamp")
+						|| !o2.getContent().containsKey("timestamp")) {
 					return 0;
 				}
 				long timestamp1 = (Long) o1.getContent().get("timestamp");
