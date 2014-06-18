@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,28 +41,28 @@ public class ReportController extends SCController {
 	@Autowired
 	private Aggregator aggregatorData;
 
-	private Logger log = Logger.getLogger(this.getClass());
+	private Logger logger = Logger.getLogger(this.getClass());
 
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/generatecv/{portfolioId}/{outputFormat}/{base64}")
 	public @ResponseBody
-	byte[] generateReport(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			@PathVariable("portfolioId") String portfolioId, @PathVariable("outputFormat") String outputFormat,
+	byte[] generateReport(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			@PathVariable("portfolioId") String portfolioId,
+			@PathVariable("outputFormat") String outputFormat,
 			@PathVariable("base64") boolean base64) throws Exception {
-
-		log.error("portfolioId: " + portfolioId);
-		log.error("outputFormat: " + outputFormat);
 
 		byte[] reportContent;
 		try {
-			log.error(request.getSession());
-			log.error(request.getSession().getServletContext());
-			log.error(request.getSession().getServletContext().getRealPath("/"));
-			reportContent = reportManager.produceReportCv("europass.jasper", REPORT_OUTPUT.PDF,
-					aggregatorData.getEuropass(getBasicProfile(request), portfolioId), request.getSession().getServletContext()
-							.getRealPath("/")
+			reportContent = reportManager.produceReportCv("europass.jasper",
+					REPORT_OUTPUT.PDF, aggregatorData.getEuropass(
+							getBasicProfile(request), portfolioId), request
+							.getSession().getServletContext().getRealPath("/")
 							+ "img/report");
+			logger.info(String.format("Created report %s for portfolio %s",
+					outputFormat, portfolioId));
 		} catch (Exception e) {
-			log.error(e.getClass() + " >>> " + e.getMessage());
+			logger.error(String.format("Exception %s, msg: %s", e.getClass()
+					.getSimpleName(), e.getMessage()));
 			throw e;
 		}
 

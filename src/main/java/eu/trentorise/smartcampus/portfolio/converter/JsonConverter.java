@@ -46,8 +46,8 @@ public class JsonConverter {
 		JSONArray list = new JSONArray(json);
 		List<T> results = new ArrayList<T>();
 		for (int i = 0; i < list.length(); i++) {
-			results.add(toClass(list.getJSONObject(i).getString(FIELD_CONTENT),
-					classType, list.getJSONObject(i).getString(FIELD_ID)));
+			results.add(toClass(list.getJSONObject(i).toString(), classType,
+					list.getJSONObject(i).getString(FIELD_ID)));
 		}
 
 		return results;

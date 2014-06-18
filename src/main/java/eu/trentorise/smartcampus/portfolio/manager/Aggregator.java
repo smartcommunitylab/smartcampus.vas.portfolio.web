@@ -80,16 +80,13 @@ public class Aggregator {
 		JSONArray portfolios = new JSONArray(json);
 		for (int i = 0; i < portfolios.length(); i++) {
 			if (portfolios.getJSONObject(i).getString("id").equals(portfolioId)) {
-				String content = portfolios.getJSONObject(i).getString(
-						"content");
-				JSONArray values = new JSONArray(new org.json.JSONObject(
-						content).getString("showUserGeneratedData"));
+				JSONArray values = new JSONArray(portfolios.getJSONObject(i)
+						.getString("showUserGeneratedData"));
 				for (int j = 0; j < values.length(); j++) {
 					items.add(values.getString(j));
 				}
-				values = new JSONArray(
-						new org.json.JSONObject(content)
-								.getString("showStudentInfo"));
+				values = new JSONArray(portfolios.getJSONObject(i).getString(
+						"showStudentInfo"));
 				for (int j = 0; j < values.length(); j++) {
 					items.add(values.getString(j));
 				}
