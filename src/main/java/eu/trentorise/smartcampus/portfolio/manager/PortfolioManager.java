@@ -188,7 +188,8 @@ public class PortfolioManager {
 		}
 	}
 
-	public String getPortfolioByEntityId(String id) throws InvocationException {
+	public Portfolio getPortfolioByEntityId(String id)
+			throws InvocationException {
 		// Map<String, Object> pars = new TreeMap<String, Object>();
 		// pars.put("entityId", id);
 		// List<String> res = domainClient.searchDomainObjects(
@@ -197,13 +198,13 @@ public class PortfolioManager {
 		// if (res != null && !res.isEmpty())
 		// return res.get(0);
 		// return null;
-		Map<String, Object> crit = new HashMap<String, Object>();
-		crit.put("entityId", id);
-		List<Portfolio> result;
 		try {
-			result = portfolioStorage.searchObjects(Portfolio.class, crit);
-			return result != null ? PortfolioUtils.toJSON(result.get(0)) : null;
-		} catch (DataException e) {
+			Map<String, Object> crit = new HashMap<String, Object>();
+			crit.put("entityId", id);
+			List<Portfolio> result = portfolioStorage.searchObjects(
+					Portfolio.class, crit);
+			return result.isEmpty() ? null : result.get(0);
+		} catch (Exception e) {
 			logger.error(String.format(
 					"Exception %s getting portfolio entityId %s (msg: %s)", e
 							.getClass().getSimpleName(), id, e.getMessage()));
@@ -625,10 +626,14 @@ public class PortfolioManager {
 				"vas_portfolio_subscriber");
 	}
 
-	public String getUserProducedData(String id) throws InvocationException,
-			NotFoundException, DataException {
-		return PortfolioUtils.toJSON(portfolioStorage.getObjectById(id,
-				UserProducedData.class));
+	public UserProducedData getUserProducedData(String id)
+			throws InvocationException, NotFoundException, DataException {
+
+		Map<String, Object> crit = new HashMap<String, Object>();
+		crit.put("id", id);
+		List<UserProducedData> result = portfolioStorage.searchObjects(
+				UserProducedData.class, crit);
+		return result.isEmpty() ? null : result.get(0);
 		// return domainClient.searchDomainObject(
 		// "smartcampus.services.esse3.UserProducedData", id,
 		// "vas_portfolio_subscriber");

@@ -817,13 +817,7 @@ public class PortfolioController extends SCController {
 		}
 
 		// read the portfolio first
-		String portfolioString = portfolioManager
-				.getPortfolioByEntityId(entityId);
-		if (portfolioString == null)
-			return null;
-		DomainObject obj = new DomainObject(portfolioString);
-		Portfolio p = PortfolioUtils.convert(obj.getContent(), Portfolio.class);
-		p.setId(obj.getId());
+		Portfolio p = portfolioManager.getPortfolioByEntityId(entityId);
 
 		// check if can access portfolio
 		PortfolioUser user = new PortfolioUser(profile);
@@ -995,11 +989,8 @@ public class PortfolioController extends SCController {
 
 		if (udList != null) {
 			for (String s : udList) {
-				String updString = portfolioManager.getUserProducedData(s);
-				obj = new DomainObject(updString);
-				UserProducedData upd = PortfolioUtils.convert(obj.getContent(),
-						UserProducedData.class);
-				upd.setId(obj.getId());
+				UserProducedData upd = portfolioManager.getUserProducedData(s);
+				upd.setId(p.getId());
 				updList.add(upd);
 			}
 		}
@@ -1007,6 +998,11 @@ public class PortfolioController extends SCController {
 		return updList;
 	}
 
+	/**
+	 * 
+	 * USE FROM ANDROID APP TO VIEW SHARED PORTFOLIO
+	 * 
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/rest/eu.trentorise.smartcampus.portfolio.models.SharedPortfolioContainer/{entityId}")
 	public @ResponseBody
 	SharedPortfolioContainer getSharedPortfolio(HttpServletRequest request,
@@ -1024,16 +1020,10 @@ public class PortfolioController extends SCController {
 		user.setUserToken(getToken(request));
 
 		// read the portfolio first
-		String portfolioString = portfolioManager
-				.getPortfolioByEntityId(entityId);
-		if (portfolioString == null)
-			return null;
-		DomainObject obj = new DomainObject(portfolioString);
-		Portfolio p = PortfolioUtils.convert(obj.getContent(), Portfolio.class);
-		p.setId(obj.getId());
+		Portfolio p = portfolioManager.getPortfolioByEntityId(entityId);
 
 		// check if can access portfolio
-		if (!canRead(user, p.getEntityId().toString())) {
+		if (!canRead(user, p.getEntityId())) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			return null;
 		}
@@ -1047,7 +1037,7 @@ public class PortfolioController extends SCController {
 		if (siString != null && !siString.isEmpty()) {
 			DomainObject siObj = new DomainObject(siString);
 			si = PortfolioUtils.convert(siObj.getContent(), StudentInfo.class);
-			si.setId(obj.getId());
+			si.setId(p.getId());
 		} else {
 			si = new StudentInfo();
 			si.setStudentData(new StudentData());
@@ -1070,51 +1060,26 @@ public class PortfolioController extends SCController {
 		}
 
 		List<String> udList = p.getShowUserGeneratedData();
-		// // if no data is shared, neither the student exams are
-		// if (udList == null || udList.isEmpty())
-		// return null;
 
 		ArrayList<UserProducedData> updList = new ArrayList<UserProducedData>();
 		boolean showExams = false;
 		if (udList != null) {
-			List<String> all = portfolioManager.getAllUserProducedData(p
-					.getUserId());
-			for (String s : all) {
-				obj = new DomainObject(s);
-				if (udList.contains(obj.getId())) {
-					UserProducedData upd = PortfolioUtils.convert(
-							obj.getContent(), UserProducedData.class);
-					if (PortfolioManager.STUDENT_EDU_CATEGORY.equals(upd
-							.getCategory())
-							&& PortfolioManager.STUDENT_EDU_TYPE.equals(upd
-									.getType())) {
-						showExams = true;
-					}
-					upd.setId(obj.getId());
+			for (String updId : udList) {
+				UserProducedData upd = portfolioManager
+						.getUserProducedData(updId);
+				if (upd != null) {
 					updList.add(upd);
 				}
 			}
-			// for (String s : udList) {
-			// String updString = portfolioManager.getUserProducedData(s);
-			// obj = new DomainObject(updString);
-			// UserProducedData upd = PortfolioUtils.convert(obj.getContent(),
-			// UserProducedData.class);
-			// if
-			// (PortfolioManager.STUDENT_EDU_CATEGORY.equals(upd.getCategory())
-			// && PortfolioManager.STUDENT_EDU_TYPE.equals(upd.getType())) {
-			// showExams = true;
-			// }
-			// upd.setId(obj.getId());
-			// updList.add(upd);
-			// }
 		}
+
 		container.setSharedProducedDatas(updList);
 
 		if (showExams) {
 			ArrayList<StudentExams> seList = new ArrayList<StudentExams>();
 			String seString = portfolioManager.getStudentExams(p.getUserId());
 			if (seString != null && !seString.isEmpty()) {
-				obj = new DomainObject(seString);
+				DomainObject obj = new DomainObject(seString);
 				StudentExams se = PortfolioUtils.convert(obj.getContent(),
 						StudentExams.class);
 				se.setId(obj.getId());
