@@ -59,10 +59,6 @@
 		<constructor-arg ref="mongoTemplate" />
 	</bean>
 	
-<!-- 	<bean id="portfolioStorage" -->
-<!-- 		class="eu.trentorise.smartcampus.presentation.storage.sync.mongo.BasicObjectSyncMongoStorage"> -->
-<!-- 		<constructor-arg ref="mongoTemplate" /> -->
-<!-- 	</bean> -->
 
 	<!-- JMS Configuration -->
 	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
