@@ -44,7 +44,7 @@ public class SCController {
 	private String aacURL;
 
 	@Autowired
-	@Value("${aacExtURL}")
+	@Value("${aacURL}")
 	private String aacExtURL;
 
 	@Autowired
