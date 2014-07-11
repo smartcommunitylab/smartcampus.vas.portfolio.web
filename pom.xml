@@ -35,7 +35,7 @@
 			<artifactId>spring-jms</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
@@ -127,6 +127,13 @@
 			<artifactId>socialservice.client</artifactId>
 			<version>3.0</version>
 		</dependency>
+
+		<!-- USE ONLY FROM DATARETRIEVER TO PORT PORTFOLIOS AND USERPRODUCEDDATA FROM DOMAINOBJ TO MONGODB -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.30</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -181,8 +188,48 @@
 			</plugin>
 		</plugins>
 
-		<finalName>portfolio-dev</finalName>
+		<finalName>portfolio</finalName>
 
 	</build>
+
+	<profiles>
+		<profile>
+			<id>exporter</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>single</goal>
+								</goals>
+								<phase>package</phase>
+								<configuration>
+									<descriptorRefs>
+										<descriptorRef>jar-with-dependencies</descriptorRef>
+									</descriptorRefs>
+									<archive>
+										<manifest>
+											<mainClass>eu.trentorise.smartcampus.portfolio.dataexporter.DataRetriever</mainClass>
+										</manifest>
+									</archive>
+									<appendAssemblyId>false</appendAssemblyId>
+									<finalName>portfolio.dataexporter</finalName>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
 
 </project>
